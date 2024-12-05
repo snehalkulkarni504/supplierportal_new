@@ -1,0 +1,91 @@
+<div class="MasterHeader">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="shownavbarButton" (click)="toggleCollapse()">
+                <!-- <i  class="shownavbar fa fa-bars"></i> -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list shownavbar" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                  </svg>
+            </div>
+            
+            <img src="../../assets/tatapowersolorlogo_png.png" 
+            style="position: absolute; left: 70px;top: 10px; width: 200px; height: 20px;">
+
+        </div>
+        <div class="col-md-4">
+            <!-- <h5>{{pageHeader}}</h5> -->
+        </div>
+        <div class="col-md-4 userinfo">
+            <div class="row">
+
+                <div class="col-md-10 text-end">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="#0066b2"
+                        class="bi bi-person-circle" viewBox="0 0 16 16" class="userlogo">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                        <path fill-rule="evenodd"
+                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                    </svg>
+                    <label style="margin-left: 10px;">Hi, {{username}}</label>
+                </div>
+
+                <div class="col-md-2 text-end">
+                    <svg ngbTooltip="Logout" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0066b2"
+                        class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                        <path fill-rule="evenodd"
+                            d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+  
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''"  (mouseleave)="toggleCollapse_close()">
+    <div class="logo-container">
+       
+        
+    </div>
+    <div class="scrollwrap scrollwrap_delayed">
+        <ul class="sidenav-nav">
+            <li   class="sidenav-nav-item" *ngFor="let data of navData" >
+                <a data-bs-toggle="tooltip" data-bs-placement="right" title="{{data.label}}" (mouseover)="toggleShow(data)" class="sidenav-nav-link" (click)="handleClick(data)" *ngIf="data.items && data.items.length > 0"
+                    [ngClass]="getActiveClass(data)">
+                    <i class="sidenav-link-icon" ><img style="fill: white;" [src]="data.icon" alt=""></i>
+                    <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                        {{data.label}}
+                    </span>
+                    
+                </a>
+
+                <a data-bs-toggle="tooltip" data-bs-placement="right" title="{{data.label}}"
+                    class="sidenav-nav-link" *ngIf="!data.items || (data.items && data.items.length === 0)"
+                    [routerLink]="[data.routeLink]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                    (click)="shrinkItems(data)">
+                    <i class="sidenav-link-icon" ><img style="fill: white;" [src]="data.icon" alt=""></i>
+                    <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                        {{data.label}}
+                    </span>
+                </a>
+                <div  *ngIf="collapsed && data.items && data.items.length > 0" >
+                    <app-sublevel-menu [data]="data" [collapsed]="collapsed" [multiple]="multiple"
+                        [expanded]="data.expanded"></app-sublevel-menu>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="logo-container_logout" @fadeInOut>
+        <span class="logo_logout">
+            <svg ngbTooltip="Logout" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff"
+            class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+            <path fill-rule="evenodd"
+                d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+        </svg>
+        </span>
+        <div class="logo-text_logout" @fadeInOut *ngIf="collapsed">Logout</div>
+    </div>
+</div>  

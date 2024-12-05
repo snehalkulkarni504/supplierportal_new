@@ -1,0 +1,283 @@
+*{
+    font-family:  Arial, Helvetica  !important ;
+}
+
+.login {
+    z-index: 1000;
+    width: 100%;
+    height: 100vh;
+    font-family:  Arial, Helvetica  !important ;
+    position: fixed;
+    background-image:
+    linear-gradient(45deg,
+        rgba(255, 255, 255, 0),
+        rgba(0, 0, 0, 0.7)), 
+          url("../../assets/banner4.jpg");
+}
+
+#back_image {
+    position: absolute;
+    width: 100%;
+    height: 100dvh;
+    background-image: linear-gradient(to bottom  left, #000 0%, #fff 100%) !important;
+}
+
+#back_image2 {
+    position: fixed;
+    width: 50%;
+    height: 100dvh;
+    margin-left: 50%;
+}
+
+.logo {
+    /* background-color: antiquewhite; */
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: auto;
+}
+ 
+
+.mainlogin {
+    /* box-shadow: 0px 0px 10px  #808080; */
+    /* margin-bottom: 50px; */
+    margin-top: 70px;
+    animation: maindown 1.5s normal;
+    position: relative;
+    width: 30%;
+    margin-left: 65%;
+    box-shadow: 0px 0px 5px #8080809d;
+    background-color: #ffffff;
+    border-radius: 5%;
+
+}
+
+@keyframes maindown {
+    from {
+        margin-top: 0px;
+        opacity: 0;
+    }
+
+    to {
+        margin-top: 70px;
+        opacity: 1;
+    }
+}
+
+.leftPanel {
+    /* background-color:  rgb(21, 32, 43);  */
+    height: 500px;
+    width: 60%;
+}
+
+.leftPanel img {
+    width: 100%;
+    height: 80%;
+    margin-top: 10%;
+}
+
+/* .rightPanel{
+    width: 40%;
+} */
+
+
+@media screen and (max-width: 992px) {
+
+    .mainlogin {
+        margin-top: 60px;
+        animation: maindown0 1.5s normal;
+        position: relative;
+        width: 35%;
+        margin-left: 50%;
+        box-shadow: 0px 0px 5px #8080809d;
+        background: #fff;
+    }
+
+    @keyframes maindown0 {
+        from {
+            margin-top: -20px;
+            opacity: 0;
+            width: 35%;
+            margin-left: 50%;
+        }
+
+        to {
+            margin-top: 60px;
+            opacity: 1;
+            width: 35%;
+            margin-left: 50%;
+        }
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+
+    .mainlogin {
+        margin-top: 150px;
+        animation: maindown1 1.5s normal;
+        position: relative;
+        width: 50%;
+        margin-left: 25%;
+        box-shadow: 0px 0px 5px #8080809d;
+    }
+
+    @keyframes maindown1 {
+        from {
+            margin-top: -20px;
+            opacity: 0;
+        }
+
+        to {
+            margin-top: 60px;
+            opacity: 1;
+        }
+    }
+
+}
+
+
+.heading {
+    color: #000000;
+}
+/* 
+.heading b {
+    color: #da291c;
+    font-size: 25px !important;
+    font-family:   Helvetica, sans-serif  ;
+}
+
+.heading img{
+    width: 150px;
+    height: 40px;
+} */
+
+
+.newAccount {
+    color: #0066b2;
+    text-decoration: none;
+    font-family: Helvetica, Arial  ;
+}
+.newAccount:hover {
+    color: #da291c;
+}
+
+.usernm,
+.userpwd {
+    margin-top: 0px;
+    padding-top: 30px;
+}
+
+.userpwd {
+    margin-top: 0px;
+}
+
+
+.usernm input,
+.userpwd input {
+    border: none;
+    outline: none;
+    padding: 0px 10px;
+    padding-top: 10px;
+    width: 80%;
+    margin-left: 10%;
+    border-bottom: 1px solid #00000056;
+    /* ; rgb(21, 32, 43); */
+}
+
+.pwdlbl,
+.userlbl {
+    position: relative;
+    margin-left: 14%;
+    top: 35px;
+    color: #00000056;
+    font-size: 15px;
+}
+
+.userlblup {
+    animation: lblup .3s normal;
+    position: relative;
+    margin-left: 10%;
+    top: 5px;
+    color: #000000a4;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.userlbldown {
+    animation: lbldown .3s normal;
+    position: relative;
+    margin-left: 14%;
+    top: 35px;
+    color: #00000056;
+    font-size: 15px;
+}
+
+@keyframes lblup {
+    from {
+        top: 35px;
+        margin-left: 14%;
+        color: #00000056;
+        font-size: 15px;
+    }
+
+    to {
+        top: 5px;
+        margin-left: 10%;
+        color: #000000a4;
+        font-size: 15px;
+    }
+}
+
+@keyframes lbldown {
+    from {
+        top: 5px;
+        margin-left: 10%;
+        color: #000000a4;
+        font-size: 15px;
+    }
+
+    to {
+        top: 35px;
+        margin-left: 14%;
+        color: #00000056;
+        font-size: 15px;
+    }
+}
+
+#btnlogin {
+    margin-top: 40px;
+    padding: 5px 50px;
+    background-color: #0066b2;
+    border: none;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: .3s all;
+    border: 1px solid #0066b2 ;
+}
+
+#btnlogin:hover {
+    background-color: #fff;
+    color: #0066b2;
+    border: 1px solid #0066b2 ;
+}
+
+#btnlogin:active {
+    background-color: #0066b2;
+    color: #fff;
+}
+
+/* #viewpassword{
+
+} */
+#viewpassword:hover {
+    cursor: pointer;
+}
+
+.error-message {
+    margin-top: 10px;
+    color: red;
+    font-size: 14px;
+    font-family: Helvetica,  Arial !important;
+  }

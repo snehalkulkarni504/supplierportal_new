@@ -1,0 +1,155 @@
+<div class="Allpagescontent">
+  <form [formGroup]="UserMasterForm">
+    <div class="MasterHeader">
+      <div class="" style="width: 50%; ">
+        <h2 style="line-height: 80px;">User Master</h2>
+      </div>
+      <div class="text-end" style="width: 50%;">
+        <button class="back-btn" (click)="goBack()">Back</button>
+      </div>
+    </div>
+    <div class="MasterHeaderlable">
+      <div class="searchDiv">
+        <div class="form-group has-search" style="width: 50%;">
+          <span class="bi bi-search form-control-feedback"></span>
+          <input type="text" class="form-control search-input" placeholder="Search" formControlName="textsearch"
+            [(ngModel)]="textsearch">
+        </div>
+      </div>
+      <div style="width: 50%;" class="text-end">
+        <button type="button" class="btn btn-secondary" id="add-btn" (click)="toggleAddRolePopup('e')">Add User</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center" style="font-size: 13px !important;">
+      <table class="table table-bordered table-striped" style="width: 80%; margin: 0 auto;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>User Name</th>
+            <th>Full Name</th>
+            <th>Email Id</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Created By</th> <!-- New column -->
+            <th>Created Date</th> <!-- New column -->
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let role of filteredRoles  | search: textsearch:filterMetadata | paginate: { itemsPerPage: 10, currentPage: page }  let i=index">
+            <td>{{(page - 1) * 10 + i + 1}}</td>
+            <!-- <td>{{ role.id }}</td> -->
+            <td>{{ role.userName }}</td>
+            <td>{{ role.fullname }}</td>
+            <td>{{ role.emailId }}</td>
+            <td>{{ role.role }}</td>
+            <td>{{ role.status }}</td>
+            <td>{{ role.createdBy }}</td> <!-- Created By Data -->
+            <td>{{ role.created_date | date: 'dd-MMM-yyyy' }}</td> <!-- Created Date Data -->
+            <td>
+              <i class="bi bi-trash-fill" type="button" style="cursor: pointer; color: #0056b3; font-size: 1.0rem;" (click)="openDeleteConfirmation(role.id)"></i>
+              <i class="bi bi-pencil-fill" type="button" style="padding-left: 20px;cursor: pointer; color: #0056b3; font-size: 1.0rem;" (click)="toggleAddRolePopup(role)"></i>
+            </td>
+            <!-- <td> -->
+              <!-- <i class="bi bi-trash" type="button" style="cursor: pointer; color: #dc3545; font-size: 1.2rem;"
+                (click)="openDeleteConfirmation(role.id)" ></i>
+              <i class="bi bi-editt" type="button" style="padding-left: 20px;cursor: pointer; color: #ffc107; font-size: 1.2rem;"
+                (click)="toggleAddRolePopup(role)"></i>
+            </td>
+            <td>
+              <svg (click)="openDeleteConfirmation(role.id)" xmlns="http://www.w3.org/2000/svg"  width="20" height="20" fill="#dc3545" class="bi bi-trash" viewBox="0 0 16 16">
+
+              </svg>
+                 <input type="button" name="delete" value="delete" (click)="openDeleteConfirmation(role.id)"> 
+              </td> --> 
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-between p-2 pagination">
+      <ngb-pagination [collectionSize]="filterMetadata.count" [(page)]="page" [pageSize]="pageSize" [rotate]="true"
+        [boundaryLinks]="true" [maxSize]="5" size="sm">
+        <!-- <ng-template ngbPaginationPrevious>Prev</ng-template>
+        <ng-template ngbPaginationNext>Next</ng-template> -->
+      </ngb-pagination>
+      <br>
+    </div>
+
+  </form>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog modal-dialog-centered  modal-lg " role="document">
+      <div class="modal-content  modal-lg ">
+        <div class="modal-header">
+          <div class="row p-0" style="width: 100%; ">
+            <div class="col-md-6">
+              <h4 class="modal-title">{{ isEditing ? 'Edit User' : 'Add New User' }}</h4>
+            </div>
+            <div class="col-md-6 p-0" style="  text-align: end;">
+              <label class="modal-close-icn" (click)="onCloseHandled()" style="float: right;"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#fff" class="bi bi-x"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="AddUserMasterForm">
+            <div class="row" style="padding: 20px;">
+              <div class="col-md-6">
+                <label for="userName" class="default-lbl"> User Name <span style="color: red;">*</span></label>
+                <input class="form-control" type="text"  [(ngModel)]='userName' value="{{userName}}" formControlName="userName" placeholder="Please Enter User Name"
+                  name="userName" [ngClass]="{'required-field': isSubmitted && !userName}"> 
+              </div>
+              <div class="col-md-6">
+                <label for="FullName" class="default-lbl">Full Name <span style="color: red;">*</span></label>
+                <input class="form-control" type="text"  [(ngModel)]='fullName' value="{{fullName}}" formControlName="fullName" placeholder="Please Enter Full Name"
+                  name="fullName"[ngClass]="{'required-field': isSubmitted && !fullName}">
+              </div>
+              <div class="col-md-12" style="height: 20px;"></div>
+              <div class="col-md-6">
+                <label for="exampleInput" class="default-lbl">Email Address <span style="color: red">*</span></label>
+                <input class="form-control" type="text"  [(ngModel)]='emailId' value="{{emailId}}" formControlName="emailId" placeholder="abc@gmail.com"
+                  name="emailId" [ngClass]="{'required-field': isSubmitted && (!emailId || !isValidEmail(emailId))}">
+              </div>
+              <div class="col-md-6">
+                <label for="dropdown5" class="default-lbl">Role</label>
+                <ng-select [ngModelOptions]="{standalone: true}" [searchable]="true" placeholder="Please select"
+                  [(ngModel)]='roleId' formControlName="roleId" [ngClass]="{'required-field': isSubmitted && (!roleId)}" >
+                  <ng-option value="" disabled selected>Select a role</ng-option>
+                  <ng-option *ngFor="let option of roleOptions"
+                    [value]="option.msT_Role_Id">{{option.roleName}}</ng-option>
+                </ng-select>
+              </div>
+              <div class="col-md-12" style="height: 20px;"></div>
+              <div class="col-md-6">
+                <label>Status</label>
+                <div>
+                  <input class="form-check-input" style="position: absolute;" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="IsActive" 
+                    (change)="IsCheckedBox()" [ngModelOptions]="{standalone: true}">
+                  <label class="form-check-label" style="position: absolute;left: 40px;" for="flexCheckDefault">
+                    {{Active}}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismis="modal"
+            (click)="onCloseHandled()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveRole()">{{txt_btn}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

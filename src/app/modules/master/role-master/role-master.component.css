@@ -1,0 +1,428 @@
+ 
+* {
+    font-family: Helvetica, Arial !important;
+}
+
+.table {
+    width: 80% !important;
+    margin-top: 15px;
+    font-family: Helvetica, Arial !important;
+}
+
+.table td {
+    text-align: center;
+}
+
+.table thead {
+    text-align: center;
+}
+
+.table thead tr th {
+    background-color: #4d94c9;
+    color: #fff;
+    padding: 3px;
+}
+
+/* 
+.table-bordered{
+    background-color:  #da291c17 !important;
+} 
+
+.tooltip-cmn {
+    background-color: #f00;
+}
+
+*/
+
+#add-btn {
+    margin: 5px 0;
+    padding: 5px 10px;
+    color: #fff;
+    background-color: #4d94c9;
+  }
+
+  
+.default-btn_popup {
+    background-color: #4d94c9;
+    color: #fff;
+}
+
+
+.modal-close-icn {
+    width: 30px;
+    height: 30px;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .2s ease-in-out;
+    background-color: #9ba2a8;
+}
+
+.modal-close-icn:hover {
+    rotate: 90deg;
+    cursor: pointer;
+    
+}
+.modal {
+    background: rgba(0, 0, 0, .5);
+}
+
+
+.modal-header{
+    width: 100%;
+    color: #fff;
+    background-color: #4d94c9;
+    height: 50px;
+   }
+
+  .btn-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+  }
+  
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0; 
+  }
+ 
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end; 
+    border-top: none; 
+  }
+  
+  .modal-footer .btn {
+    margin-left: 10px; 
+  }
+  .modal-body label {
+    margin-right: 10px;
+    font-weight: normal;
+  }
+  /* Form Field Label Styling */
+  .modal-body label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+.default-lbl {
+    margin: 0px 0px 3px 2px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+
+}
+
+.searchDiv {
+    width: 50%;
+    /* height:2%; */
+    /* margin-left: 10%; */
+}
+
+
+
+.has-search .form-control {
+    padding-left: 2.8rem;
+}
+
+.form-group.has-error input {
+    border: 2px solid red !important;
+    background-color: #ffeeee;
+
+}
+
+/* Style for the error message */
+.error-message {
+    color: red;
+    font-size: 11px;
+    margin-left: 8px;
+
+
+}
+
+.search-input {
+    height: 38px;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 38px;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #f8f6f6;
+    background-color: #4d94c9;
+}
+
+.error-message {
+    color: red;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+
+.setHeight {
+    min-height: 100dvh;
+}
+.MasterHeader {
+    width: 80%;
+    display: inline-flex;
+    height: 80px;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-family: Helvetica, Arial;
+    border-bottom: 1px solid #4d94c9;
+    margin-bottom: 30px;
+  }
+  
+.MasterHeaderH2 {
+    /* position: absolute; */
+    line-height: 80px !important;
+}
+
+  .MasterHeaderlable {
+    width: 80%;
+    display: inline-flex;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-family: Helvetica, Arial;
+  
+    /* box-shadow: 0 6px 2px -6px #da291c; */
+  } 
+
+  
+  .back-btn {
+    padding: 5px 20px;
+    background-color:#0066b2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
+
+/* for Menu with multiselect checkbox */
+.drop-toggle {
+    background-color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    cursor: hand;
+    border: 1px solid #ccc;
+    width: 100%;
+    text-align: left;
+}
+
+.drop-toggle i {
+    float: right;
+}
+
+.drop-show {
+    padding: 4px;
+    width: 100%;
+    background-color: #FFF;
+    border: 1px solid #BABABA;
+    position: relative;
+    z-index: 100;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    -webkit-box-shadow: 0 6px 10px rgba(0, 0, 0, .15);
+    -moz-box-shadow: 0 6px 10px rgba(0, 0, 0, .15);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .15);
+    margin-left: 1px;
+}
+
+.drop-show label {
+    display: block;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.drop-show label input {
+    vertical-align: middle;
+}
+
+.drop-show label span {
+    display: inline-block;
+}
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown-menu {
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+
+*:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.pagination {
+    width: 80%;
+    margin-left: 10%;
+}
+
+
+.bi-trash-fill:hover{
+    cursor: pointer;
+}
+
+.bi-pencil-fill:hover{
+    cursor: pointer;
+}
+
+:host ::ng-deep ngx-treeview-item {
+    color: 000;
+    font-weight: 400;
+    padding-left: 5px;
+}
+
+:host ::ng-deep ngx-treeview-item .form-check-input {
+    background-color: #4d94c9;
+    border: none;
+}
+
+:host ::ng-deep ngx-treeview-item .form-check-input:focus {
+    box-shadow: none;
+}
+
+:host ::ng-deep ngx-treeview-item .ng-valid {
+    background-color: #4d94c9 !important;
+    border: none;
+}
+
+:host ::ng-deep .treeview-container {
+    scrollbar-width: thin;
+    scrollbar-color: #4d94c9 #da291c17;
+    /* position: absolute;
+    z-index: 10; */
+    background-color: #fff;
+    border: 1px solid #d8d8d8;
+    width: 350px;
+    height: 40px;
+    border-radius: 3px;
+}
+:host ::ng-deep .treeview-container:hover{
+    min-height: 40px;
+    height: auto;
+    max-height: 250px;
+    box-shadow: 0px 5px 10px #808080;
+}
+
+:host ::ng-deep .treeview-container::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+:host ::ng-deep .treeview-container::-webkit-scrollbar-track {
+    background: #da291c17;
+}
+
+:host ::ng-deep .treeview-container::-webkit-scrollbar-thumb {
+    background: #4d94c9;
+}
+
+:host ::ng-deep .treeview-header .form-control {
+    color: #000000ee;
+    font-family: 400;
+    height: 30px;
+    border-radius: 0px;
+    font-size: 15px;
+    border: none;
+    border-bottom: 1px solid #80808041;
+}
+
+:host ::ng-deep .treeview-header .form-control:focus {
+    border-color: #4d94c9;
+    box-shadow: none;
+
+    /* box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6); */
+}
+ 
+:host ::ng-deep ngx-treeview .treeview-wrapper  .treeview-text{
+    margin-left: 20px;
+}
+
+
+
+/* ............................................................................... */
+.scrollbarsearchcat2 {
+    height: auto;
+    border: 1px solid #80808062;
+    color: #000;
+}
+
+.menulable{
+    font-weight: 400 !important;
+    margin-left: 5px;
+}
+
+.clt {
+    font-size: 13px;
+    margin: 5px 0px 5px 5px;
+    padding: 0px;
+    height: 240px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #4d94c9 #da291c0c;
+}
+
+.clt ul,
+.clt li {
+    position: relative;
+}
+
+.clt ul {
+    list-style: none;
+    padding-left: 32px;
+}
+
+.clt li::before,
+.clt li::after {
+    content: "";
+    position: absolute;
+    left: -12px;
+}
+
+.clt li::before {
+    border-top: 1px solid #000;
+    top: 9px;
+    width: 8px;
+    height: 0;
+}
+
+.clt li::after {
+    border-left: 1px solid #000;
+    height: 100%;
+    width: 0px;
+    top: 2px;
+}
+
+.clt ul>li:last-child::after {
+    height: 8px;
+}
+
+
+ngb-pagination ::ng-deep ul > li > a {
+    color: #000 !important;
+  }
+  
+  ngb-pagination ::ng-deep ul > li.active > a {
+    background-color:#4d94c9 !important;
+    color: #000 !important;
+  }

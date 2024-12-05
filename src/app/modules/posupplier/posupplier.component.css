@@ -1,0 +1,275 @@
+.centered-content {
+    text-align: center;
+    /* Centers text inside the div */
+    /* Optional: Additional styling */
+    padding-top: 2%;
+    padding-bottom: 0px;
+    font-family: Helvetica, Arial !important;
+    font-weight: bold !important;
+    font-size: 20px;
+}
+
+.left-content {
+    font-weight: bold !important;
+    font-family: Helvetica, Arial !important;
+}
+
+.line-content {
+    height: 1px;
+    background-color: #000600;
+    border: none;
+}
+
+.date-input {
+    font-size: 16px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #4d94c9;
+    color: #fcf9f9 !important;
+    border-color: #4d94c9;
+    ;
+}
+
+.MasterHeaderlable {
+    display: inline-flex;
+    font-family: Helvetica, Arial;
+
+    /* box-shadow: 0 6px 2px -6px #da291c; */
+}
+
+.table-basic th {
+    background-color: #4d94c9;
+    color: #ffffff;
+}
+
+.table-container {
+    margin: auto;
+}
+
+h1 {
+    margin: 0px
+}
+
+.centered-button {
+    display: inline-block;
+    /* Ensures the button behaves as an inline block */
+    text-align: center;
+    /* Centers text horizontally */
+    padding: 10px 20px;
+    /* Adjust padding as needed */
+}
+
+.clickable {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+.custom-option {
+    display: flex;
+    align-items: center;
+}
+
+.custom-option input[type='checkbox'] {
+    margin-right: 10px;
+}
+
+.searchbox {
+    width: 25%;
+    display: inline-flex;
+    font-family: Helvetica, Arial;
+
+}
+
+.table {
+    margin-bottom: 1rem;
+}
+
+.pagination {
+    width: 80%;
+}
+
+
+.form-group label {
+    font-size: 70%;
+    /* Smaller label font */
+    margin-bottom: 3px;
+}
+
+.date-picker,
+.form-control {
+    width: 100%;
+}
+
+.date-picker {
+    height: 33px;
+    /* Adjust height as needed */
+    width: 150px !important;
+    padding: 0 15px;
+    /* Adjust padding for desired width */
+    font-size: 100%;
+    /* Adjust font size */
+}
+
+/* Ensure the dropdowns have consistent width and reduced size */
+.custom-dropdown-btn {
+    height: 33px;
+    /* Adjust height as needed */
+    font-size: 100%;
+    /* Adjust font size */
+    display: flex;
+    /* Use flexbox for alignment */
+    align-items: center;
+    /* Vertically center the content */
+    justify-content: center;
+    /* Horizontally center the content */
+    background-color: #4d94c9;
+    color: white;
+    /* Reduced width for the dropdown button */
+    border-radius: 5px;
+    width: 100%;
+}
+
+.custom-dropdown-btn:hover {
+    background-color: #0066b2;
+    /* Darker shade on hover */
+    color: #f8f9fa;
+    /* Lighter text color on hover */
+}
+
+/* Adjust the form control elements (inputs, selects) to have a consistent width */
+.form-select,
+.form-control {
+    width: 100%;
+}
+
+.custom-dropdown-menu {
+    width: 160px;
+    /* Reduced width for the dropdown menu */
+}
+
+/* Hover effect for dropdown items */
+.dropdown-item:hover {
+    background-color: #4d94c9;
+    /* Blue color when hovering */
+    color: white;
+    /* Change text color to white on hover */
+}
+
+/* Style for checkbox input within dropdown */
+.dropdown-item input[type="checkbox"] {
+    margin-right: 10px;
+    /* Adds space between checkbox and text */
+}
+
+/* Aligning the "From Date" and "To Date" input fields */
+.date-section {
+    display: flex;
+    align-items: center;
+    /* Aligns the label to the left */
+    gap: 2%;
+    /* Adds space between label and input */
+    flex: 1 1 auto;
+    margin-right: 2%;
+    /* Ensures equal spacing between the date inputs */
+}
+
+/* Adjustments for the Date Labels */
+.date-label {
+    font-size: 14px;
+    color: #03070c;
+    white-space: nowrap;
+    /* Prevent label from wrapping */
+    margin: 10;
+    /* Remove margin for perfect alignment */
+    font-weight: bold;
+    /* Optional, makes the label stand out */
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 70%;
+    /* Smaller label font */
+    margin-bottom: 2%;
+}
+
+.has-search .form-control-feedback {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 38px;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #f8f6f6;
+    background-color: #4d94c9;
+}
+
+.has-search .form-control {
+    padding-left: 2.8rem;
+}
+
+
+
+.view-btn {
+    display: flex;
+    align-items: center;
+    /* Vertically centers the text */
+    justify-content: center;
+    background-color: #0066b2;
+    color: white;
+    border-radius: 5px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    gap: 2%;
+    height: 85%;
+}
+
+.clear-btn {
+    display: flex;
+    align-items: center;
+    /* Vertically centers the text */
+    justify-content: center;
+    background-color: #0066b2;
+    /* Red background */
+    color: white;
+    border-radius: 5px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    height: 85%;
+}
+
+.table {
+    margin-top: 15px;
+
+}
+
+.table td {
+    text-align: center;
+}
+
+.table thead {
+    text-align: center;
+}
+
+.table thead tr th {
+    background-color: #4d94c9;
+    color: #fff;
+    padding: 3px;
+}
+
+ngb-pagination ::ng-deep ul > li > a {
+    color: #000 !important;
+    }
+    
+    ngb-pagination ::ng-deep ul > li.active > a {
+    background-color:#4d94c9 !important;
+    color: #000 !important;
+    }
+
+.d-flex {
+    flex-wrap: nowrap;
+}

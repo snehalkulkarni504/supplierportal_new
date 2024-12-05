@@ -1,0 +1,158 @@
+<div class="AllpagesContent">
+  <form [formGroup]="rollMasterForm">
+    <div class="MasterHeader">
+      <div class="MasterHeaderH2" style="width: 50%; ">
+        <h2 style="line-height: 80px !important;">Role Master</h2>
+      </div>
+      <div class="text-end" style="width: 50%;">
+        <button class="back-btn" (click)="backToPreviousPage()">Back</button>
+      </div>
+    </div>
+    <div class="MasterHeaderlable">
+      <div class="searchDiv">
+        <div class="form-group has-search" style="width: 50%;">
+          <span class="bi bi-search form-control-feedback"></span>
+          <input type="text" class="form-control search-input" placeholder="Search" formControlName="textsearch"
+            [(ngModel)]="textsearch">
+        </div>
+      </div>
+      <div style="width: 50%;" class="text-end">
+        <button type="button" class="btn btn-sm default-btn" id='add-btn' data-toggle="tooltip" data-placement="top"
+          title="Add Role" (click)="editModal=false" (click)="openModal()">Add
+          Role</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center" style="font-size: 13px !important;">
+      <table class="table table-bordered table-striped" style="width: 80%; margin: 0 auto;">
+        <thead>
+          <tr>
+            <th hidden>Role_Id</th>
+            <th>Sr. No</th>
+            <th>Role Name</th>
+            <th>Menu</th>
+            <th hidden>Menu</th>
+            <th hidden>Description</th>
+            <th>Status</th>
+            <th>Created By</th>
+            <th>Created Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let data of getRole | search: textsearch:filterMetadata | paginate: { itemsPerPage: 5, currentPage: page } let i=index">
+            <!-- <td hidden>{{data.roleId}}</td> -->
+            <td>{{(page - 1) * 5 + i + 1}}</td>
+            <td>{{data.roleName}}</td>
+            <td>{{data.menu}}</td>
+            <td hidden>{{data.menuId}}</td>
+            <td hidden>{{data.description}}</td>
+            <td>{{data.isActive}}</td>
+            <td>{{data.username}}</td>
+            <td>{{data.createdOn | date:'dd-MMM-yyyy'}}</td>
+            <!-- <i class="bi bi-trash-fill" style="color: #da291c;" ngbTooltip="Delete"
+                              (click)="deleteRow(data.RoleId)"></i> -->
+            <td> <i class="bi bi-pencil-fill" ngbTooltip="Update" style=" color: #4d94c9;"
+                (click)="editModalMethod(i,data)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-between p-2 pagination">
+
+      <ngb-pagination [collectionSize]="filterMetadata.count" [(page)]="page" [pageSize]="pageSize" [rotate]="true"
+        [boundaryLinks]="true" [maxSize]="5" size="sm">
+        <!-- <ng-template ngbPaginationPrevious>Prev</ng-template>
+              <ng-template ngbPaginationNext>Next</ng-template> -->
+      </ngb-pagination>
+      <br>
+    </div>
+  </form>
+
+  <!-- pop up  -->
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog modal-dialog-centered  modal-lg " role="document">
+      <div class="modal-content  modal-lg ">
+        <div class="modal-header">
+          <div class="row p-0" style="width: 100%; ">
+            <div class="col-md-6">
+              <h4 class="modal-title">{{ isEditing ? 'Edit Role' : 'Add New Role' }}</h4>
+            </div>
+            <div class="col-md-6 p-0" style="  text-align: end;">
+              <label class="modal-close-icn" (click)="onCloseHandled()" style="float: right;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#fff" class="bi bi-x"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <div class="container">
+              <div class="row">
+                <!-- First Column -->
+                <div class="col-md-6">
+                  <label for="exampleInput" class="default-lbl">Role</label>
+                  <input class="form-control form-control-sm" type="text" ngModel="{{roleName}}"   name="roleName" placeholder="Role"
+                    (blur)="roleOnBlur($event)">
+                  <div class="error-message" *ngIf="showError1"> Please enter valid name.</div>
+                  <br>
+                  <label for="exampleInput" class="default-lbl">Role Description</label>
+                  <input class="form-control form-control-sm" type="text" ngModel="{{roleDescription}}"
+                   name="roleDescription" placeholder="Role Description"
+                    (blur)="descriOnBlur($event)">
+                  <div class="error-message" *ngIf="showError2"> Please enter Role Description.</div>
+                  <br>
+                  <div class="form-check" style="margin-top: 5px;">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                      [(ngModel)]="IsActive" (change)="IsCheckedBox()" [ngModelOptions]="{standalone: true}">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      {{Active}}
+                    </label>
+
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="scrollbarsearchcat2">
+                    <div class="clt ">
+                      <ul id="menus">
+                        <li *ngFor="let menu of MenuSpecific" id="mainmenu_id" class="mainmenu_class">
+                          <input   type="checkbox" id="{{menu.value}}" name="{{menu.value}}" value="{{menu.value}}"
+                            checked="{{menu.checked}}" (click)="SelectAllManus(menu,$event)">
+                          <label for="{{menu.value}}" class="menulable"> {{menu.label}}</label>
+                          <ul>
+                            <li *ngFor="let submenu of menu.items" id="submenu_id" class="submenu_class">
+                              <input  type="checkbox" id="{{submenu.value}}" name="{{submenu.value}}"
+                                value="{{submenu.value}}" checked="{{submenu.checked}}" (change)="getMenuId()">
+                              <label for="{{submenu.value}}" class="menulable"> {{submenu.label}}</label>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismis="modal"
+            (click)="onCloseHandled()">Close</button>
+          <button type="button" class="btn btn-sm  btn-default default-btn_popup"
+            (click)="onSaveButton()">{{txt_btn}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
