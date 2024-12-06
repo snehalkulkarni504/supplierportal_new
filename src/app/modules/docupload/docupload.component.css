@@ -1,0 +1,367 @@
+General Styles
+.setheight {
+    min-height: 70dvh;
+}
+
+.MasterHeader {
+    width: 90%;
+    display: inline-flex;
+    height: 80px;
+    margin-left: 5%;
+    font-family: Helvetica, Arial;
+    border-bottom: 1px solid #0066b2;
+    margin-bottom: 20px;
+}
+
+.MasterHeader h2 {
+    margin: 20px 0px;
+}
+
+* {
+    font-family: Helvetica, Arial !important;
+}
+
+.table {
+    width: 90% !important;
+    margin-top: 15px;
+    font-family: Helvetica, Arial !important;
+}
+
+
+
+.table td {
+    text-align: center;
+
+
+}
+
+.supplier-checkbox {
+    width: 18px;
+    /* Make checkbox size larger if necessary */
+    height: 18px;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+    appearance: none;
+    /* Remove default styling */
+    border: 2px solid #ccc;
+    /* Border color */
+    border-radius: 4px;
+    /* Rounded corners */
+    background-color: #fff;
+    /* Default background color */
+    position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.supplier-checkbox:checked {
+    background-color: #888c8c;
+    /* Green background when checked */
+    border-color: #888c8c;
+    /* Green border */
+}
+
+
+/* Hide the default checkbox input but keep it functional */
+.supplier-checkbox input[type="checkbox"] {
+    opacity: 0;
+    /* Make the checkbox invisible */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /* Ensure it remains clickable */
+}
+
+.supplier-checkbox:checked::after {
+    content: '✔';
+    position: absolute;
+    top: 0;
+    left: 2px;
+    font-size: 11px;
+    color: white;
+}
+
+/* Checkbox hover effect */
+.supplier-checkbox:hover {
+    border-color: #888c8c;
+    /* Blue border on hover */
+}
+
+/* Style the checkbox */
+
+  
+  /* Hide the default checkbox visually, but keep it accessible */
+  .select-header-checkbox {
+    appearance: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 14px;
+    height: 14px;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid whitesmoke;
+  }
+  
+  /* Checked state styling with a green background */
+  .select-header-checkbox:checked {
+    background-color: #888c8c;
+    border-color: #888c8c;
+  }
+  
+  /* Add a tick mark when checked */
+  .select-header-checkbox:checked::after {
+    content: '✔'; /* Tick mark */
+    position: absolute;
+    top: 0px;
+    left: 2px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+  }
+  
+  /* Style the label to align with the checkbox */
+  .select-header-label {
+    margin-left: 8px;
+    font-weight: bold;
+  }
+  
+
+
+.table thead {
+    text-align: center;
+}
+
+.table thead tr th {
+    background-color: #0066b2;
+    color: #fff;
+    padding: 3px;
+}
+
+.searchDiv {
+    width: 50%;
+}
+
+.searchbox {
+    width: 20%;
+    display: inline-flex;
+    margin-left: 5%;
+    font-family: Helvetica, Arial;
+}
+
+.pagination {
+    width: 80%;
+    margin-left: 5%;
+}
+
+ngb-pagination ::ng-deep ul>li>a {
+    color: #000 !important;
+}
+
+ngb-pagination ::ng-deep ul>li.active>a {
+    background-color: #0066b2 !important;
+    color: #000 !important;
+}
+
+.searchDiv input {
+    width: 50%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    border: 3px solid #0066b2;
+    outline: none;
+    border-radius: 4px;
+}
+
+.searchDiv input:focus {
+    border-color: #0066b2;
+    box-shadow: 0 0 5px rgba(0, 102, 178, 0.5);
+}
+
+/* Upload Section Styles */
+.upload-section {
+    width: 90%;
+    margin: 35px auto;
+    margin-top: 30px;
+    border: 1px solid #fff;
+    background: linear-gradient(135deg, #fff, #fff);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Helvetica, Arial;
+    text-align: center;
+    border-top: 1px solid #0066b2
+}
+
+.upload-section h3 {
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 1px;
+    font-weight: bold;
+    padding-left: 12px;
+    padding-top: 25px;
+}
+
+.upload-instructions {
+    color: #555;
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+.upload-container {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    height: 175px;
+    margin-top: 13px;
+}
+
+.file-input-container {
+    flex: 1;
+    max-width: 200px;
+    border-right: 1px solid #00509e;
+}
+
+.file-input {
+    text-align: left;
+    padding-top: 15px;
+    padding-left: 11px;
+    margin-bottom: 96px;
+}
+
+.file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3574b3;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-left: 17px;
+}
+
+.file-label i {
+    margin-right: 0px;
+}
+
+.file-label:hover {
+    background-color: #00509e;
+}
+
+.file-hidden {
+    display: none;
+    margin-left: 10px;
+}
+
+.file-name {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #333;
+    text-align: center;
+    height: 0px;
+}
+
+.input-fields-container {
+    flex: 2;
+    min-width: 300px;
+    padding-right: 6px;
+    padding-left: 6px;
+}
+
+.input-group {
+    text-align: left;
+    border-radius: 7px;
+    gap: 5px;
+}
+
+.input-group label {
+    font-weight: bold;
+    display: block;
+}
+
+.input-group .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+    border-color: #aba8a8;
+}
+
+.input-group .form-control:focus {
+    border-color: #0066b2;
+    box-shadow: 0 0 5px rgba(0, 102, 178, 0.5);
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 3px;
+    padding-bottom: 17px;
+    gap: 25px;
+    padding-left: 130px;
+}
+
+.button-group button {
+
+    /* padding: 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 10%; */
+    display: inline-block;
+    padding: 10px 20px;
+    /* background-color: #3574b3; */
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-left: 17px;
+    width: 10%;
+}
+
+.btn-primary {
+    background-color: #3574b3;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #00509e;
+}
+
+.btn-secondary {
+    background-color: green;
+    color: white;
+    border: none;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .upload-container {
+        flex-direction: column;
+    }
+
+    .file-input-container,
+    .input-fields-container {
+        max-width: 100%;
+    }
+}

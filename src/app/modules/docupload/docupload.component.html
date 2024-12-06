@@ -1,0 +1,126 @@
+<div class="setheight">
+
+    <div class="MasterHeader">
+        <div style="width: 50%">
+            <h2>Document Upload</h2>
+        </div>
+        <div class="text-end" style="width: 50%;">
+            <br>
+            <button class="btnbackLeft" style="background-color: #0066b2; color: aliceblue; border-radius: 10%;"
+                (click)="goBack()">Back</button>
+        </div>
+    </div>
+
+    <div class="searchbox" style="border: #0066b2;">
+        <input type="text" [(ngModel)]="searchQuery" class="form-control" placeholder="Search..."
+            (input)="onSearch()" />
+    </div>
+
+
+    <div class="d-flex justify-content-center">
+        <table class="table table-bordered table-striped " style="font-size: 13px !important;">
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th style="padding-left: 20px;">
+                        <div class="d-flex align-items-center" style="gap: 5px;">
+
+                            <label for="selectHeaderCheckbox" class="select-header-label">Select</label>
+
+                            <input type="checkbox" [(ngModel)]="selectAllChecked" (change)="onSelectAll($event)"
+                                class="select-header-checkbox" id="selectHeaderCheckbox" />
+
+                        </div>
+                    </th>
+                    <th>Document No</th>
+                    <th>Document Type</th>
+                    <th>Revision</th>
+                    <th>File Name</th>
+                    <th>Po Number</th>
+                    <th>Item Number</th>
+                    <th>Lot Number</th>
+                    <th>Upload Date</th>
+                    <th>Updated BY</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let d of Data ; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>
+                        <input type="checkbox" [(ngModel)]="d.select" (change)="onCheckboxChange()"
+                            class="supplier-checkbox" />
+                    </td>
+
+                    <td>{{ d.documentNo }}</td>
+                    <td>{{ d.documentType}}</td>
+                    <td>{{ d.revision}}</td>
+                    <td>{{ d.fileName }}</td>
+                    <td>{{d.poNumber}}</td>
+                    <td>{{d.itemNo}}</td>
+                    <td>{{d.lotNumber}}</td>
+                    <td>{{ d.uploadDate}}</td>
+                    <td>{{ d.updatedBy }}</td>
+                    <td>{{ d.remarks }}</td>
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <ngb-pagination [collectionSize]="filteredData.length" [(page)]="currentPage" [pageSize]="itemsPerPage"
+                (pageChange)="onPageChange($event)" aria-label="Default pagination"></ngb-pagination>
+        </ul>
+    </nav>
+
+
+    <div class="upload-section">
+
+        <div class="upload-container d-flex">
+            <!-- File Upload Section -->
+            <div class="file-input-container">
+
+                <div class="file-input">
+                    <h3>Upload Document</h3>
+                    <p class="upload-instructions">Attach a file, then provide details.</p>
+                    <label for="fileUpload" class="file-label">
+                        <i class="fas fa-upload"></i> Choose a File
+                    </label>
+                    <input type="file" id="fileUpload" class="file-hidden" (change)="onFileChange($event)">
+                    <p *ngIf="selectedFile" class="file-name">Selected: {{ selectedFile.name }}</p>
+                </div>
+            </div>
+            <!-- Input Fields Section -->
+            <div class="input-fields-container">
+                <div class="input-group">
+                    <label for="documentNo" style="margin-top: 8px; padding-right: 4px;">Document No:</label>
+                    <input type="text" style="border-radius: 7px; width: 10%;" id="documentNo" [(ngModel)]="documentNo"
+                        class="form-control" placeholder="Enter Document Number">
+                    <label for="documenttype" style="margin-top: 8px; padding-right: 4px; padding-left: 8px;">Document
+                        Type:</label>
+                    <input type="text" style="width: 10%; border-radius: 7px; " id="documenttype"
+                        [(ngModel)]="documenttype" class="form-control" placeholder="Enter Document type">
+                </div>
+
+                <div class="input-group" style="margin-top: 6px;">
+                    <label for="remarks">Remarks:</label>
+                    <textarea id="remarks" style="border-radius: 7px;" [(ngModel)]="remarks" class="form-control"
+                        placeholder="Add any remarks here..."></textarea>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Action Buttons Section -->
+        <div class="button-group">
+            <button class="btn btn-primary" (click)="onUpload()">Upload</button>
+            <button class="btn btn-secondary" (click)="onDownload()">Download</button>
+            <!-- <button class="btn btn-danger" (click)="onClose()">Close</button> -->
+        </div>
+    </div>
+
+
+
+
+</div>

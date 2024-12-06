@@ -9,6 +9,7 @@ import { ContentComponent } from '../content/content.component';
 import { PoscheduleComponent } from '../modules/poschedule/poschedule.component';
 import { SupplierMasterComponent } from '../modules/master/supplier-master/supplier-master.component';
 import { pointernalComponent } from '../modules/pointernal/pointernal.component';
+import { DocuploadComponent } from '../modules/docupload/docupload.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
       { path: 'podetailsreport', component: PodetailsreportComponent },
       { path: 'role', component: RoleMasterComponent },
       { path: 'poschedule/:PONumber', component: PoscheduleComponent },
-      { path: 'pointernal',component:pointernalComponent}
+      { path: 'pointernal',component:pointernalComponent},
+      { path: 'docupload', component:DocuploadComponent}
     ]
   } 
 

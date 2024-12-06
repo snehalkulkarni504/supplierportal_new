@@ -52,4 +52,8 @@ export class SupplierService {
     return this.httpClient.get<any>(`${this.ApiUrl}GetSupplier`);
   }
 
+  
+
+
+
 }
