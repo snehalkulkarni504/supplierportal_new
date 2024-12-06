@@ -92,6 +92,11 @@
     transform: none;
     margin-top: 60px;
 }
+
+ ::ng-deep .modal-class
+{
+  margin-top: 55px;
+}
   /* .custom-modal-class {
     display: flex;
     align-items: center;

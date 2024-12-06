@@ -252,7 +252,6 @@ export class DocuploadComponent {
 
 
   onClose(): void {
-    this.saveTrigger.emit("Success");
     this.modalService.dismissAll();
     console.log('Closing the upload section...');
   }

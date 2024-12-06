@@ -386,9 +386,8 @@ export class PoscheduleComponent implements OnInit {
     const ngbModalOptions: NgbModalOptions = {
       backdrop: 'static',
       keyboard: false,
-      // centered: true,
       size: 'xl',
-      windowClass: 'your-custom-dialog-class',
+      windowClass: 'modal-class',
     };
     const modalRef = this.modalService.open(
       DocuploadComponent,
