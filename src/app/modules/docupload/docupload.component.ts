@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef, Input, EventEmitter, O
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { NgbModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReportService } from '../../Services/report.service';
+import { SupplierService } from '../../Services/supplier.service';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { ReportService } from '../../Services/report.service';
 })
 export class DocuploadComponent {
 
-  constructor(public service: ReportService, public cdr: ChangeDetectorRef, private modalService: NgbModal) { }
+  constructor(public service: SupplierService, public cdr: ChangeDetectorRef, private modalService: NgbModal) { }
 
   @Input() ItemNo:any;
   @Input() PoNumber: any;
@@ -157,16 +157,10 @@ export class DocuploadComponent {
 
   onUpload(): void {
     if (this.selectedFile && this.documentNo && this.documenttype) {
-
-      this.saveTrigger.emit("Success");
       this.modalService.dismissAll();
+      const updatedby = 'Bikash';
 
-      const poNumber = '101';
-      const itemNumber = '1';
-      const lotNumber = '2';
-      const updatedby = 'Jagdish';
-
-      this.service.uploadFile(this.selectedFile,this.documentNo,this.documenttype, poNumber, itemNumber, lotNumber,this.remarks,updatedby)
+      this.service.uploadFile(this.selectedFile,this.documentNo,this.documenttype, this.PoNumber, this.ItemNo, this.LotNumber,this.remarks,updatedby)
         .subscribe({
           next: (response) => {
             console.log('File uploaded successfully:', response);
@@ -197,10 +191,12 @@ export class DocuploadComponent {
             // );
             this.fetchdocdetails();
             this.resetForm();
+            this.saveTrigger.emit("Success");
           },
           error: (error) => {
             console.error('File upload failed:', error);
             alert('File upload failed!');
+            this.saveTrigger.emit("Unable To Upload File");
           }
         });
     }

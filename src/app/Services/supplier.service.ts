@@ -52,6 +52,32 @@ export class SupplierService {
     return this.httpClient.get<any>(`${this.ApiUrl}GetSupplier`);
   }
 
+
+  
+getdocdetails(): Observable<any[]> {
+  return this.httpClient.get<any[]>(`${this.ApiUrl}Getdocuploaddeatils`);
+}
+
+uploadFile(file: File, docno:string, doctype:string, poNumber:string, itemNumber:string, lotNumber:string,remarks:string,updatedBy:string): Observable<any> {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('docno',docno);
+  formData.append('doctype',doctype);
+  formData.append('poNumber', poNumber);
+  formData.append('itemNumber', itemNumber);
+  formData.append('lotNumber',lotNumber);
+  formData.append('remarks',remarks);
+  formData.append('updatedby',updatedBy);
+  debugger;
+  
+  return this.httpClient.post(this.ApiUrl+"UploadDoc", formData);
+}
+
+downloadMultipleFiles(fileRequests: any[]): Observable<Blob> {
+  debugger;
+  return this.httpClient.post(this.ApiUrl+"DownloadMultipleFiles", fileRequests, { responseType: 'blob' }); // Expect a blob response
+}
+
   
 
 

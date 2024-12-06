@@ -1,83 +1,84 @@
 * {
     font-family: Helvetica, Arial !important;
 }
- 
+
 .table {
     width: 90% !important;
     margin-top: 15px;
     font-family: Helvetica, Arial !important;
 }
- 
+
 .table td {
     text-align: center;
 }
- 
+
 .table thead {
     text-align: center;
 }
- 
+
 .table thead tr th {
     background-color: #0066b2;
     color: #fff;
     padding: 3px;
 }
- 
+
 #add-btn {
     margin: 0px;
     padding: 7px 10px;
 }
- 
+
 .default-btn_popup {
     background-color: #0066b2;
     color: #fff;
 }
- 
- 
- 
+
+
+
 .modal-close-icn:hover {
     rotate: 90deg;
     cursor: pointer;
 }
- 
+
 .modal {
     background: rgba(0, 0, 0, .5);
 }
- 
+
 .default-lbl {
     margin: 0px 0px 3px 2px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 15px;
- 
+
 }
- 
+
 .searchDiv {
     width: 50%;
 }
- 
- 
- 
+
+
+
 .has-search .form-control {
     padding-left: 2.8rem;
 }
- 
+
 .form-group.has-error input {
     border: 2px solid #0066b2 !important;
     background-color: #ffeeee;
- 
+
 }
+
 /* Style for the error message */
 .error-message {
     color: #0066b2;
     font-size: 11px;
     margin-left: 8px;
- 
- 
+
+
 }
- 
+
 .search-input {
     height: 38px;
 }
- 
+
 .has-search .form-control-feedback {
     position: absolute;
     z-index: 2;
@@ -90,19 +91,19 @@
     color: #f8f6f6;
     background-color: #0066b2;
 }
- 
+
 .error-message {
     color: #0066b2;
     font-size: 11px;
     margin-left: 8px;
 }
- 
- 
+
+
 .setHeight {
     min-height: 100dvh;
 }
- 
- 
+
+
 .MasterHeader {
     width: 90%;
     display: inline-flex;
@@ -113,29 +114,28 @@
     margin-bottom: 20px;
     /* box-shadow: 0 6px 2px -6px #da291c; */
 }
- 
+
 .MasterHeaderlable {
     width: 90%;
     display: inline-flex;
     margin-left: 5%;
     font-family: Helvetica, Arial;
- 
+
     /* box-shadow: 0 6px 2px -6px #da291c; */
 }
- 
-.searchbox
-{
+
+.searchbox {
     width: 20%;
     display: inline-flex;
     margin-left: 6%;
     font-family: Helvetica, Arial;
 }
- 
+
 .MasterHeader h2 {
     /* position: absolute; */
     margin: 20px 0px;
 }
- 
+
 .custom-checkbox {
     appearance: none;
     -webkit-appearance: none;
@@ -146,11 +146,11 @@
     position: relative;
     cursor: pointer;
 }
- 
+
 .custom-checkbox:checked {
     background-color: #0066b2;
 }
- 
+
 .custom-checkbox:checked::before {
     display: block;
     color: white;
@@ -158,7 +158,7 @@
     text-align: center;
     line-height: 1.00rem;
 }
- 
+
 .common-font {
     margin-top: 10px;
     font-family: Helvetica, Arial !important;
@@ -168,18 +168,18 @@
     color: #333;
     /* Adjust text color as needed */
 }
- 
+
 .modal-body {
     /* max-height: calc(100vh - 250px); */
     overflow-y: auto;
 }
- 
+
 .form-group label {
     font-size: 12px;
     /* Smaller label font */
     margin-bottom: 3px;
 }
- 
+
 .form-select {
     position: relative;
     width: 100%;
@@ -194,64 +194,74 @@
     font-size: 14px;
     transition: border-color 0.2s;
 }
- 
+
 .form-select:focus {
     border-color: #0066b2;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 102, 178, 0.3);
 }
- 
+
 .form-select-wrapper {
     position: relative;
     display: inline-block;
     width: 100%;
 }
- 
+
 .pagination {
     width: 80%;
     margin-left: 5%;
 }
- 
+
 /* Flex container for all form fields to align them in a row */
 .filter-section {
     display: flex;
-    align-items: center; /* Vertically aligns elements in the center */
-    gap: 15px; /* Adds space between elements */
-    justify-content: space-between; /* Spreads items evenly */
+    align-items: center;
+    /* Vertically aligns elements in the center */
+    gap: 15px;
+    /* Adds space between elements */
+    justify-content: space-between;
+    /* Spreads items evenly */
     padding: 10px;
     border-radius: 8px;
     background-color: #f9f9f9;
     margin-bottom: 10px;
-    width: 100%; /* Ensures the section takes full width */
+    width: 100%;
+    /* Ensures the section takes full width */
 }
- 
+
 /* Ensure the form fields are of equal width and aligned on the same line */
-.filter-section .form-group, .date-section {
-    flex: 1 1 150px; /* Ensures the form fields take equal width */
-    min-width: 150px; /* Sets a minimum width for each item */
-    margin-bottom: 0; /* Removes bottom margin */
+.filter-section .form-group,
+.date-section {
+    display: flex;
+    gap: 11px;
 }
- 
+
 /* Aligning the "From Date" and "To Date" input fields */
 .date-section {
     display: flex;
-    align-items: center; /* Aligns the label to the left */
-    gap: 5px; /* Adds space between label and input */
+    align-items: center;
+    /* Aligns the label to the left */
+    gap: 5px;
+    /* Adds space between label and input */
     flex: 1 1 auto;
-    margin-right: 15px; /* Ensures equal spacing between the date inputs */
+    margin-right: 15px;
+    /* Ensures equal spacing between the date inputs */
 }
- 
+
 /* Adjustments for the Date Labels */
 .date-label {
     font-size: 14px;
     color: #03070c;
-    white-space: nowrap; /* Prevent label from wrapping */
-    margin: 10; /* Remove margin for perfect alignment */
-    font-weight: bold; /* Optional, makes the label stand out */
+    white-space: nowrap;
+    /* Prevent label from wrapping */
+    margin: 10;
+    /* Remove margin for perfect alignment */
+    font-weight: bold;
+    /* Optional, makes the label stand out */
 }
- 
- 
- 
+
+
+
 .view-btn {
     background-color: #0066b2;
     color: white;
@@ -259,78 +269,95 @@
     padding: 8px 16px;
     border: none;
     cursor: pointer;
-    margin-left: 50px;
+    /* margin-left: 50px; */
     gap: 5px;
 }
- 
+
 .clear-btn {
-    background-color: #f44336; /* Red background */
+    background-color: #f44336;
+    /* Red background */
     color: white;
     border-radius: 5px;
     padding: 8px 16px;
     border: none;
     cursor: pointer;
-  }
- 
-  .clear-btn:hover {
-    background-color: #d32f2f; /* Darker red on hover */
-  }
- 
- 
+}
+
+.clear-btn:hover {
+    background-color: #d32f2f;
+    /* Darker red on hover */
+}
+
+
 /* Dropdown button and form fields should take equal width */
-.custom-dropdown-btn, .date-picker, .form-control {
+.custom-dropdown-btn,
+.date-picker,
+.form-control {
     width: 100%;
 }
- 
+
 /* Ensure the dropdowns have consistent width and reduced size */
 .custom-dropdown-btn {
     width: 150px;
     background-color: #0066b2;
-    color: white; /* Reduced width for the dropdown button */
+    color: white;
+    /* Reduced width for the dropdown button */
 }
- 
+
 .custom-dropdown-menu {
-    width: 160px; /* Reduced width for the dropdown menu */
+    width: 160px;
+    /* Reduced width for the dropdown menu */
 }
- 
+
 /* Adjust the form control elements (inputs, selects) to have a consistent width */
-.form-select, .form-control, .custom-dropdown-btn {
+.form-select,
+.form-control,
+.custom-dropdown-btn {
     width: 100%;
 }
- 
+
 /* Hover effect for dropdown items */
 .dropdown-item:hover {
-    background-color: #0066b2; /* Blue color when hovering */
-    color: white; /* Change text color to white on hover */
+    background-color: #0066b2;
+    /* Blue color when hovering */
+    color: white;
+    /* Change text color to white on hover */
 }
- 
+
 /* Style for checkbox input within dropdown */
 .dropdown-item input[type="checkbox"] {
-    margin-right: 10px; /* Adds space between checkbox and text */
+    margin-right: 10px;
+    /* Adds space between checkbox and text */
 }
- 
+
 .searchDiv input {
     width: 50%;
     padding: 10px;
     font-size: 14px;
     margin-bottom: 15px;
     border: 3px solid #0066b2;
-    outline: none;  /* Light grey border initially */
+    outline: none;
+    /* Light grey border initially */
     border-radius: 4px;
-  }
- 
-  .searchDiv input:focus {
+}
+
+.searchDiv input:focus {
     border-color: #0066b2;
     box-shadow: 0 0 5px rgba(0, 102, 178, 0.5);
-  }
- 
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .filter-section {
-        flex-wrap: wrap; /* Stacks fields vertically on smaller screens */
+        flex-wrap: wrap;
+        /* Stacks fields vertically on smaller screens */
     }
-    .filter-section .form-group, .date-section {
-        flex: 1 1 100%; /* Stacks elements vertically on smaller screens */
-        min-width: 100%; /* Ensures full-width on small screens */
+
+    .filter-section .form-group,
+    .date-section {
+        flex: 1 1 100%;
+        /* Stacks elements vertically on smaller screens */
+        min-width: 100%;
+        /* Ensures full-width on small screens */
     }
 }

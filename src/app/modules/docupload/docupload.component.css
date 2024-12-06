@@ -1,6 +1,8 @@
-General Styles
+
 .setheight {
-    min-height: 70dvh;
+    /* min-height: 70dvh; */
+    margin-top: 10px;
+
 }
 
 .MasterHeader {
@@ -185,7 +187,7 @@ ngb-pagination ::ng-deep ul>li.active>a {
 .upload-section {
     width: 90%;
     margin: 35px auto;
-    margin-top: 30px;
+    margin-top: 10px;
     border: 1px solid #fff;
     background: linear-gradient(135deg, #fff, #fff);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -214,7 +216,7 @@ ngb-pagination ::ng-deep ul>li.active>a {
     justify-content: space-between;
     align-items: flex-start;
     gap: 20px;
-    height: 175px;
+    height: 130px;
     margin-top: 13px;
 }
 
@@ -228,7 +230,7 @@ ngb-pagination ::ng-deep ul>li.active>a {
     text-align: left;
     padding-top: 15px;
     padding-left: 11px;
-    margin-bottom: 96px;
+    margin-bottom: 50px;
 }
 
 .file-label {
@@ -303,8 +305,8 @@ ngb-pagination ::ng-deep ul>li.active>a {
     justify-content: center;
     margin-top: 3px;
     padding-bottom: 17px;
-    gap: 25px;
-    padding-left: 130px;
+    /* gap: 25px;
+    padding-left: 130px; */
 }
 
 .button-group button {

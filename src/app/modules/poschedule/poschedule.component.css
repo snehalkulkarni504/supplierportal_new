@@ -88,21 +88,24 @@
     color: #28a745; /* Optional: Green on hover */
   }
   
-  
-  .custom-modal-class {
+  .modal.show .modal-dialog {
+    transform: none;
+    margin-top: 60px;
+}
+  /* .custom-modal-class {
     display: flex;
-    align-items: center; /* Vertically center */
-    justify-content: center; /* Horizontally center */
-    height: 100vh; /* Make sure the modal occupies full viewport height */
+    align-items: center;
+    justify-content: center; 
+    height: 100vh; 
   }
   
   .custom-modal-class .modal-dialog {
-    margin: 0 auto; /* Remove default margins */
-    max-width: 60%; /* Optional: Set max width */
+    margin: 0 auto; 
+    max-width: 60%; 
   }
   
   .custom-modal-class .modal-content {
-    height: 500px; /* Custom height */
-  }
+    height: 500px; 
+  } */
   
   
