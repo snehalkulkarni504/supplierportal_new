@@ -1,145 +1,135 @@
 <div class="AllpagesContent" style="width:90%;margin-left: 5%;">
-    <!-- <p>posupplier works!</p> -->
-        <div class="col-12" class="centered-content">
-          <p style="margin-bottom: 0.5rem">{{SupplierName}}</p>
+  <!-- <p>posupplier works!</p> -->
+  <div class="col-12" class="centered-content">
+    <p style="margin-bottom: 0.5rem">{{SupplierName}}</p>
+  </div>
+  <div class="col-12" class="left-content">
+    <h4>PO Details</h4>
+  </div>
+  <div class="row" class="line-content">
+    <hr style="margin-top: 0.5rem" class="line-content">
+  </div>
+  <div class="container-fluid py-2">
+    <div class="row align-items-center g-2">
+      <!-- Dropdown for PO Numbers -->
+      <div class="col-md-auto col-sm-12 d-flex align-items-center">
+        <div class="form-group me-2">
+          <button class="btn btn-outline-primary dropdown-toggle custom-dropdown-btn" type="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            ---Select---
+          </button>
+          <ul class="dropdown-menu">
+            <li *ngFor="let PO of PONumbers">
+              <label class="dropdown-item">
+                <input type="checkbox" class="form-check-input me-2" [value]="PO.poNumber"
+                  (change)="togglePoSelection(PO, $event)" />
+                {{ PO.poNumber }}
+              </label>
+            </li>
+          </ul>
         </div>
-        <div class="col-12" class="left-content">
-          <h4>PO Details</h4>
-        </div>
-      <div class="row" class="line-content">
-        <hr style="margin-top: 0.5rem" class="line-content">
-    </div>
-    <div class="container-fluid" style="padding-top: 1%;padding-bottom: 1%;">
-    <div class="row">
-        <div class="col-auto d-flex align-items-center" style="padding-right: 1%">
-            <!-- <label  class="date-label" style="padding-right: 2%">PO No.:</label><br> -->
-            <div class="form-group">
-              <button class="btn dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  ---Select---
-              </button>
-              <ul class="dropdown-menu custom-dropdown-menu">
-                  <li *ngFor="let PO of PONumbers">
-                      <label class="dropdown-item">
-                          <input type="checkbox" class="po-checkbox" [value]="PO.poNumber" (change)="togglePoSelection(PO, $event)" /> {{PO.poNumber}} </label>
-                  </li>
-              </ul>
-              <!-- <label for="POnumber" class="default-lbl">PO No. : </label>
-              <ng-select style="width: 200px;" placeholder="Please select" [searchable]="true" [multiple]="true" [(ngModel)]='SelectedPONumber' formControlName="POnumber">
-                  <ng-option value="" disabled selected>Select PO</ng-option>
-                  <ng-option *ngFor="let po of PONumbers "
-                      [value]="po.poNumber">{{po.poNumber}}</ng-option>
-              </ng-select> -->
-          </div>
-            
-        </div>
-        <div class="col-auto" d-flex style="padding-right: 5px;">
-          <!-- <label style="font-weight: bold;font-size: 13px;width: 100%;padding-right: 10px;">
-            From PO Date :</label><br> -->
-          <div class="date-section">
-            <label class="date-label">From PO Date :</label>
-            <input type="date" class="form-control date-picker" [(ngModel)]="FromPODate" (change)="filterTableData()" placeholder="From PO Date">
-         </div>
-          
-          <!-- <div class="input-group custom-input" style="padding-right: 5px;">
-              <input type="date" class="date-input" id="date" [(ngModel)]="FromPODate" #FromPODateCalendar  >
-          </div> -->
       </div>
-      <div class="col-auto d-flex align-items-center" style="padding-right: 5px;">
-        <div class="date-section" style="padding-right: 5px;padding-left: 5px;">
-          <label class="date-label">To PO Date :</label>
-          <input type="date" class="form-control date-picker" [(ngModel)]="ToPODate" (change)="filterTableData()" placeholder="To PO Date">
-       </div>
-        <!-- <label style="font-weight: bold;font-size: 13px; width: 100%;padding-right: 5px;">
-          To PO Date :</label><br>
-        <div class="input-group custom-input" style="padding-right: 5px">
-            <input  type="date" class="date-input" id="date" [(ngModel)]="ToPODate" #ToPODateCalendar  >
-        </div> -->
-    </div>
-      <div class="col-auto d-flex align-items-center" style="padding-right: 5px;padding-left: 5px;">
-        <label class="date-label" style="padding-right: 5px">Status :</label>
-          <div class="form-group ">
-            <button class="btn dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                ---Select---
-            </button>
-            <ul class="dropdown-menu custom-dropdown-menu">
-                <li *ngFor="let status of Status">
-                    <label class="dropdown-item">
-                        <input type="checkbox" class="status-checkbox" [value]="status" (change)="toggleStatusSelection(status, $event)" /> {{status}} </label>
-                </li>
-            </ul>
+
+      <!-- From PO Date -->
+      <div class="col-md-auto col-sm-6 d-flex align-items-center">
+        <div class="date-section me-2">
+          <label class="form-label mb-1">From PO Date:</label>
+          <input type="date" class="form-control" style="width: 135px; " [(ngModel)]="FromPODate" (change)="filterTableData()" />
         </div>
-        <!-- <ng-multiselect-dropdown 
-                [placeholder]="'----Select----'"
-                [settings]="dropdownSettings"
-                [data]="Status"
-                [(ngModel)]="selectedstatus"
-                class="container" 
-                style="width: 150px">
-              >
-              </ng-multiselect-dropdown> -->
-    </div>
-    <div class="col-auto d-flex align-items-center" style="padding-right:5px;padding-left:25px">
-      <button class="btn btn-secondary view-btn" type="button" (click)="filterTableData()" >View</button>
-    </div>
-    <div class="col-auto d-flex align-items-center" style="padding-left:0px">
-      <button class="btn clear-btn"  type="button" (click)="ClearControls()" >Clear</button>
+      </div>
+
+      <!-- To PO Date -->
+      <div class="col-md-auto col-sm-6 d-flex align-items-center">
+        <div class="date-section me-2">
+          <label class="form-label mb-1">To PO Date:</label>
+          <input type="date" class="form-control" [(ngModel)]="ToPODate" style="width: 135px; " (change)="filterTableData()" />
+        </div>
+      </div>
+
+      <!-- Status Dropdown and Buttons in One Row -->
+      <div class="col-md-auto col-sm-12 d-flex align-items-center">
+        <!-- Status Label -->
+        <label class="form-label me-2">Status:</label>
+
+        <!-- Status Dropdown -->
+        <div class="form-group me-3">
+          <button class="btn btn-outline-primary dropdown-toggle custom-dropdown-btn" type="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            ---Select---
+          </button>
+          <ul class="dropdown-menu">
+            <li *ngFor="let status of Status">
+              <label class="dropdown-item">
+                <input type="checkbox" class="form-check-input me-2" [value]="status"
+                  (change)="toggleStatusSelection(status, $event)" />
+                {{ status }}
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- View Icon -->
+        <i class="fas fa-eye me-3 clickable-icon" title="View" (click)="filterTableData()">
+        </i>
+
+        <i class="fas fa-sync me-3 text-danger clickable-icon" title="Reset" (click)="ClearControls()
+        ">
+        </i>
+
+      </div>
     </div>
   </div>
+
+  <div class="searchbox" style="border: #0066b2; min-width: 200px;">
+    <input type="text" [(ngModel)]="searchQuery" class="form-control" placeholder="Search..." (input)="onSearch()" />
   </div>
-  <div class="searchbox" style="border: #0066b2;">
-    <input type="text" [(ngModel)]="searchQuery" class="form-control" placeholder="Search..."
-        (input)="onSearch()" />
-  </div>
-    <div class="justify-content-center">
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped" style="font-size: 13px !important;">
-              <thead>
-                <tr> 
-                    <!-- <th>Timesheet No</th> -->
-                    
-                    <th>PO No</th>
-                    <th>PO Date</th>
-                    <th>Doc. Type</th>
-                    <th>Status</th>
-                    <!-- <th>Supplier Remark</th> -->
-                    <!-- <th>TPS Remark</th>-->
-                    <th>Delivery Schedule</th> 
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let value of paginatedData ">
-                    <!-- <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td> -->
-                    <td>{{value.poNumber}}</td>
-                    <!--<td>{{value.TimeSheet_No}}</td>-->
-                    <td>{{value.poDate}}</td>
-                    <td>{{value.docType}}</td>
-                    <td>{{value.status}}</td>
-                    <!-- <td>{{value.supplierremark}}</td>
+  <div class="justify-content-center">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped" style="font-size: 13px !important;">
+        <thead>
+          <tr>
+            <!-- <th>Timesheet No</th> -->
+
+            <th>PO No</th>
+            <th>PO Date</th>
+            <th>Doc. Type</th>
+            <th>Status</th>
+            <!-- <th>Supplier Remark</th> -->
+            <!-- <th>TPS Remark</th>-->
+            <th>Delivery Schedule</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let value of paginatedData ">
+            <!-- <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td> -->
+            <td>{{value.poNumber}}</td>
+            <!--<td>{{value.TimeSheet_No}}</td>-->
+            <td>{{value.poDate}}</td>
+            <td>{{value.docType}}</td>
+            <td>{{value.status}}</td>
+            <!-- <td>{{value.supplierremark}}</td>
                     <td>{{value.tpsremark}}</td> -->
-                    <td><i (click)="openDeliverySchedule(value.poNumber)" class="clickable" 
-                      [ngClass]="value.status === 'Open' || value.status === 'WIP' ?'fas fa-edit': 'fas fa-file-alt'"
-                       style="cursor: pointer; font-size: 1.2rem;"
-                       [ngStyle]="{
+            <td><i (click)="openDeliverySchedule(value.poNumber)" class="clickable"
+                [ngClass]="value.status === 'Open' || value.status === 'WIP' ?'fas fa-edit': 'fas fa-file-alt'"
+                style="cursor: pointer; font-size: 1.2rem;" [ngStyle]="{
                         color: value.status === 'Open' ? '#ffc107' : 
                                value.status === 'WIP' ? '#ffc107' : 
                                '#6c757d'}"></i></td>
-                </tr>
-            </tbody>
-        </table>
-      </div>
-      
-      <!-- <div class="text-center mt-3">
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- <div class="text-center mt-3">
         <p>Page {{ currentPage }} of {{ totalPages }}</p>
       </div> -->
-    </div>
-    <div class="d-flex justify-content-between pagination">
-      <ngb-pagination [collectionSize]=filteredTableData.length [(page)]="page" [pageSize]="pageSize" [rotate]="true"
-        [boundaryLinks]="true" [maxSize]="5" size="sm" (pageChange)="onPageChange($event)">
-        <!-- <ng-template ngbPaginationPrevious>Prev</ng-template>
+  </div>
+  <div class="d-flex justify-content-between pagination">
+    <ngb-pagination [collectionSize]=filteredTableData.length [(page)]="page" [pageSize]="pageSize" [rotate]="true"
+      [boundaryLinks]="true" [maxSize]="5" size="sm" (pageChange)="onPageChange($event)">
+      <!-- <ng-template ngbPaginationPrevious>Prev</ng-template>
         <ng-template ngbPaginationNext>Next</ng-template> -->
-      </ngb-pagination>
-      <br>
-    </div>
+    </ngb-pagination>
+    <br>
+  </div>
 </div>
