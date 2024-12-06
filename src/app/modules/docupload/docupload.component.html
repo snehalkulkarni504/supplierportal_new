@@ -6,14 +6,17 @@
                 <input type="text" [(ngModel)]="searchQuery" class="form-control" placeholder="Search..."
                     (input)="onSearch()" />
             </div>
-            
         </div>
+        
         <div class="text-end" style="width: 50%;">
             <br>
             <!-- <button class="btnbackLeft" style="background-color: #0066b2; color: aliceblue; border-radius: 10%;"
                 (click)="goBack()">Back</button> -->
-                <button type="button" class="btn-close" aria-label="Close" (click)="onClose()"></button>
-               
+            <button type="button" class="btn-close" aria-label="Close"
+                onmouseover="this.style.transform='scale(1.1)'; this.style.transition='transform 0.2s ease-in-out'"
+                onmouseout="this.style.transform='scale(1)'; this.style.transition='transform 0.2s ease-in-out'"
+                (click)="onClose()"></button>
+
         </div>
     </div>
 
@@ -111,8 +114,8 @@
 
                 <div class="input-group" style="margin-top: 6px;">
                     <label for="remarks" style="padding-top: 10px;">Remarks:</label>
-                    <textarea id="remarks" style="border-radius: 7px;width: 50%;height: 45px;" [(ngModel)]="remarks" class="form-control"
-                        placeholder="Add any remarks here..."></textarea>
+                    <textarea id="remarks" style="border-radius: 7px;width: 50%;height: 45px;" [(ngModel)]="remarks"
+                        class="form-control" placeholder="Add any remarks here..."></textarea>
                 </div>
             </div>
         </div>
@@ -122,7 +125,7 @@
         <div class="button-group">
             <button class="btn btn-primary" (click)="onUpload()">Upload</button>
             <button class="btn btn-secondary" (click)="onDownload()">Download</button>
-            <button class="btn btn-danger" (click)="onClose()">Close</button>
+            <!-- <button class="btn btn-danger" (click)="onClose()">Close</button> -->
         </div>
     </div>
 

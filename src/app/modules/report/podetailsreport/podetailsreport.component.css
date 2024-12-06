@@ -17,7 +17,7 @@
 }
 
 .table thead tr th {
-    background-color: #0066b2;
+    background-color: #4d94c9;
     color: #fff;
     padding: 3px;
 }
@@ -28,7 +28,7 @@
 }
 
 .default-btn_popup {
-    background-color: #0066b2;
+    background-color: #4d94c9;
     color: #fff;
 }
 
@@ -61,14 +61,14 @@
 }
 
 .form-group.has-error input {
-    border: 2px solid #0066b2 !important;
+    border: 2px solid #4d94c9 !important;
     background-color: #ffeeee;
 
 }
 
 /* Style for the error message */
 .error-message {
-    color: #0066b2;
+    color: #4d94c9;
     font-size: 11px;
     margin-left: 8px;
 
@@ -89,11 +89,11 @@
     text-align: center;
     pointer-events: none;
     color: #f8f6f6;
-    background-color: #0066b2;
+    background-color: #4d94c9;
 }
 
 .error-message {
-    color: #0066b2;
+    color: #4d94c9;
     font-size: 11px;
     margin-left: 8px;
 }
@@ -110,7 +110,7 @@
     height: 80px;
     margin-left: 5%;
     font-family: Helvetica, Arial;
-    border-bottom: 1px solid #0066b2;
+    border-bottom: 1px solid #4d94c9;
     margin-bottom: 20px;
     /* box-shadow: 0 6px 2px -6px #da291c; */
 }
@@ -141,14 +141,14 @@
     -webkit-appearance: none;
     width: 1.00rem;
     height: 1.00rem;
-    border: 2px solid #0066b2;
+    border: 2px solid #4d94c9;
     border-radius: 0.25rem;
     position: relative;
     cursor: pointer;
 }
 
 .custom-checkbox:checked {
-    background-color: #0066b2;
+    background-color: #4d94c9;
 }
 
 .custom-checkbox:checked::before {
@@ -196,7 +196,7 @@
 }
 
 .form-select:focus {
-    border-color: #0066b2;
+    border-color: #4d94c9;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 102, 178, 0.3);
 }
@@ -263,7 +263,7 @@
 
 
 .view-btn {
-    background-color: #0066b2;
+    background-color: #4d94c9;
     color: white;
     border-radius: 5px;
     padding: 8px 16px;
@@ -299,7 +299,7 @@
 /* Ensure the dropdowns have consistent width and reduced size */
 .custom-dropdown-btn {
     width: 150px;
-    background-color: #0066b2;
+    background-color: #4d94c9;
     color: white;
     /* Reduced width for the dropdown button */
 }
@@ -335,14 +335,14 @@
     padding: 10px;
     font-size: 14px;
     margin-bottom: 15px;
-    border: 3px solid #0066b2;
+    border: 3px solid #4d94c9;
     outline: none;
     /* Light grey border initially */
     border-radius: 4px;
 }
 
 .searchDiv input:focus {
-    border-color: #0066b2;
+    border-color: #4d94c9;
     box-shadow: 0 0 5px rgba(0, 102, 178, 0.5);
 }
 
