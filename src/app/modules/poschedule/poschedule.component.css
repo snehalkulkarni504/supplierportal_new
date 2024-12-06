@@ -3,6 +3,18 @@
 .table {
     width: 100%;
     table-layout: fixed;
+    font-size: 13px !important;
+  }
+
+  .lot-details-th{
+    border: 1px solid #ddd; 
+    background-color: #4d94c9; 
+    color: white;
+  }
+
+  .po-th{
+    background-color: #4d94c9;
+     color: white
   }
   
   @media (max-width: 768px) {
