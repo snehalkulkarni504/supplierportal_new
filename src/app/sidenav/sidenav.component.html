@@ -53,7 +53,9 @@
             <li   class="sidenav-nav-item" *ngFor="let data of navData" >
                 <a data-bs-toggle="tooltip" data-bs-placement="right" title="{{data.label}}" (mouseover)="toggleShow(data)" class="sidenav-nav-link" (click)="handleClick(data)" *ngIf="data.items && data.items.length > 0"
                     [ngClass]="getActiveClass(data)">
-                    <i class="sidenav-link-icon" ><img style="fill: white;" [src]="data.icon" alt=""></i>
+                    <!-- <i class="sidenav-link-icon" ><img style="fill: white;" [src]="data.icon" alt=""></i> -->
+                    <i class="sidenav-link-icon" [class]="data.icon"></i>
+
                     <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                         {{data.label}}
                     </span>
@@ -64,7 +66,7 @@
                     class="sidenav-nav-link" *ngIf="!data.items || (data.items && data.items.length === 0)"
                     [routerLink]="[data.routeLink]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                     (click)="shrinkItems(data)">
-                    <i class="sidenav-link-icon" ><img style="fill: white;" [src]="data.icon" alt=""></i>
+                    <i class="sidenav-link-icon" [class]="data.icon"></i>
                     <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                         {{data.label}}
                     </span>
