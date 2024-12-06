@@ -415,6 +415,9 @@ export class PoscheduleComponent implements OnInit {
    }
 
 
+   goback(){
+    window.history.back();
+   }
   toggleChildRow(child: any) {
    child.expanded = !child.expanded;
  }

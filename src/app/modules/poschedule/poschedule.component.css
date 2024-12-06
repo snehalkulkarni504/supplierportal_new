@@ -12,9 +12,23 @@
     color: white;
   }
 
+
+  .back_button:hover{
+    color: #00509e;
+  }
+
+  .po-Details-th{
+    background-color: #4d94c9; 
+    color: white;
+  }
   .po-th{
     background-color: #4d94c9;
      color: white
+  }
+
+  .po-thead{
+    background-color: #4d94c9;
+     color: white;
   }
   
   @media (max-width: 768px) {
