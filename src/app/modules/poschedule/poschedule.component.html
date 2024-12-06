@@ -1,10 +1,14 @@
 <div class="AllpagesContent container-fluid">
     <!-- Client and Delivery Schedule Information -->
     <div class="text-center mb-3">
-      <i class="fas fa-arrow-circle-left" 
+      <i class="fas fa-arrow-circle-left back_button" 
       style="color: #00509e;cursor: pointer;position: absolute; left: 61px; top: 50px; font-size: 24px;" 
       title="Back"
-      aria-label="Go back to the previous page">
+      (click)="goback()"
+      aria-label="Go back to the previous page"
+      onmouseover="this.style.transform='scale(1.1)'; this.style.transition='transform 0.2s ease-in-out'"
+    onmouseout="this.style.transform='scale(1)'; this.style.transition='transform 0.2s ease-in-out'"
+    tabindex="0">
     </i>
       <!-- <button 
     class="btn btn-secondary" 
