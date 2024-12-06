@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, Input, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReportService } from '../../Services/report.service';
 
 
@@ -14,8 +14,13 @@ import { ReportService } from '../../Services/report.service';
 })
 export class DocuploadComponent {
 
-  constructor(public service: ReportService, public cdr: ChangeDetectorRef) { }
+  constructor(public service: ReportService, public cdr: ChangeDetectorRef, private modalService: NgbModal) { }
 
+  @Input() ItemNo:any;
+  @Input() PoNumber: any;
+  @Input() LotNumber:any;
+  @Output() saveTrigger: EventEmitter<any> = new EventEmitter();
+  
   doc_deatils = [
     { select: false, documentNo: 1, documentType: 'PDF', revision: 1, fileName: 'M001', poNumber: 101, itemNo: 1, lotNumber: 1, uploadDate: '2024-11-20', updatedBy: 'Eswar', remarks: 'abcd' },
   ];
@@ -152,6 +157,10 @@ export class DocuploadComponent {
 
   onUpload(): void {
     if (this.selectedFile && this.documentNo && this.documenttype) {
+
+      this.saveTrigger.emit("Success");
+      this.modalService.dismissAll();
+
       const poNumber = '101';
       const itemNumber = '1';
       const lotNumber = '2';
@@ -247,6 +256,8 @@ export class DocuploadComponent {
 
 
   onClose(): void {
+    this.saveTrigger.emit("Success");
+    this.modalService.dismissAll();
     console.log('Closing the upload section...');
   }
 

@@ -89,4 +89,20 @@
   }
   
   
+  .custom-modal-class {
+    display: flex;
+    align-items: center; /* Vertically center */
+    justify-content: center; /* Horizontally center */
+    height: 100vh; /* Make sure the modal occupies full viewport height */
+  }
+  
+  .custom-modal-class .modal-dialog {
+    margin: 0 auto; /* Remove default margins */
+    max-width: 60%; /* Optional: Set max width */
+  }
+  
+  .custom-modal-class .modal-content {
+    height: 500px; /* Custom height */
+  }
+  
   

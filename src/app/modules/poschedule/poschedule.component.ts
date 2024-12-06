@@ -6,6 +6,8 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { SupplierService } from '../../Services/supplier.service';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { DocuploadComponent } from '../docupload/docupload.component';
 
 
 interface Lot {
@@ -52,7 +54,7 @@ export class PoscheduleComponent implements OnInit {
   //constructor(private poService: PoServicesService,private toastr: ToastrService){}
   //PONumber! :number;
   constructor(private poService: SupplierService,private toastr: ToastrService,
-   private route: ActivatedRoute){}
+   private route: ActivatedRoute, private modalService: NgbModal){}
 
   ngOnInit(): void {
    console.log("");
@@ -377,13 +379,42 @@ export class PoscheduleComponent implements OnInit {
    
  
   // Upload attachment
-  uploadAttachment(event: any, lot: any) {
-    const file = event.target.files[0];
-    if (file) {
-      lot.attachment = file.name;
-      console.log('Uploading file for lot', lot, file);
-    }
-  }
+  uploadAttachment(event: any, lot: any, child: any) {
+    console.log("Test child",child);
+    console.log("Test lot",lot);
+
+    const ngbModalOptions: NgbModalOptions = {
+      backdrop: 'static',
+      keyboard: false,
+      // centered: true,
+      size: 'xl',
+      windowClass: 'your-custom-dialog-class',
+    };
+    const modalRef = this.modalService.open(
+      DocuploadComponent,
+      ngbModalOptions
+    );
+
+    modalRef.componentInstance.ItemNo= child.itemno;
+    modalRef.componentInstance.LotNumber= lot.lotnumber;
+    modalRef.componentInstance.PoNumber = this.PONumber;
+    modalRef.componentInstance.saveTrigger.subscribe((x: any) => {
+
+      if (x != undefined || x != '') {
+        
+        this.toastr.success("success", x);
+        
+      }
+      // this.ReloadOrderDetails()
+    });
+    //this.PONumber
+     const file = event.target.files[0];
+     if (file) {
+       lot.attachment = file.name;
+       console.log('Uploading file for lot', lot, file);
+     }
+   }
+
 
   toggleChildRow(child: any) {
    child.expanded = !child.expanded;

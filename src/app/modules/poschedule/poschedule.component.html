@@ -141,7 +141,7 @@
                <label for="file-upload-{{lot.lotNumber}}">
                  <i class="bi bi-paperclip" style="font-size: 1.5rem; cursor: pointer;"></i>
                </label>
-               <input type="file" id="file-upload-{{lot.lotNumber}}" (change)="uploadAttachment($event, lot)" style="display: none;">
+               <input type="button" id="file-upload-{{lot.lotNumber}}" (click)="uploadAttachment($event, lot, child)" style="display: none;">
              </td>
        
              <td style="border: 1px solid #ddd; text-align: center;">
