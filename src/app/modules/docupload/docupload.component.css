@@ -1,7 +1,7 @@
 
 .setheight {
     /* min-height: 70dvh; */
-    margin-top: 25px;
+    margin-top: 5px;
 
 }
 
@@ -23,10 +23,30 @@
 }
 
 .table {
-    width: 90% !important;
-    margin-top: 15px;
+    width: 120% !important;
+    max-height: 200px;
+    overflow-y: auto;
+    /* margin-top: 15px; */
+    margin-bottom: 0px;
     font-family: Helvetica, Arial !important;
+    
 }
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    max-height: 135px;
+    overflow-y: auto;
+    overflow-x: auto;
+    margin-right: 59px;
+    margin-left: 59px;
+    padding-right: -32px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-bottom: 2px solid whitesmoke;
+}
+
 
 
 
@@ -134,6 +154,10 @@
 
 .table thead {
     text-align: center;
+    position: sticky; /* Keep the header fixed while scrolling */
+    top: 0;
+    background-color: #4d94c9;
+    z-index: 2;
 }
 
 .table thead tr th {
@@ -187,8 +211,8 @@ ngb-pagination ::ng-deep ul>li.active>a {
     width: 90%;
     margin: 35px auto;
     margin-top: 10px;
-    border: 1px solid #fff;
-    background: linear-gradient(135deg, #fff, #fff);
+    /* border: 1px solid #fff; */
+    /* background: linear-gradient(135deg, #fff, #fff); */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     font-family: Helvetica, Arial;
     text-align: center;

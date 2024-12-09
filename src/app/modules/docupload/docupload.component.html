@@ -7,11 +7,10 @@
                     (input)="onSearch()" />
             </div>
         </div>
-        
+
         <div class="text-end" style="width: 50%;">
             <br>
-            <!-- <button class="btnbackLeft" style="background-color: #0066b2; color: aliceblue; border-radius: 10%;"
-                (click)="goBack()">Back</button> -->
+
             <button type="button" class="btn-close" aria-label="Close"
                 onmouseover="this.style.transform='scale(1.1)'; this.style.transition='transform 0.2s ease-in-out'"
                 onmouseout="this.style.transform='scale(1)'; this.style.transition='transform 0.2s ease-in-out'"
@@ -20,18 +19,13 @@
         </div>
     </div>
 
-    <!-- <div class="searchbox" style="border: #0066b2;">
-        <input type="text" [(ngModel)]="searchQuery" class="form-control" placeholder="Search..."
-            (input)="onSearch()" />
-    </div> -->
 
-
-    <div class="d-flex justify-content-center">
+    <div class="table-container">
         <table class="table table-bordered table-striped " style="font-size: 13px !important;">
             <thead>
                 <tr>
                     <th>Sr No.</th>
-                    <th style="padding-left: 20px;">
+                    <th>
                         <div class="d-flex align-items-center" style="gap: 5px;">
 
                             <label for="selectHeaderCheckbox" class="select-header-label">Select</label>
@@ -83,6 +77,57 @@
         </ul>
     </nav>
 
+<!-- 
+    <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th><input type="checkbox" class="select-header-checkbox" [(ngModel)]="selectAllChecked" (change)="onSelectAll($event)" /></th>
+              <th>Document No</th>
+              <th>Document Type</th>
+              <th>File Name</th>
+              <th>PO Number</th>
+              <th>Item No</th>
+              <th>Lot Number</th>
+              <th>Upload Date</th>
+              <th>Updated By</th>
+              <th>Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let doc of Data">
+              <td><input type="checkbox" [(ngModel)]="doc.select" (change)="onCheckboxChange()" class="supplier-checkbox" /></td>
+              <td>{{ doc.documentNo }}</td>
+              <td>{{ doc.documentType }}</td>
+              <td>{{ doc.fileName }}</td>
+              <td>{{ doc.poNumber }}</td>
+              <td>{{ doc.itemNo }}</td>
+              <td>{{ doc.lotNumber }}</td>
+              <td>{{ doc.uploadDate }}</td>
+              <td>{{ doc.updatedBy }}</td>
+              <td>{{ doc.remarks }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="pagination-control">
+        <label for="rowsPerPage">Rows per page:</label>
+        <select id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="onPageChange(1)">
+          <option *ngFor="let option of [3, 5, 10, 20]" [value]="option">{{ option }}</option>
+        </select>
+        
+        <ngb-pagination 
+          [(page)]="currentPage" 
+          [pageSize]="itemsPerPage" 
+          [collectionSize]="filteredData.length" 
+          (pageChange)="onPageChange($event)">
+        </ngb-pagination>
+      </div>
+       -->
+
+
+
 
     <div class="upload-section">
 
@@ -128,8 +173,6 @@
             <!-- <button class="btn btn-danger" (click)="onClose()">Close</button> -->
         </div>
     </div>
-
-
 
 
 </div>
