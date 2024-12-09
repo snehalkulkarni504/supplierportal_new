@@ -30,33 +30,34 @@
                         <th>Supplier Code</th>
                         <th>Supplier Name</th>
                         <th>Country</th>
-                        <th>Country Id</th>
+                        <!-- <th>Country Id</th> -->
                         <th>Status</th>
                         <th>Created By</th>
-                        <th>Created Id</th>
+                        <!-- <th>Created Id</th> -->
                         <th>Created On</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr
-                        *ngFor="let supplier of supplierdata  | search: textsearch:filterMetadata | paginate: { itemsPerPage: 10, currentPage: page }">
-                        <td>{{supplier.supplierId}}</td>
+                        *ngFor="let supplier of supplierdata  | search: textsearch:filterMetadata | paginate: { itemsPerPage: 10, currentPage: page } let i=index">
+                        <td>{{(page - 1) * 10 + i + 1}}</td>
+                        <td hidden >{{supplier.supplierId}}</td>
                         <td>{{ supplier.supplierCode }}</td>
                         <td>{{ supplier.supplierName }}</td>
                         <td>{{ supplier.country }}</td>
-                        <td>{{ supplier.countryId}}</td>
+                        <td hidden>{{ supplier.countryId}}</td>
                         <td>{{ supplier.status }}</td>
                         <td>{{ supplier.createdBy }}</td>
-                        <td>{{ supplier.mst_user_id }}</td>
+                        <td hidden>{{ supplier.mst_user_id }}</td>
                         <td>{{ supplier.createdOn | date: 'dd-MMM-yyyy'}}</td>
                         <td>
-                            <i class="bi bi-trash-fill" type="button"
-                                style="cursor: pointer; color: #0056b3; font-size: 1.0rem;"
-                                (click)="openDeleteConfirmation(supplier.supplierId)"></i>
-                            <i class="bi bi-pencil-fill" type="button"
-                                style="padding-left: 20px;cursor: pointer; color: #0056b3; font-size: 1.0rem;"
+                            <i class="fas fa-edit" type="button"
+                            style="cursor: pointer; color: #ffc107; font-size: 1.2rem;"
                                 (click)="toggleAddSupplierPopup(supplier)"></i>
+                            <i class="fas fa-trash" type="button"
+                            style="padding-left: 20px;cursor: pointer; color: #dc3545; font-size: 1.2rem;"
+                                (click)="openDeleteConfirmation(supplier.supplierId)"></i>
                         </td>
                     </tr>
                 </tbody>
@@ -99,7 +100,7 @@
                                         style="color: red;">*</span></label>
                                 <input class="form-control" type="text" [(ngModel)]="supplierCode"
                                     value="{{ supplierCode }}" formControlName="supplierCode"
-                                    placeholder="Enter Supplier Code" name="supplierCode">
+                                    placeholder="Enter Supplier Code" name="supplierCode"[ngClass]="{'required-field': isSubmitted && !supplierCode!}">
                             </div>
 
                             <!-- Supplier Name -->
@@ -108,34 +109,26 @@
                                         style="color: red;">*</span></label>
                                 <input class="form-control" type="text" [(ngModel)]="supplierName"
                                     value="{{ supplierName }}" formControlName="supplierName"
-                                    placeholder="Enter Supplier Name" name="supplierName">
+                                    placeholder="Enter Supplier Name" name="supplierName"[ngClass]="{'required-field': isSubmitted && !supplierName}">
                             </div>
                             <div class="col-md-12" style="height: 20px;"></div>
 
                             <div class="col-md-6">
                                 <label for="countryName" class="default-lbl">Country</label>
-                                <ng-select placeholder="Please select" [(ngModel)]='country' formControlName="country">
+                                <ng-select placeholder="Please select" [(ngModel)]='country' formControlName="country" [ngClass]="{'required-field': isSubmitted && !country}">
                                     <ng-option value="" disabled selected>Select a country</ng-option>
                                     <ng-option *ngFor="let option of countries "
                                         [value]="option.countryId">{{option.countryName}}</ng-option>
                                 </ng-select>
                             </div>
-                            <div class="col-md-6">
-                                <label for="CountryId" class="default-lbl"> CountryId <span
-                                        style="color: red;">*</span></label>
-                                <input class="form-control" type="number" [(ngModel)]='CountryId' value="{{CountryId}}"
-                                    formControlName="countryId" placeholder="Enter the countryId" name="CountryId"
-                                    [ngClass]="{'required-field': isSubmitted && (!CountryId)}">
-                            </div>
-                            <div class="col-md-12" style="height: 20px;"></div>
+
                             <div class="col-md-6">
                                 <label>Status</label>
                                 <div>
-                                    <input class="form-check-input" style="position: absolute;" type="checkbox" value=""
+                                    <input class="form-check-input" style="margin: 5px;" type="checkbox" value=""
                                         id="flexCheckDefault" [(ngModel)]="isActive" (change)="IsCheckedBox()"
                                         [ngModelOptions]="{standalone: true}">
-                                    <label class="form-check-label" style="position: absolute;left: 40px;"
-                                        for="flexCheckDefault">
+                                    <label class="form-check-label" style="padding-top: 0.5%;" for="flexCheckDefault">
                                         {{Active}}
                                     </label>
                                 </div>
@@ -153,4 +146,3 @@
             </div>
         </div>
     </div>
- 

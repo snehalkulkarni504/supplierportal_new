@@ -38,17 +38,20 @@ export class UsermasterComponent {
   UserMasterForm!: FormGroup;
   AddUserMasterForm!: FormGroup;
 
-  UserId:any = 1;
+  UserId:any;
+  user:any;
   userName: any;
   fullName: any;
   emailId: any;
   roleId: any;
+  supplierId: any;
   MST_Role_Id: any;
   IsActive: boolean = false;
   Active = "Active";
   display = "none";
 
   roleOptions: any = [];
+  supplierOptions: any=[];
   filteredRoles: any // = this.roles;
   userlist:any
   currentPage = 1;
@@ -65,6 +68,7 @@ export class UsermasterComponent {
   isAddRolePopupVisible: boolean = false;
 
   ngOnInit() {
+    this.user  = localStorage.getItem("mst_user_id");
 
     this.UserMasterForm = new FormGroup({
       textsearch: new FormControl(),
@@ -75,11 +79,13 @@ export class UsermasterComponent {
       emailId: new FormControl(),
       roleId: new FormControl(),
       IsActive: new FormControl(),
+      supplierId:new FormControl(),
       
     });
 
     this.getuserdetailsinfo();
     this.getrolesdetails();
+    this.getSupplierdata();
   }
   async getrolesdetails() {
     debugger;
@@ -87,6 +93,14 @@ export class UsermasterComponent {
     const userdata = await this.service.getroles().toPromise();
     this.roleOptions = userdata;
   }
+
+  async getSupplierdata() {
+    debugger;
+    this.supplierOptions= [];
+    const SupllierData = await this.service.getSupplier().toPromise();
+    this.supplierOptions = SupllierData;
+  }
+
 
   async getuserdetailsinfo() {
     debugger;
@@ -201,6 +215,8 @@ debugger;
   toggleAddRolePopup(role?: any) {
     debugger;
     if (role && role.id !== undefined) {
+      debugger;
+      
       this.roleToEdit = role;
       this.edituserindex = role.id;
       this.isEditing = true;
@@ -210,6 +226,7 @@ debugger;
       this.emailId = role.emailId;
       this.roleId = role.msT_Role_Id;
       this.IsActive = role.status;
+      this.supplierId= role.supplierId;
 
       if(role.status == "Active"){
         this.IsActive = true
@@ -225,6 +242,7 @@ debugger;
       this.fullName = "";
       this.emailId = "";
       this.roleId = "";
+      this.supplierId ="";
       this.IsActive = true;
 
       this.isEditing = false;
@@ -268,12 +286,15 @@ debugger;
       // Prepare data for updating
       const updateData = {
         UserId: this.edituserindex,
+
         userName: this.userName,
         roleId: this.roleId,
         isActive: this.IsActive,
         fullName: this.fullName,
         emailId: this.emailId,
-        createdBy: this.UserId
+        ModifiedBy: this.user,
+        supplierId:this.supplierId
+
       };
 
       this.updateuserdetailsinfo(updateData);
@@ -286,7 +307,8 @@ debugger;
         isActive: this.IsActive,
         fullName: this.fullName,
         emailId: this.emailId,
-        createdBy: this.UserId
+        createdBy: this.user,
+        supplierId:this.supplierId
       };
       if (this.isDuplicate(this.userName)) {
         this.toastr.warning('Username already exists.');

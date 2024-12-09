@@ -17,7 +17,7 @@
         </div>
       </div>
       <div style="width: 50%;" class="text-end">
-        <button type="button" class="btn btn-secondary" id="add-btn" (click)="toggleAddRolePopup('e')">Add User</button>
+        <button type="button" class="btn btn-secondary" id="add-btn" (click)="toggleAddRolePopup()">Add User</button>
       </div>
     </div>
 
@@ -30,6 +30,7 @@
             <th>Full Name</th>
             <th>Email Id</th>
             <th>Role</th>
+            <th>Supplier</th>
             <th>Status</th>
             <th>Created By</th> <!-- New column -->
             <th>Created Date</th> <!-- New column -->
@@ -45,25 +46,26 @@
             <td>{{ role.fullname }}</td>
             <td>{{ role.emailId }}</td>
             <td>{{ role.role }}</td>
+            <td>{{ role.supplierName }}</td>
             <td>{{ role.status }}</td>
             <td>{{ role.createdBy }}</td> <!-- Created By Data -->
             <td>{{ role.created_date | date: 'dd-MMM-yyyy' }}</td> <!-- Created Date Data -->
-            <td>
+            <!-- <td>
               <i class="bi bi-trash-fill" type="button" style="cursor: pointer; color: #0056b3; font-size: 1.0rem;" (click)="openDeleteConfirmation(role.id)"></i>
               <i class="bi bi-pencil-fill" type="button" style="padding-left: 20px;cursor: pointer; color: #0056b3; font-size: 1.0rem;" (click)="toggleAddRolePopup(role)"></i>
-            </td>
-            <!-- <td> -->
-              <!-- <i class="bi bi-trash" type="button" style="cursor: pointer; color: #dc3545; font-size: 1.2rem;"
-                (click)="openDeleteConfirmation(role.id)" ></i>
-              <i class="bi bi-editt" type="button" style="padding-left: 20px;cursor: pointer; color: #ffc107; font-size: 1.2rem;"
-                (click)="toggleAddRolePopup(role)"></i>
-            </td>
+            </td> -->
             <td>
+              <i class="fas fa-edit" type="button" style="cursor: pointer; color: #ffc107; font-size: 1.2rem;"
+                (click)="toggleAddRolePopup(role)"></i>
+               <i class="fas fa-trash" type="button" style="padding-left: 20px;cursor: pointer; color: #dc3545; font-size: 1.2rem;"
+                (click)="openDeleteConfirmation(role.id)" ></i> 
+            </td>
+             <!-- <td>
               <svg (click)="openDeleteConfirmation(role.id)" xmlns="http://www.w3.org/2000/svg"  width="20" height="20" fill="#dc3545" class="bi bi-trash" viewBox="0 0 16 16">
 
               </svg>
                  <input type="button" name="delete" value="delete" (click)="openDeleteConfirmation(role.id)"> 
-              </td> --> 
+              </td>  -->
           </tr>
         </tbody>
       </table>
@@ -129,11 +131,20 @@
               </div>
               <div class="col-md-12" style="height: 20px;"></div>
               <div class="col-md-6">
+                <label for="dropdown5" class="default-lbl">Supplier</label>
+                <ng-select [ngModelOptions]="{standalone: true}" [searchable]="true" placeholder="Please select"
+                  [(ngModel)]='supplierId' formControlName="supplierId" >
+                  <ng-option value="" disabled selected>Select a supplier</ng-option>
+                  <ng-option *ngFor="let option of supplierOptions"
+                    [value]="option.supplierId">{{option.supplierName}}</ng-option>
+                </ng-select>
+              </div>
+              <div class="col-md-6">
                 <label>Status</label>
                 <div>
-                  <input class="form-check-input" style="position: absolute;" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="IsActive" 
+                  <input class="form-check-input" style="margin: 5px;" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="IsActive" 
                     (change)="IsCheckedBox()" [ngModelOptions]="{standalone: true}">
-                  <label class="form-check-label" style="position: absolute;left: 40px;" for="flexCheckDefault">
+                  <label class="form-check-label" style="padding-top: 0.5%;" for="flexCheckDefault">
                     {{Active}}
                   </label>
                 </div>

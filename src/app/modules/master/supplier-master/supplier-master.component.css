@@ -232,7 +232,10 @@
     }
     
   }
-  
+  .required-field {
+    border: 2px solid red;
+    background-color: rgb(244, 230, 230);
+  }
   
   .modal-close-icn {
     width: 30px;
