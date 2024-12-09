@@ -1,12 +1,9 @@
 /* Add responsiveness */
 
 .table {
-  width: 120% !important;
-  max-height: 200px;
-  overflow-y: auto;
-  /* margin-top: 15px; */
-  margin-bottom: 0px;
-  font-family: Helvetica, Arial !important;
+    width: 100%;
+    table-layout: fixed;
+    font-size: 13px !important;
   }
 
   .lot-details-th{
