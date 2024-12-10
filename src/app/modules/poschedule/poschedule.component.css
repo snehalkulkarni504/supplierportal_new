@@ -10,6 +10,8 @@
     border: 1px solid #ddd; 
     background-color: #4d94c9; 
     color: white;
+    word-wrap: break-word; 
+    word-break: break-word;
   }
 
 
