@@ -1,14 +1,15 @@
 
 .MasterHeader {
-    width: 80%;
+    width: 100%;
     display: inline-flex;
-    height: 80px;
-    margin-left: 10%;
-    margin-right: 10%;
+    height: 60px;
+    margin-left: 0%;
+    margin-right: 0%;
     font-family: Helvetica, Arial;
-    border-bottom: 1px solid #4d94c9;
-    margin-bottom: 30px;
-    margin-top: 40px;
+    /* border-bottom: 1px solid #4d94c9; */
+    /* border-width: 20px; */
+    border-style: width 50%;;
+   
   
   }
   .MasterHeaderlable {
@@ -17,7 +18,8 @@
     margin-left: 10%;
     margin-right: 10%;
     font-family: Helvetica, Arial;
-  
+    border-top: 1px solid #4d94c9;
+    padding-top: 10px;
     /* box-shadow: 0 6px 2px -6px #da291c; */
   } 
   
@@ -29,7 +31,7 @@
       margin: 5px 0;                  /* Margin around the button */
       padding: 5px 10px;              /* Padding inside the button */
       color: #fff;                    /* Text color */
-      background-color: #4d94c9;      /* Default background color */
+      background-color:#00509e;      /* Default background color */
       border: none;                   /* Remove border */
       border-radius: 5px;             /* Optional: Rounded corners */
       cursor: pointer;                /* Pointer cursor on hover */
@@ -42,12 +44,12 @@
     
     
     /* Add hover effect */
-    #add-btn:hover {
-      background-color: #0056b3;      /* Darker shade of blue on hover */
-    }
+    /* #add-btn:hover {
+      background-color: #0056b3;       */
+    
     
     #back-btn {
-      margin-right: 150px; /* Adjust the margins to position it slightly left */
+      /* margin-right: 150px; */
       padding: 7px 10px;
       color: #fff;
       background-color: #4d94c9;
@@ -210,6 +212,7 @@
     .pagination-controls {
       flex-direction: column;
       align-items: center;
+      
     }
   
     .pagination-controls .pagination-btn {

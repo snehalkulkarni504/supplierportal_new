@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -21,9 +21,13 @@ interface MenuItem {
   standalone: true,
   imports: [CommonModule,ReactiveFormsModule,FormsModule,NgbPaginationModule,NgxPaginationModule,SearchPipe,NgSelectModule],
   templateUrl: './role-master.component.html',
-  styleUrl: './role-master.component.css'
+  styleUrl: './role-master.component.css',
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class RoleMasterComponent implements OnInit {
+isVisible: any;
 
   constructor(public service: AdminService, private location: Location, private Toastr : ToastrService) {
     this.config = {
@@ -292,16 +296,12 @@ export class RoleMasterComponent implements OnInit {
     setTimeout(() => {
       for (let i = 0; i < item.menuId.split(',').length; i++) {
         for (let j = 0; j < this.MenuSpecific.length; j++) {
-          // console.log('his.MenuSpecific[j].children.length : ', this.MenuSpecific[j].children.length);
-          // console.log('item.MenuId.split(', ')[i] : ', item.MenuId.split(',')[i]);
-          // console.log('MenuSpecific[j].value : ', this.MenuSpecific[j].value);
           if (item.menuId.split(',')[i] == this.MenuSpecific[j].value) {
             this.MenuSpecific[j].checked = true
           }
-          for (let k = 0; k < this.MenuSpecific[j].children.length; k++) {
-            // console.log("this.MenuSpecific[j].children[k].value : ", this.MenuSpecific[j].children[k].value);
-            if (item.menuId.split(',')[i] == this.MenuSpecific[j].children[k].value) {
-              this.MenuSpecific[j].children[k].checked = true
+          for (let k = 0; k < this.MenuSpecific[j].items.length; k++) {
+            if (item.menuId.split(',')[i] == this.MenuSpecific[j].items[k].value) {
+              this.MenuSpecific[j].items[k].checked = true
             }
           }
 
@@ -422,8 +422,8 @@ export class RoleMasterComponent implements OnInit {
   }
 
 
-  backToPreviousPage() {
-    this.location.back();
+  goBack(): void {
+    window.history.back();
   }
 
   getMenuId() {

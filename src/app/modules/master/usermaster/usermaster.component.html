@@ -1,12 +1,17 @@
 <div class="Allpagescontent">
   <form [formGroup]="UserMasterForm">
     <div class="MasterHeader">
-      <div class="" style="width: 50%; ">
-        <h2 style="line-height: 80px;">User Master</h2>
-      </div>
-      <div class="text-end" style="width: 50%;">
-        <button class="back-btn" (click)="goBack()">Back</button>
-      </div>
+      <div class="text-center" style="width: 10%; float: left; line-height: 60px;">
+        <button (click)="goBack()" style="background: none; border: none; padding: 0;margin-right: 20px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="27px"viewBox="0 0 512 512">
+            <path fill="#00509e" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8 .4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z"/>
+          </svg>
+        </button>
+    </div>
+    <div class="text-start"  style="width: 90%; float: left;  ">
+        <h2 style=" font-weight: bold; color: #278bd8;line-height: 60px;font-size: 28px;">
+            User Master</h2>
+    </div>
     </div>
     <div class="MasterHeaderlable">
       <div class="searchDiv">
@@ -17,7 +22,10 @@
         </div>
       </div>
       <div style="width: 50%;" class="text-end">
-        <button type="button" class="btn btn-secondary" id="add-btn" (click)="toggleAddRolePopup()">Add User</button>
+        <button type="button" class="btn btn-secondary" id="add-btn" (click)="toggleAddRolePopup()"><i title="Add User"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg></i></button>
       </div>
     </div>
 

@@ -5,6 +5,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrService } from 'ngx-toastr';
+import { Supplier } from '../../../models/supplier';
 import { SearchPipe } from '../../../SearchPipe/search.pipe';
 import { AdminService } from '../../../Services/admin.service';
 
@@ -282,6 +283,7 @@ export class SupplierMasterComponent {
           ModifiedBy:this.UserId,
           // createdOn: this.createdOn
         };
+        
         this.updatesupplierdetailsinfo(updatesupplierData);
         console.log('Updated supplier', updatesupplierData);
         
