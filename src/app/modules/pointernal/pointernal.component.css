@@ -365,3 +365,24 @@ h1 {margin:0px}
     background-color:#4d94c9 !important;
     color: #000 !important;
     }
+
+
+    
+.clickable-icon {
+  cursor: pointer;
+  font-size: 24px;
+  color: #00509e;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+clickable-icon-reset{
+  cursor: pointer;
+  font-size: 24px;
+  /* color: #00509e; */
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.clickable-icon:active {
+  transform: scale(1.2); /* Enlarge on click */
+  color: #003f73; /* Optional color change on click */
+}
