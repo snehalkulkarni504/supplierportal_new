@@ -6,9 +6,9 @@ import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
 
-    { path: 'login', component: LoginComponent },
+    { path: '', component: LoginComponent },
     {
-        path: '',
+        path: 'module',
         loadChildren: () => import('./main/main.module').then(m => m.MainModule),
     },
     

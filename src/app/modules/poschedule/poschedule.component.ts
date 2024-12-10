@@ -66,6 +66,13 @@ export class PoscheduleComponent implements OnInit {
    console.log("");
    this.PONumber = Number(this.route.snapshot.paramMap.get('PONumber') || '0');
    this.UserID=Number(localStorage.getItem("mst_user_id"));
+   this.postatus= this.route.snapshot.paramMap.get('postatus') || '';
+   this.suppliername= this.route.snapshot.paramMap.get('suppliername') || ''
+
+   console.log("this.suppliername",this.suppliername);
+   console.log("this.UserID",this.UserID);
+   console.log("this.postatus",this.postatus);
+   console.log("this.PONumber",this.PONumber);
    this.loadParentTableData(this.PONumber );
  }
   // Parent Table Data (PO Data)

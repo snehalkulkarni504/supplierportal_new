@@ -66,8 +66,9 @@ export class SidenavComponent {
 
   async GetMenu(){
     this.navData = [];
+    // const roleid=localStorage.getItem("roleId");
     const roleid=localStorage.getItem("roleId");
-    const userdata = await this.adminService.getMenu(3).toPromise();
+    const userdata = await this.adminService.getMenu(roleid).toPromise();
     this.navData = userdata;
 
   }

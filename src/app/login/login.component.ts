@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("roleId", data[0].roleId);
       localStorage.setItem("supplierId",data[0].supplierId)
       console.log('localStorage',localStorage);
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/module']);
     }
     else {
       this.LoginForm.setErrors({ invalidCredentials: true });

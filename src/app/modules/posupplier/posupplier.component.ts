@@ -57,7 +57,7 @@ export class POsupplierComponent implements OnInit {
 
   openDeliverySchedule(PONumber: string,postatus: string,suppliername: any) {
     // Navigate to the 'details' component with the specified ID
-    this.route.navigate(['/poschedule', PONumber,postatus,suppliername]);
+    this.route.navigate(['/module/poschedule', PONumber,postatus,suppliername]);
   }
   
 
