@@ -109,7 +109,7 @@
             <td>{{value.status}}</td>
             <!-- <td>{{value.supplierremark}}</td>
                     <td>{{value.tpsremark}}</td> -->
-            <td><i (click)="openDeliverySchedule(value.poNumber)" class="clickable"
+            <td><i (click)="openDeliverySchedule(value.poNumber,value.status,SupplierName)" class="clickable"
                 [ngClass]="value.status === 'Open' || value.status === 'WIP' ?'fas fa-edit': 'fas fa-file-alt'"
                 style="cursor: pointer; font-size: 1.2rem;" [ngStyle]="{
                         color: value.status === 'Open' ? '#ffc107' : 

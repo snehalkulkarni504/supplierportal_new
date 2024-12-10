@@ -1,5 +1,5 @@
 export interface Podetails {
-    poNumber: number,
+    poNumber: string,
     supplierCode:string,
     supplierName:string,
     poDate :string,

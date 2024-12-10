@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { Supplier } from '../../models/supplier';
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
@@ -20,8 +21,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 export class POsupplierComponent implements OnInit {
   // @ViewChild('FromPODateCalendar') private FromPODateCalendar: any;
   // @ViewChild('ToPODateCalendar') private ToPODateCalendar: any;
-  SupplierName: string = "Akcome Metals Technology (Nantong) LTD";
-  SupplierCode: string = "SUP001";
+  SupplierId: number|null = Number(localStorage.getItem("supplierId"));
+  SupplierName: string |null = "";
+  SupplierCode : string |null= "";
   myPlaceHolder='----Select----';
   PONumbers: ponos[] = [];
   SelectedPONumber :any;
@@ -40,36 +42,59 @@ export class POsupplierComponent implements OnInit {
   page: number = 1;
   pageSize: number = 5;
   totalPages:number=0;
+  Suppliers: Supplier[] = [];
   
   constructor(private modulesService: SupplierService, private route: Router) { }
 
 
 
-  ngOnInit():void {
+  async ngOnInit():Promise<void> {
     this.SupplierScreen = new FormGroup({
     });
-    this.FillPODropdown();
-    this.dropdownSettings = {
-      singleSelection: false,
-      textField: 'poNumber',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
-    this.FillPOTable();
-    this.updatePagination();
+    await this.GetSuppliers();
+    
   }
 
-  openDeliverySchedule(PONumber: number) {
+  openDeliverySchedule(PONumber: string,postatus: string,suppliername: string) {
     // Navigate to the 'details' component with the specified ID
-    this.route.navigate(['/poschedule', PONumber]);
+    this.route.navigate(['/poschedule', PONumber,postatus,suppliername]);
   }
   
+
+  GetSuppliers() {
+    this.Suppliers = [];
+  
+    // this.tableData.forEach((data) => {
+    //   if (!this.departmentHeads.includes(data.DepartmentHead)) {
+        // this.PONumbers.push("5000051930");
+        // this.PONumbers.push("5000051910");
+        // this.PONumbers.push("5000051940");
+      // }
+      this.modulesService.getsuppliers().subscribe({
+        next: (response:any) => {
+          this.Suppliers = response;
+          console.log("FillSupplierDropdown", this.SupplierId);
+          const loginsupplier=this.Suppliers.find(person => person.supplierid==this.SupplierId);
+          this.SupplierCode=loginsupplier?loginsupplier.suppliercode:null;
+          this.SupplierName=loginsupplier?loginsupplier.suppliername:null;
+          this.FillPODropdown();
+          this.FillPOTable();
+          this.updatePagination();
+        },
+        error: (e:any) => {
+          //this.spinnerService.hide();
+          console.error("Error fetching data from API:", e);
+        },
+        complete: () => {
+          // Additional logic after API call completion
+          //this.spinnerService.hide();
+        },
+      });
+  }
+
+
   async FillPODropdown() {
     this.PONumbers = [];
- 
-    debugger;
     // this.tableData.forEach((data) => {
     //   if (!this.departmentHeads.includes(data.DepartmentHead)) {
         // this.PONumbers.push("5000051930");
@@ -105,15 +130,15 @@ async FillPOTable(){
   // this.addpo(5000051980,"2014-09-28","Non Eng. PO","New",'','Update the delivery Schedule');
   // this.addpo(5000051990,"2014-10-03","Non Eng. PO","New",'','Update the delivery Schedule');
 
-  await this.modulesService.getPOHeaders(this.SupplierCode).subscribe({
-    next: (response:any) => {
+  this.modulesService.getPOHeaders(this.SupplierCode).subscribe({
+    next: (response: any) => {
       this.POTableData = response;
       this.filteredTableData = [...this.POTableData];
       console.log("API response", this.POTableData);
       // this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
-       this.updatePagination();
+      this.updatePagination();
     },
-    error: (e:any) => {
+    error: (e: any) => {
       //this.spinnerService.hide();
       console.error("Error fetching data from API:", e);
     },

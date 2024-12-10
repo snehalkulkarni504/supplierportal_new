@@ -59,7 +59,7 @@ export class PoscheduleComponent implements OnInit {
   ngOnInit(): void {
    console.log("");
    this.PONumber = Number(this.route.snapshot.paramMap.get('PONumber') || '0');
-   this.UserID=1;
+   this.UserID=Number(localStorage.getItem("mst_user_id"));
    this.loadParentTableData(this.PONumber );
  }
   // Parent Table Data (PO Data)

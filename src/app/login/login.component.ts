@@ -106,7 +106,8 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("username", data[0].username);
       localStorage.setItem("mst_user_id", data[0].mst_user_id);
       localStorage.setItem("roleId", data[0].roleId);
-
+      localStorage.setItem("supplierId",data[0].supplierId)
+      console.log('localStorage',localStorage);
       this.router.navigate(['/dashboard']);
     }
     else {
