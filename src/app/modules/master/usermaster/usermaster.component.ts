@@ -7,6 +7,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
  
 
 @Component({
@@ -161,14 +162,37 @@ export class UsermasterComponent {
   openDeleteConfirmation(id: number): void {
     
 debugger;
-    if (confirm("Are you sure you want to mark this role as Inactive?")) {
-      if (id !== null) {
-        this.deleteuser(id);
+    // if (confirm("Are you sure you want to mark this role as Inactive?")) {
+    //   if (id !== null) {
+    //     this.deleteuser(id);
+    //   }
+
+    //   this.getuserdetailsinfo();
+
+    // }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `You want to mark this role as Inactive?`,
+      // icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Inactive it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true,
+      confirmButtonColor: "#d33",
+      width: '400px',  // Set the width of the modal
+      padding: '20px',  // Adjust padding to make the modal smaller
+    }).then((result:any) => {
+      if (result.isConfirmed) {
+        if (id !== null) {
+          this.deleteuser(id);
+        }
+  
+        this.getuserdetailsinfo();
+      } else {
+        // Handle cancellation (optional)
+        // Swal.fire('Cancelled', 'The lot was not deleted.', 'info');
       }
-
-      this.getuserdetailsinfo();
-
-    }
+    });
 
   }
 
