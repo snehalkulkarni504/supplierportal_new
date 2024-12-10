@@ -141,7 +141,7 @@
                     <label for="fileUpload" class="file-label">
                         <i class="fas fa-upload"></i> Choose a File
                     </label>
-                    <input type="file" id="fileUpload" class="file-hidden" (change)="onFileChange($event)">
+                    <input type="file" id="fileUpload" class="file-hidden" [disabled]="disable" (change)="onFileChange($event)">
                     <p *ngIf="selectedFile" class="file-name">Selected: {{ selectedFile.name }}</p>
                 </div>
             </div>
@@ -168,8 +168,8 @@
 
         <!-- Action Buttons Section -->
         <div class="button-group">
-            <button class="btn btn-primary" (click)="onUpload()">Upload</button>
-            <button class="btn btn-secondary" (click)="onDownload()">Download</button>
+            <button class="btn btn-primary" [disabled]="disable" (click)="onUpload()">Upload</button>
+            <button class="btn btn-secondary"  (click)="onDownload()">Download</button>
             <!-- <button class="btn btn-danger" (click)="onClose()">Close</button> -->
         </div>
     </div>

@@ -19,6 +19,8 @@ export class DocuploadComponent {
   @Input() ItemNo:any;
   @Input() PoNumber: any;
   @Input() LotNumber:any;
+  @Input() postatus:any;
+  @Input() suppliername:any;
   @Output() saveTrigger: EventEmitter<any> = new EventEmitter();
   
   doc_deatils = [
@@ -39,8 +41,12 @@ export class DocuploadComponent {
   documenttype: string = '';
   remarks: string = '';
   selectedFile: File | null = null;
+  disable:boolean=false;
 
   ngOnInit(): void {
+    if(this.suppliername=="" || this.postatus){
+      this.disable=true;
+   }
     this.fetchdocdetails();
     // this.formatDates();
     //this.filteredData = [...this.doc_deatils];

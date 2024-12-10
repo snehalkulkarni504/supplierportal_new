@@ -51,12 +51,18 @@ export class PoscheduleComponent implements OnInit {
   deliveryScheduleName = 'Weekly Delivery Schedule';
   @Input() UserID: any;
   @Input() PONumber: any;
+  @Input() postatus:any;
+  @Input() suppliername:any;
+  Hide : boolean=false;
   //constructor(private poService: PoServicesService,private toastr: ToastrService){}
   //PONumber! :number;
   constructor(private poService: SupplierService,private toastr: ToastrService,
    private route: ActivatedRoute, private modalService: NgbModal){}
 
   ngOnInit(): void {
+    if(this.suppliername=="" || this.postatus){
+      this.Hide=true;
+   }
    console.log("");
    this.PONumber = Number(this.route.snapshot.paramMap.get('PONumber') || '0');
    this.UserID=Number(localStorage.getItem("mst_user_id"));
@@ -397,6 +403,8 @@ export class PoscheduleComponent implements OnInit {
     modalRef.componentInstance.ItemNo= child.itemno;
     modalRef.componentInstance.LotNumber= lot.lotnumber;
     modalRef.componentInstance.PoNumber = this.PONumber;
+    modalRef.componentInstance.postatus = this.postatus;
+    modalRef.componentInstance.suppliername = this.suppliername;
     modalRef.componentInstance.saveTrigger.subscribe((x: any) => {
 
       if (x != undefined || x != '') {

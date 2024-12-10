@@ -52,7 +52,7 @@ export class pointernalComponent {
     this.FillPOTable();
   }
 
-  openDeliverySchedule(PONumber: number) {
+  openDeliverySchedule(PONumber: any) {
     // Navigate to the 'details' component with the specified ID
     this.route.navigate(['/poschedule', PONumber]);
   }
