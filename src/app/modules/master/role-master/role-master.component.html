@@ -1,12 +1,18 @@
 <div class="AllpagesContent">
   <form [formGroup]="rollMasterForm">
     <div class="MasterHeader">
-      <div class="MasterHeaderH2" style="width: 50%; ">
-        <h2 style="line-height: 80px !important;">Role Master</h2>
+      <div class="text-center" style="width: 10%; float: left; line-height: 60px;">
+        <button (click)="goBack()" style="background: none; border: none; padding: 0;margin-right: 20px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="27px"viewBox="0 0 512 512">
+            <path fill="#00509e" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8 .4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z"/>
+          </svg>
+        </button>
       </div>
-      <div class="text-end" style="width: 50%;">
-        <button class="back-btn" (click)="backToPreviousPage()">Back</button>
-      </div>
+        <div class="text-start" style="width: 90%; float: left;">
+          <h2 style=" font-weight: bold; color: #278bd8;line-height: 60px;font-size: 28px;">
+              Role Master</h2>
+        </div>
+      
     </div>
     <div class="MasterHeaderlable">
       <div class="searchDiv">
@@ -18,8 +24,13 @@
       </div>
       <div style="width: 50%;" class="text-end">
         <button type="button" class="btn btn-sm default-btn" id='add-btn' data-toggle="tooltip" data-placement="top"
-          title="Add Role" (click)="editModal=false" (click)="openModal()">Add
-          Role</button>
+          title="Add Role" (click)="editModal=false" (click)="openModal()"><i title="Add Role"><svg
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-plus">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg></i></button>
       </div>
     </div>
 
@@ -53,8 +64,18 @@
             <td>{{data.createdOn | date:'dd-MMM-yyyy'}}</td>
             <!-- <i class="bi bi-trash-fill" style="color: #da291c;" ngbTooltip="Delete"
                               (click)="deleteRow(data.RoleId)"></i> -->
-            <td> <i class="bi bi-pencil-fill" ngbTooltip="Update" style=" color: #4d94c9;"
-                (click)="editModalMethod(i,data)"></i>
+            <td> 
+              <!-- <i class="fas- fa-edit" ngbTooltip="Update" style=" color: #4d94c9;"
+                (click)="editModalMethod(i,data)"></i> -->
+                <!-- <i class="fas fa-edit" ngbTooltip="Update"
+                style="cursor: pointer; color: #ffc107; font-size: 1.2rem;"
+                (click)="editModalMethod(i,data)"></i> -->
+
+              <svg xmlns="http://www.w3.org/2000/svg" class="fas fa-edit"  (click)="editModalMethod(i,data)"  width="1.4rem" height="1.4rem"
+                viewBox="0 0 576 512"> 
+                <path   fill="#ffc107"
+                  d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+              </svg>
             </td>
           </tr>
         </tbody>
@@ -98,14 +119,13 @@
                 <!-- First Column -->
                 <div class="col-md-6">
                   <label for="exampleInput" class="default-lbl">Role</label>
-                  <input class="form-control form-control-sm" type="text" ngModel="{{roleName}}"   name="roleName" placeholder="Role"
-                    (blur)="roleOnBlur($event)">
+                  <input class="form-control form-control-sm" type="text" ngModel="{{roleName}}" name="roleName"
+                    placeholder="Role" (blur)="roleOnBlur($event)">
                   <div class="error-message" *ngIf="showError1"> Please enter valid name.</div>
                   <br>
                   <label for="exampleInput" class="default-lbl">Role Description</label>
                   <input class="form-control form-control-sm" type="text" ngModel="{{roleDescription}}"
-                   name="roleDescription" placeholder="Role Description"
-                    (blur)="descriOnBlur($event)">
+                    name="roleDescription" placeholder="Role Description" (blur)="descriOnBlur($event)">
                   <div class="error-message" *ngIf="showError2"> Please enter Role Description.</div>
                   <br>
                   <div class="form-check" style="margin-top: 5px;">
@@ -123,12 +143,12 @@
                     <div class="clt ">
                       <ul id="menus">
                         <li *ngFor="let menu of MenuSpecific" id="mainmenu_id" class="mainmenu_class">
-                          <input   type="checkbox" id="{{menu.value}}" name="{{menu.value}}" value="{{menu.value}}"
+                          <input type="checkbox" id="{{menu.value}}" name="{{menu.value}}" value="{{menu.value}}"
                             checked="{{menu.checked}}" (click)="SelectAllManus(menu,$event)">
                           <label for="{{menu.value}}" class="menulable"> {{menu.label}}</label>
                           <ul>
                             <li *ngFor="let submenu of menu.items" id="submenu_id" class="submenu_class">
-                              <input  type="checkbox" id="{{submenu.value}}" name="{{submenu.value}}"
+                              <input type="checkbox" id="{{submenu.value}}" name="{{submenu.value}}"
                                 value="{{submenu.value}}" checked="{{submenu.checked}}" (change)="getMenuId()">
                               <label for="{{submenu.value}}" class="menulable"> {{submenu.label}}</label>
                             </li>

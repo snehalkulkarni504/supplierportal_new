@@ -1,12 +1,18 @@
 <div class="Allpagescontent">
     <form [formGroup]="supplierMasterForm">
-        <div class="MasterHeader">
-            <div class="" style="width: 50%; ">
-                <h2 style="line-height: 80px;">Supplier Master</h2>
+        <div class="MasterHeader" style=" width: 100%;">
+            <div class="text-center" style="width: 10%; float: left; line-height: 60px;">
+                <button (click)="goBack()" style="background: none; border: none; padding: 0;margin-right: 20px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="27px"viewBox="0 0 512 512">
+                      <path fill="#00509e" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8 .4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z"/>
+                    </svg>
+                  </button>
             </div>
-            <div class="text-end" style="width: 50%;">
-                <button class="back-btn" (click)="goBack()">Back</button>
+            <div class="text-start"  style="width: 90%; float: left;  ">
+                <h2 style=" font-weight: bold; color: #278bd8;line-height: 60px;font-size: 28px;">
+                    Supplier Master</h2>
             </div>
+
         </div>
         <div class="MasterHeaderlable">
             <div class="searchDiv">
@@ -17,8 +23,13 @@
                 </div>
             </div>
             <div style="width: 50%;" class="text-end">
-                <button type="button" class="btn btn-secondary" id="add-btn" (click)="toggleAddSupplierPopup()">Add
-                    Supplier</button>
+                <button type="button" class="btn btn-secondary" id="add-btn" (click)="toggleAddSupplierPopup()">
+                    <i title="Add Supplier"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg></i></button>
             </div>
         </div>
 
@@ -30,33 +41,34 @@
                         <th>Supplier Code</th>
                         <th>Supplier Name</th>
                         <th>Country</th>
-                        <th>Country Id</th>
+                        <!-- <th>Country Id</th> -->
                         <th>Status</th>
                         <th>Created By</th>
-                        <th>Created Id</th>
+                        <!-- <th>Created Id</th> -->
                         <th>Created On</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr
-                        *ngFor="let supplier of supplierdata  | search: textsearch:filterMetadata | paginate: { itemsPerPage: 10, currentPage: page }">
-                        <td>{{supplier.supplierId}}</td>
+                        *ngFor="let supplier of supplierdata  | search: textsearch:filterMetadata | paginate: { itemsPerPage: 10, currentPage: page } let i=index">
+                        <td>{{(page - 1) * 10 + i + 1}}</td>
+                        <td hidden>{{supplier.supplierId}}</td>
                         <td>{{ supplier.supplierCode }}</td>
                         <td>{{ supplier.supplierName }}</td>
                         <td>{{ supplier.country }}</td>
-                        <td>{{ supplier.countryId}}</td>
+                        <td hidden>{{ supplier.countryId}}</td>
                         <td>{{ supplier.status }}</td>
                         <td>{{ supplier.createdBy }}</td>
-                        <td>{{ supplier.mst_user_id }}</td>
+                        <td hidden>{{ supplier.mst_user_id }}</td>
                         <td>{{ supplier.createdOn | date: 'dd-MMM-yyyy'}}</td>
                         <td>
-                            <i class="bi bi-trash-fill" type="button"
-                                style="cursor: pointer; color: #0056b3; font-size: 1.0rem;"
-                                (click)="openDeleteConfirmation(supplier.supplierId)"></i>
-                            <i class="bi bi-pencil-fill" type="button"
-                                style="padding-left: 20px;cursor: pointer; color: #0056b3; font-size: 1.0rem;"
+                            <i class="fas fa-edit" type="button"
+                                style="cursor: pointer; color: #ffc107; font-size: 1.2rem;"
                                 (click)="toggleAddSupplierPopup(supplier)"></i>
+                            <i class="fas fa-trash" type="button"
+                                style="padding-left: 20px;cursor: pointer; color: #dc3545; font-size: 1.2rem;"
+                                (click)="openDeleteConfirmation(supplier.supplierId)"></i>
                         </td>
                     </tr>
                 </tbody>
@@ -65,8 +77,6 @@
         <div class="d-flex justify-content-between p-2 pagination">
             <ngb-pagination [collectionSize]="filterMetadata.count" [(page)]="page" [pageSize]="pageSize"
                 [rotate]="true" [boundaryLinks]="true" [maxSize]="5" size="sm">
-                <!-- <ng-template ngbPaginationPrevious>Prev</ng-template>
-              <ng-template ngbPaginationNext>Next</ng-template> -->
             </ngb-pagination>
             <br>
         </div>
@@ -99,7 +109,8 @@
                                         style="color: red;">*</span></label>
                                 <input class="form-control" type="text" [(ngModel)]="supplierCode"
                                     value="{{ supplierCode }}" formControlName="supplierCode"
-                                    placeholder="Enter Supplier Code" name="supplierCode">
+                                    placeholder="Enter Supplier Code" name="supplierCode"
+                                    [ngClass]="{'required-field': isSubmitted && !supplierCode!}">
                             </div>
 
                             <!-- Supplier Name -->
@@ -108,34 +119,28 @@
                                         style="color: red;">*</span></label>
                                 <input class="form-control" type="text" [(ngModel)]="supplierName"
                                     value="{{ supplierName }}" formControlName="supplierName"
-                                    placeholder="Enter Supplier Name" name="supplierName">
+                                    placeholder="Enter Supplier Name" name="supplierName"
+                                    [ngClass]="{'required-field': isSubmitted && !supplierName}">
                             </div>
                             <div class="col-md-12" style="height: 20px;"></div>
 
                             <div class="col-md-6">
                                 <label for="countryName" class="default-lbl">Country</label>
-                                <ng-select placeholder="Please select" [(ngModel)]='country' formControlName="country">
+                                <ng-select placeholder="Please select" [(ngModel)]='country' formControlName="country"
+                                    [ngClass]="{'required-field': isSubmitted && !country}">
                                     <ng-option value="" disabled selected>Select a country</ng-option>
                                     <ng-option *ngFor="let option of countries "
                                         [value]="option.countryId">{{option.countryName}}</ng-option>
                                 </ng-select>
                             </div>
-                            <div class="col-md-6">
-                                <label for="CountryId" class="default-lbl"> CountryId <span
-                                        style="color: red;">*</span></label>
-                                <input class="form-control" type="number" [(ngModel)]='CountryId' value="{{CountryId}}"
-                                    formControlName="countryId" placeholder="Enter the countryId" name="CountryId"
-                                    [ngClass]="{'required-field': isSubmitted && (!CountryId)}">
-                            </div>
-                            <div class="col-md-12" style="height: 20px;"></div>
+
                             <div class="col-md-6">
                                 <label>Status</label>
                                 <div>
-                                    <input class="form-check-input" style="position: absolute;" type="checkbox" value=""
+                                    <input class="form-check-input" style="margin: 5px;" type="checkbox" value=""
                                         id="flexCheckDefault" [(ngModel)]="isActive" (change)="IsCheckedBox()"
                                         [ngModelOptions]="{standalone: true}">
-                                    <label class="form-check-label" style="position: absolute;left: 40px;"
-                                        for="flexCheckDefault">
+                                    <label class="form-check-label" style="padding-top: 0.5%;" for="flexCheckDefault">
                                         {{Active}}
                                     </label>
                                 </div>
@@ -153,4 +158,3 @@
             </div>
         </div>
     </div>
- 

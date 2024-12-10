@@ -1,12 +1,38 @@
 * {
     font-family: Helvetica, Arial !important;
 }
-
+/* 
 .table {
     width: 90% !important;
-    margin-top: 15px;
+    margin-bottom: 0px;
     font-family: Helvetica, Arial !important;
+} */
+
+.table {
+    width: 120% !important;
+    max-height: 200px;
+    overflow-y: auto;
+    /* margin-top: 15px; */
+    margin-bottom: 0px;
+    font-family: Helvetica, Arial !important;
+    
 }
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    max-height: 50dvh;
+    overflow-y: auto;
+    overflow-x: auto;
+    margin-right: 59px;
+    margin-left: 56px;
+    padding-right: -32px;
+    margin-bottom: 10px;
+    margin-top: 7px;
+    border-bottom: 2px solid whitesmoke;
+}
+
 
 .table td {
     text-align: center;
@@ -14,6 +40,10 @@
 
 .table thead {
     text-align: center;
+    position: sticky; /* Keep the header fixed while scrolling */
+    top: 0;
+    background-color: #4d94c9;
+    z-index: 2;
 }
 
 .table thead tr th {
@@ -51,7 +81,8 @@
 }
 
 .searchDiv {
-    width: 50%;
+    width: 70%;
+    margin-left: 58px;
 }
 
 
@@ -99,9 +130,6 @@
 }
 
 
-.setHeight {
-    min-height: 100dvh;
-}
 
 
 .MasterHeader {
@@ -118,7 +146,7 @@
 .MasterHeaderlable {
     width: 90%;
     display: inline-flex;
-    margin-left: 5%;
+    margin-left: 49px;
     font-family: Helvetica, Arial;
 
     /* box-shadow: 0 6px 2px -6px #da291c; */
@@ -127,7 +155,7 @@
 .searchbox {
     width: 20%;
     display: inline-flex;
-    margin-left: 6%;
+    margin-left: 58px;
     font-family: Helvetica, Arial;
 }
 
@@ -361,3 +389,23 @@
         /* Ensures full-width on small screens */
     }
 }
+
+
+.clickable-icon {
+    cursor: pointer;
+    font-size: 24px;
+    color: #00509e;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+
+  clickable-icon-reset{
+    cursor: pointer;
+    font-size: 24px;
+    /* color: #00509e; */
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+  
+  .clickable-icon:active {
+    transform: scale(1.2); /* Enlarge on click */
+    color: #003f73; /* Optional color change on click */
+  }

@@ -1,9 +1,14 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReportService } from '../../../Services/report.service';
 import { Po_details } from '../../../models/podetails';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Router } from '@angular/router';
+import { SearchPipe } from '../../../SearchPipe/search.pipe';
+
  
 interface MenuItem {
   text: string;
@@ -29,7 +34,7 @@ interface Menu {
 @Component({
   selector: 'app-podetailsreport',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgbPaginationModule],
+  imports: [CommonModule,ReactiveFormsModule,FormsModule,NgbPaginationModule,NgxPaginationModule,SearchPipe,NgSelectModule],
   templateUrl: './podetailsreport.component.html',
   styleUrl: './podetailsreport.component.css'
 })
@@ -59,6 +64,7 @@ export class PodetailsreportComponent {
   fromDate: string | null = null;
   toDate: string | null = null;
 
+  filterMetadata = { count: 0 };
   currentPage: number = 1; 
   itemsPerPage: number = 10;
 

@@ -5,6 +5,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrService } from 'ngx-toastr';
+import { Supplier } from '../../../models/supplier';
 import { SearchPipe } from '../../../SearchPipe/search.pipe';
 import { AdminService } from '../../../Services/admin.service';
 
@@ -39,7 +40,7 @@ export class SupplierMasterComponent {
     
     supplierMasterForm!: FormGroup;
     AddsupplierMasterForm!: FormGroup;
-    supplierList: any[]=[];
+    supplierList: any;
     display = "none";
     txt_btn: string = 'Save';
     supplierToEdit:any =null;
@@ -51,7 +52,7 @@ export class SupplierMasterComponent {
     currentPage = 1;
     itemsPerPage = 5;
     totalPages = 2;
-    UserId:any = 1;
+    UserId:any;
 
     supplierdata: any;
 
@@ -71,6 +72,8 @@ export class SupplierMasterComponent {
     editSupplierIndex: number | null = null;
   
     ngOnInit() {
+     this.UserId  = localStorage.getItem("mst_user_id");
+
       this.supplierMasterForm = new FormGroup({
         textsearch: new FormControl(),
       });
@@ -120,8 +123,9 @@ export class SupplierMasterComponent {
       this.service.getsupplierdetails().subscribe(
         (data : any[]) => {
           console.log(data);
-          this.supplierdata = data; // Assuming response contains the list of suppliers
-          // this.toastr.success('Supplier details retrieved successfully!');
+          this.supplierdata = data;
+          this.supplierList= data;
+          
         },
         (err: any) => {
           console.error('Error fetching supplier details', err);
@@ -133,8 +137,7 @@ export class SupplierMasterComponent {
       this.service.getcountrydetails().subscribe(
         (data : any[]) => {
           console.log(data);
-          this.countries = data; // Assuming response contains the list of suppliers
-          // this.toastr.success('Supplier details retrieved successfully!');
+          this.countries = data; 
         },
         (err: any) => {
           console.error('Error fetching supplier details', err);
@@ -146,13 +149,12 @@ export class SupplierMasterComponent {
     deleteuser(userId: any): void {
       debugger;
       this.service.Inactivesupplier(userId).subscribe(
-        (response:any) => {
+        (response) => {
           console.log('User successfully deactivated:', response);
-          // this.getuserdetailsinfo();
           this.getSupplier();
           this.toastr.success('User deleted successfully!');
         },
-        (error:any) => {
+        (error) => {
           console.error('Error deactivating user:', error);
         }
       );
@@ -194,6 +196,19 @@ export class SupplierMasterComponent {
       });
   
     }
+    isDuplicate(supplierCode: string | number): boolean {
+      // Normalize the input by converting to a trimmed lowercase string
+      const normalizedCode = supplierCode.toString().trim().toLowerCase();
+    
+      // Check for duplicates in the supplierList array
+      const duplicate = this.supplierList.some((supplier: any) => {
+        const currentCode = supplier?.supplierCode?.toString()?.trim()?.toLowerCase();
+        return currentCode === normalizedCode;
+      });
+    
+      return duplicate;
+    }
+    
   
   
     toggleAddSupplierPopup(supplier?: any) {
@@ -205,10 +220,8 @@ export class SupplierMasterComponent {
 
         this.supplierCode = supplier.supplierCode;
         this.supplierName = supplier.supplierName;
-        this.CountryId = supplier.countryId;
-        this.country = Number(supplier.Country); 
-        // this.country=supplier.countryId;
-        // this.countryId=supplier.CountryId;
+        this.country = supplier.countryId; 
+
         this.isActive = supplier.status ;
 
         if(supplier.status == "Active"){
@@ -225,9 +238,10 @@ export class SupplierMasterComponent {
         this.supplierCode = "";
         this.supplierName = "";
         this.country = "";
-        this.countryId="";
+
         this.status = 'Active';
         this.isActive = true;
+
         this.isEditing = false;
         this.editSupplierIndex = null;
       }
@@ -242,6 +256,21 @@ export class SupplierMasterComponent {
       //   this.toastr.warning("Please fill all required fields.");
       //   return;
       // }
+      if (!this.supplierCode) {
+        this.toastr.warning("Please Enter SupplierCode.");
+        return;
+        
+      }
+      this.isSubmitted = true;
+      if (!this.supplierName) {
+        this.toastr.warning("Please enter SupplierName.");
+        return;
+      }
+
+      if (!this.country) {
+        this.toastr.warning("Please Select Country.");
+        return;
+      }
   
       if (this.isEditing && this.editSupplierIndex!=null) {
         const updatesupplierData = {
@@ -249,25 +278,30 @@ export class SupplierMasterComponent {
 
           supplierCode: this.supplierCode,
           supplierName: this.supplierName,
-          country: this.country,
-          CountryId:this.CountryId,
-          status: this.isActive ? 'Active' : 'Inactive',
-          createdBy: this.createdBy,
-          createdOn: this.createdOn
+          CountryId: this.country,
+          IsActive: this.isActive ,
+          ModifiedBy:this.UserId,
+          // createdOn: this.createdOn
         };
+        
         this.updatesupplierdetailsinfo(updatesupplierData);
         console.log('Updated supplier', updatesupplierData);
         
       } else {
         const supplierData = {
+
           supplierCode: this.supplierCode,
           supplierName: this.supplierName,
-          country: this.country,
-          countryId:this.CountryId,
-          status: this.isActive ? 'Active' : 'Inactive',
-          createdBy: this.createdBy,
+          CountryId: this.country,
+          IsActive: this.isActive ,
+          createdBy: this.UserId,
           createdOn: this.createdOn
         };
+        if (this.isDuplicate(this.supplierCode)) {
+          this.toastr.warning('SupplierCode already exists.');
+          return;
+        } 
+
         this.addsupplierdetailsinfo(supplierData);
         console.log('Added supplier', supplierData);
        

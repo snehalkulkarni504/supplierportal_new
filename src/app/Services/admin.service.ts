@@ -28,9 +28,13 @@ export class AdminService {
   getroles() {
     return this.httpClient.get<any[]>(this.ApiUrl + 'Getroles');
   }
+  getSupplier(){
+    return this.httpClient.get<any[]>(this.ApiUrl+ 'GetSuppliers');
+  }
 
   adduserdetails(user: any): Observable<any> {
-    return this.httpClient.post<any>(this.ApiUrl + "Adduserdata", user);
+    debugger;
+    return this.httpClient.post<any>(this.ApiUrl + "Adduser", user);
   }
 
   updateuserdetails(data: any): Observable<any> {
