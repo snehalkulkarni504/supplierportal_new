@@ -55,6 +55,7 @@ export class PodetailsreportComponent {
   searchQuery: string = '';
   textsearch: string = '';
   filteredData: any[] = [];
+  page: number = 1;
 
   supplierOptions: any[] = [];
   poOptions: any[] = [];

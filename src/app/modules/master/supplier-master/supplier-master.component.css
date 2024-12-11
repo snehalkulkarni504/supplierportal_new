@@ -1,10 +1,10 @@
 
 .MasterHeader {
-    width: 100%;
+    max-width: 100%;
     display: inline-flex;
     height: 60px;
-    margin-left: 0%;
-    margin-right: 0%;
+    /* margin-left: 0%;
+    margin-right: 0%; */
     font-family: Helvetica, Arial;
     /* border-bottom: 1px solid #4d94c9; */
     /* border-width: 20px; */
@@ -25,6 +25,7 @@
   
     .searchDiv {
       width: 50%;
+      margin-bottom: 8px;
     }
     
     #add-btn {
@@ -149,6 +150,30 @@
   .btn-primary:hover {
     background-color: #0056b3; /* Darker shade on hover */
   }
+  .btn-primary1 {
+    background-color: white; /* Initial background */
+    border: 1.5px solid #7aafe4; /* Blue border */
+    color: #7aafe4; /* Blue text */
+    padding: 5px 15px; /* Button padding */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 1rem; /* Font size */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transitions */
+    cursor: pointer; /* Pointer cursor */
+    position: relative; /* For pseudo-element positioning */
+    z-index: 0; /* Layer control */
+    overflow: hidden; /* Prevent pseudo-element overflow */
+  }
+
+
+
+.btn-primary1:hover::before {
+    border-color: #0056b3; /* Blue border on hover */
+}
+
+.btn-primary1:hover {
+    background-color: #0056b3; /* Blue background */
+    color: white; /* White text */
+}
   
   .btn-secondary {
     background-color: #6c757d; /* Secondary button background */

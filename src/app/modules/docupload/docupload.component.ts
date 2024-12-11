@@ -266,6 +266,11 @@ export class DocuploadComponent {
   goBack(): void {
     window.history.back();
   }
+  onSearchEnter(event: Event): void {
+    const keyboardEvent = event as KeyboardEvent; 
+    keyboardEvent.preventDefault(); 
+    console.log('Enter key pressed:', this.textsearch);
+  }
 
 
 }

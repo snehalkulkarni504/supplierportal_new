@@ -1,6 +1,6 @@
 
 .MasterHeader {
-    width: 100%;
+    max-width: 100%;
     display: inline-flex;
     height: 60px;
     /* margin-left: 10%;
@@ -22,28 +22,14 @@
   
     .searchDiv {
       width: 50%;
+      margin-bottom: 8px;
     }
     
-    #add-btn {
-      margin: 5px 0;                  /* Margin around the button */
-      padding: 5px 10px;              /* Padding inside the button */
-      color: #fff;                    /* Text color */
-      background-color: #00509e;      /* Default background color */
-      border: none;                   /* Remove border */
-      border-radius: 5px;             /* Optional: Rounded corners */
-      cursor: pointer;                /* Pointer cursor on hover */
-      transition: background-color 0.3s ease-in-out; /* Smooth transition for background color */
-    }
     .required-field {
       border: 2px solid red;
       background-color: rgb(244, 230, 230);
     }
     
-    
-    /* Add hover effect */
-    #add-btn:hover {
-      background-color: #0056b3;      /* Darker shade of blue on hover */
-    }
     
     #back-btn {
       margin-right: 150px; /* Adjust the margins to position it slightly left */
@@ -92,6 +78,7 @@
     width: 100%;
     color: #fff;
     background-color: #4d94c9;
+    
    }
   
   .btn-close {
@@ -142,7 +129,33 @@
     font-size: 1rem; /* Font size */
     transition: background-color 0.3s; /* Smooth transition for hover effect */
   }
-  
+
+  .btn-primary1 {
+    background-color: white; /* Initial background */
+    border: 1.5px solid #7aafe4; /* Blue border */
+    color: #7aafe4; /* Blue text */
+    padding: 5px 15px; /* Button padding */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 1rem; /* Font size */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transitions */
+    cursor: pointer; /* Pointer cursor */
+    position: relative; /* For pseudo-element positioning */
+    z-index: 0; /* Layer control */
+    overflow: hidden; /* Prevent pseudo-element overflow */
+  }
+
+
+
+.btn-primary1:hover::before {
+    border-color: #0056b3; /* Blue border on hover */
+}
+
+.btn-primary1:hover {
+    background-color: #0056b3; /* Blue background */
+    color: white; /* White text */
+}
+
+
   .btn-primary:hover {
     background-color: #0056b3; /* Darker shade on hover */
   }
