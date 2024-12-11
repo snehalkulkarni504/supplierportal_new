@@ -76,7 +76,7 @@ export class PodetailsreportComponent {
   // currentPage: number = 1; 
   // itemsPerPage: number = 10;
   textsearch: string = '';
-    page: number = 1;
+   // page: number = 1;
     pageSize: number = 5;
     config: any;
     currentPage = 1;
