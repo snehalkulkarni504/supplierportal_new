@@ -1,6 +1,6 @@
 .body {
     width: calc(100% - 10px);
-    height: 100vh;
+    /* height: 100vh; */
     margin-left: 10px;
     z-index: 0;
     position: relative;
