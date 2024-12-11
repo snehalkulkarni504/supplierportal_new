@@ -293,3 +293,42 @@ ngb-pagination ::ng-deep ul > li > a {
 .d-flex {
     flex-wrap: nowrap;
 }
+
+.searchDiv {
+    width: 50%;
+    /* height:2%; */
+    /* margin-left: 10%; */
+}
+
+.MasterHeaderlable {
+    width: 80%;
+    display: inline-flex;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-family: Helvetica, Arial;
+    border-top: 1px solid #4d94c9;
+    padding-top: 10px;
+  
+    /* box-shadow: 0 6px 2px -6px #da291c; */
+  } 
+
+  .has-search .form-control {
+    padding-left: 2.8rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 38px;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #f8f6f6;
+    background-color: #4d94c9;
+}
+
+.search-input {
+    height: 38px;
+}

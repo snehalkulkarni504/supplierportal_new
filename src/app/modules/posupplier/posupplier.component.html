@@ -1,4 +1,5 @@
 <div class="AllpagesContent" style="width:90%;margin-left: 5%;">
+  <form [formGroup]="POSupplierScreen">
   <!-- <p>posupplier works!</p> -->
   <div class="col-12" class="centered-content">
     <p style="margin-bottom: 0.5rem">{{SupplierName}}</p>
@@ -13,6 +14,7 @@
     <div class="row align-items-center g-2">
       <!-- Dropdown for PO Numbers -->
       <div class="col-md-auto col-sm-12 d-flex align-items-center">
+        <label class="form-label me-2">PO No:</label>
         <div class="form-group me-2">
           <button class="btn btn-outline-primary dropdown-toggle custom-dropdown-btn" type="button"
             data-bs-toggle="dropdown" aria-expanded="false">
@@ -21,7 +23,7 @@
           <ul class="dropdown-menu">
             <li *ngFor="let PO of PONumbers">
               <label class="dropdown-item">
-                <input type="checkbox" class="form-check-input me-2" [value]="PO.poNumber"
+                <input type="checkbox" class="po-checkbox form-check-input me-2" [value]="PO.poNumber"
                   (change)="togglePoSelection(PO, $event)" />
                 {{ PO.poNumber }}
               </label>
@@ -60,7 +62,7 @@
           <ul class="dropdown-menu">
             <li *ngFor="let status of Status">
               <label class="dropdown-item">
-                <input type="checkbox" class="form-check-input me-2" [value]="status"
+                <input type="checkbox" class="status-checkbox form-check-input me-2" [value]="status"
                   (change)="toggleStatusSelection(status, $event)" />
                 {{ status }}
               </label>
@@ -79,10 +81,13 @@
       </div>
     </div>
   </div>
-
-  <div class="searchbox" style="border: #0066b2; min-width: 200px;">
-    <input type="text" [(ngModel)]="searchQuery" class="form-control" placeholder="Search..." (input)="onSearch()" />
-  </div>
+  <div class="searchDiv">
+    <div class="form-group has-search" style="width: 50%;">
+      <span class="bi bi-search form-control-feedback"></span>
+      <input type="text" class="form-control search-input" placeholder="Search" formControlName="textsearch"
+        [(ngModel)]="textsearch">
+    </div>
+</div>
   <div class="justify-content-center">
     <div class="table-responsive">
       <table class="table table-bordered table-striped" style="font-size: 13px !important;">
@@ -100,7 +105,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let value of paginatedData ">
+          <tr *ngFor="let value of filteredTableData | search: textsearch:filterMetadata | paginate: { itemsPerPage: 5, currentPage: page } let i=index">
             <!-- <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td> -->
             <td>{{value.poNumber}}</td>
             <!--<td>{{value.TimeSheet_No}}</td>-->
@@ -125,11 +130,15 @@
       </div> -->
   </div>
   <div class="d-flex justify-content-between pagination">
-    <ngb-pagination [collectionSize]=filteredTableData.length [(page)]="page" [pageSize]="pageSize" [rotate]="true"
+    <ngb-pagination [collectionSize]="filterMetadata.count" [(page)]="page" [pageSize]="pageSize" [rotate]="true"
       [boundaryLinks]="true" [maxSize]="5" size="sm" (pageChange)="onPageChange($event)">
       <!-- <ng-template ngbPaginationPrevious>Prev</ng-template>
         <ng-template ngbPaginationNext>Next</ng-template> -->
     </ngb-pagination>
     <br>
   </div>
+</form>
 </div>
+<!-- <app-poschedule [PONumber]="prog_title" 
+    [postatus]="curr_info" [suppliername]="curr_info">
+</app-poschedule> -->

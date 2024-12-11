@@ -105,7 +105,7 @@
              <th class="lot-details-th">Actual Dispatch</th>
              <th class="lot-details-th">Actual Arrival</th>
              <th class="lot-details-th">Attachment</th>
-             <th class="lot-details-th">Action</th>
+             <th class="lot-details-th" *ngIf="Hide" >Action</th>
            </tr>
          </thead>
          <tbody>
@@ -161,7 +161,7 @@
                <input type="button" id="file-upload-{{lot.lotNumber}}" (click)="uploadAttachment($event, lot, child)" style="display: none;">
              </td>
        
-             <td style="border: 1px solid #ddd; text-align: center;">
+             <td style="border: 1px solid #ddd; text-align: center;" *ngIf="Hide">
   
               <!-- Save Button for New Lots (only shows when lot is new) -->
               <!-- <ng-container *ngIf="lot.isNew">

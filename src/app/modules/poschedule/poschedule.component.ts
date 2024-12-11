@@ -47,7 +47,7 @@ interface Parent {
 })
 export class PoscheduleComponent implements OnInit {
   // Client and Schedule Info
-  clientName = 'ABC Corporation';
+  clientName :string|null='';
   deliveryScheduleName = 'Weekly Delivery Schedule';
   @Input() UserID: any;
   @Input() PONumber: any;
@@ -60,8 +60,14 @@ export class PoscheduleComponent implements OnInit {
    private route: ActivatedRoute, private modalService: NgbModal){}
 
   ngOnInit(): void {
-    if(this.suppliername=="" || this.postatus){
+    this.clientName=this.suppliername
+    if(this.suppliername=="" || this.postatus=="Closed"){
       this.Hide=true;
+      console.log('yes')
+   }
+   else{
+    this.Hide=false;
+    console.log('no')
    }
    console.log("");
    this.PONumber = Number(this.route.snapshot.paramMap.get('PONumber') || '0');

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl,FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SupplierService } from '../../Services/supplier.service';
 import { Router } from '@angular/router';
 import { Podetails, ponos } from '../../models/podetails';
@@ -8,13 +8,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Supplier } from '../../models/supplier';
+import { SearchPipe } from '../../SearchPipe/search.pipe';
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-posupplier',
   standalone: true,
-  imports: [CommonModule, FormsModule,ReactiveFormsModule, NgxPaginationModule, NgbPaginationModule,NgSelectModule],
+  imports: [CommonModule, FormsModule,ReactiveFormsModule, NgxPaginationModule,
+     NgbPaginationModule,NgSelectModule,SearchPipe],
   templateUrl: './posupplier.component.html',
   styleUrl: './posupplier.component.css'
 })
@@ -27,17 +29,17 @@ export class POsupplierComponent implements OnInit {
   myPlaceHolder='----Select----';
   PONumbers: ponos[] = [];
   SelectedPONumber :any;
-
+  filterMetadata = { count: 0 };
   Status: string[] = ["Open","WIP","Closed"];
   selectedPOs: ponos[] = [];
   selectedstatus: string[] = [];
   FromPODate: string | null = null;
   ToPODate: string | null = null;
-  SupplierScreen!: FormGroup;
+  POSupplierScreen!: FormGroup;
   POTableData: Podetails[] = [];
   filteredTableData: Podetails[] = [];
   dropdownSettings = {};
-  searchQuery: string = '';
+  textsearch: string = '';
   paginatedData: Podetails[] = [];
   page: number = 1;
   pageSize: number = 5;
@@ -48,15 +50,21 @@ export class POsupplierComponent implements OnInit {
 
 
 
-  async ngOnInit():Promise<void> {
-    this.SupplierScreen = new FormGroup({
+  ngOnInit() {
+    this.POSupplierScreen = new FormGroup({
+      textsearch: new FormControl(),
+
     });
-    await this.GetSuppliers();
+    this.GetSuppliers();
     
   }
 
-  openDeliverySchedule(PONumber: string,postatus: string,suppliername: any) {
+  openDeliverySchedule(PONumber: string,postatus: string,suppliername: string | null) {
     // Navigate to the 'details' component with the specified ID
+    if (suppliername===null)
+    {
+      suppliername='';
+    }
     this.route.navigate(['/module/poschedule', PONumber,postatus,suppliername]);
   }
   
@@ -79,7 +87,7 @@ export class POsupplierComponent implements OnInit {
           this.SupplierName=loginsupplier?loginsupplier.suppliername:null;
           this.FillPODropdown();
           this.FillPOTable();
-          this.updatePagination();
+          //this.updatePagination();
         },
         error: (e:any) => {
           //this.spinnerService.hide();
@@ -136,7 +144,7 @@ async FillPOTable(){
       this.filteredTableData = [...this.POTableData];
       console.log("API response", this.POTableData);
       // this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
-      this.updatePagination();
+      //this.updatePagination();
     },
     error: (e: any) => {
       //this.spinnerService.hide();
@@ -178,7 +186,7 @@ filterTableData() {
     this.filteredTableData = [...this.POTableData];
   }
   // this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
-   this.updatePagination();
+   //this.updatePagination();
 }
 //   onItemSelect(item: any) {
 //     console.log('onItemSelect', item);
@@ -211,7 +219,7 @@ ClearControls()
   this.selectedstatus=[];
   this.filteredTableData=this.POTableData;
   // this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
-  this.updatePagination();
+  //this.updatePagination();
 
   const poCheckboxes = document.querySelectorAll('.po-checkbox') as NodeListOf<HTMLInputElement>;
   poCheckboxes.forEach((checkbox) => (checkbox.checked = false));
@@ -221,14 +229,14 @@ ClearControls()
 }
 
 onSearch(): void {
-  const query = this.searchQuery.toLowerCase();  // Convert the query to lowercase for case-insensitive search
+  const query = this.textsearch.toLowerCase();  // Convert the query to lowercase for case-insensitive search
   this.filteredTableData = this.POTableData.filter(item =>
     Object.values(item).some(value =>
       value.toString().toLowerCase().includes(query)  // Check if any value contains the search query
     )
   );
   // this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
-  this.updatePagination();
+  //this.updatePagination();
 }
 
 updatePagination(): void {
@@ -286,7 +294,7 @@ toggleStatusSelection(status: any, event: Event): void {
 
 onPageChange(page: number) {
   this.page = page;
-  this.updatePagination();
+  //this.updatePagination();
 }
 
 }
