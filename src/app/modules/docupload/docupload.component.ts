@@ -44,10 +44,15 @@ export class DocuploadComponent {
   disable:boolean=false;
 
   ngOnInit(): void {
-    if(this.suppliername=="" || this.postatus){
+    debugger;
+    if(this.suppliername=="" || this.postatus=="Closed"){
       this.disable=true;
    }
-    this.fetchdocdetails(this.PoNumber,this.ItemNo,this.LotNumber);
+   else
+   {
+    this.disable=false;
+   }
+    this.fetchdocdetails(this.PoNumber.toString(),this.ItemNo.toString(),this.LotNumber);
     // this.formatDates();
     //this.filteredData = [...this.doc_deatils];
   }
