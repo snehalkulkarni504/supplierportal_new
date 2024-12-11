@@ -227,7 +227,7 @@ h1 {margin:0px}
 
 .date-picker{
   height: 33px; /* Adjust height as needed */
-  width: 150px!important;
+  width: 130px!important;
   padding: 0 15px; /* Adjust padding for desired width */
   font-size: 100%; /* Adjust font size */
 }
@@ -277,7 +277,6 @@ h1 {margin:0px}
   font-size: 14px;
   color: #03070c;
   white-space: nowrap; /* Prevent label from wrapping */
-  margin: 10; /* Remove margin for perfect alignment */
   font-weight: bold; /* Optional, makes the label stand out */
   width: 100%;
 }

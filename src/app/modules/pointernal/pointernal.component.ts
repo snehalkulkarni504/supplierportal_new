@@ -173,17 +173,27 @@ filterTableData() {
   console.log('selectedpos',this.selectedPOs);
   console.log('podata',this.filteredTableData);
   if (this.selectedPOs.length||this.selectedstatus||this.FromPODate||this.ToPODate) {
-    // console.log('Selected From date:', new Date(this.FromPODate));
+     console.log('Selected From date:', new Date(String(this.FromPODate)));
     // console.log('Selected To date:', new Date(this.ToPODate));
+    
+    const frompodate = new Date(new Date(String(this.FromPODate)).getFullYear(),
+    new Date(String(this.FromPODate)).getMonth(), new Date(String(this.FromPODate)).getDate())
+    frompodate.toString(); // Convert back to string format
+    const topodate = new Date(new Date(String(this.ToPODate)).getFullYear(),
+    new Date(String(this.ToPODate)).getMonth(), new Date(String(this.ToPODate)).getDate())
+    topodate.toString(); 
+
+
     this.filteredTableData = this.POTableData.filter(data => {
       const [day, month, year] = data.poDate.split("-").map(Number); // Convert each part to a number
       const POdate  = new Date(year, month - 1, day); // Month is zero-based
-      //console.log(this.selectedPOs.some(selectedPO => Number(selectedPO.poNumber) === Number(data.poNumber))); 
+      console.log('Selected From date:', frompodate);
+      console.log('POdate:', POdate);
       return (!this.selectedsuppliers?.length ||  this.selectedsuppliers.some(selectedSupp => selectedSupp.suppliercode === data.supplierCode))
        && (!this.selectedPOs?.length ||  this.selectedPOs.some(selectedPO => Number(selectedPO.poNumber) === Number(data.poNumber)))
        && (!this.selectedstatus?.length || this.selectedstatus.includes(data.status))
-       && (!this.FromPODate  || new Date(POdate).getDate() >= new Date(this.FromPODate).getDate())
-       && (!this.ToPODate  || new Date(POdate).getDate() <= new Date(this.ToPODate).getDate())
+       && (!this.FromPODate  || POdate >=frompodate)
+       && (!this.ToPODate  || POdate <= topodate)
     });
   } else {
     this.filteredTableData = [...this.POTableData];
@@ -201,6 +211,7 @@ ClearControls()
   this.ToPODate='';
   this.selectedstatus=[];
   this.filteredTableData=this.POTableData;
+  this.FillPODropdown();
   //this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
   this.updatePagination();
 

@@ -2,7 +2,7 @@
 
     <!--  <img alt="Loading Please Wait..." style="width:100px ; height:100px ;" src="../../../../assets/Spin-2.gif" /> -->
 
-    <div class="MasterHeader">
+    <!-- <div class="MasterHeader">
         <div style="width: 50%;">
             <h2>PO Details Report</h2>
         </div>
@@ -11,6 +11,21 @@
             <button class="btnbackLeft" style="background-color: #0066b2; color: aliceblue; border-radius: 10%;"
                 (click)="goBack()">Back</button>
         </div>
+    </div> -->
+    <div class="MasterHeader">
+        <div class="text-center" style="float: left; line-height: 60px;margin-left: 15px;">
+            <button (click)="goBack()" style="background: none; border: none; padding: 0;margin-right: 0px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="27px" viewBox="0 0 512 512">
+                    <path fill="#00509e"
+                        d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8 .4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z" />
+                </svg>
+            </button>
+        </div>
+        <div class="text-start" style="width: 90%; float: left;  ">
+            <h2 style=" font-weight: bold; color: #278bd8;line-height: 30px;font-size: 28px;margin-left: 40px;">
+                PO Details Report </h2>
+        </div>
+
     </div>
     <form [formGroup]="PODetailsreportsForm">
         <div class="MasterHeaderlable">
@@ -50,26 +65,28 @@
                 <!-- From Date -->
                 <div class="date-section">
                     <label class="date-label">From Date:</label>
-                    <input type="date" class="form-control date-picker" [(ngModel)]="fromDate" placeholder="From Date">
+                    <input type="date" class="form-control date-picker" formControlName="fromDate" [(ngModel)]="fromDate" placeholder="From Date">
                 </div>
 
                 <!-- To Date -->
                 <div class="date-section">
                     <label class="date-label">To Date:</label>
-                    <input type="date" class="form-control date-picker" [(ngModel)]="toDate" placeholder="To Date">
+                    <input type="date" class="form-control date-picker"  formControlName="toDate" [(ngModel)]="toDate" placeholder="To Date">
                 </div>
 
                 <!-- View Button -->
                 <div class="form-group">
-                    <!-- <button class="btn view-btn" (click)="onViewClick()">View</button> -->
+                    <button class="btn view-btn" (click)="onViewClick()">View</button>
                     <!-- <i class="fas fa-eye me-3 clickable-icon" title="View" (click)="onViewClick()">
                 </i> -->
                     <!-- <i class="bi bi-eye-fill"></i> -->
                     <!-- <i class="bi bi-heart" style="background: red;"></i> -->
-                    <i class="bi bi-tv-fill me-3 clickable-icon" title="View" (click)="onViewClick()"></i>
-                    <!-- <button class="btn clear-btn" (click)="onClearClick()">Clear</button> -->
+                    <!-- <i class="bi bi-tv-fill me-3 clickable-icon" title="View" (click)="onViewClick()"></i> -->
+                  
+
                     <i class="bi bi-repeat clickable-icon" title="Clear" style="color: red;"
                         (click)="onClearClick()"></i>
+                     
                 </div>
                 <!-- <div class="form-group">
                 <button class="btn clear-btn" (click)="onClearClick()">Clear</button>
@@ -80,8 +97,8 @@
 
         <div class="form-group has-search" style="width: 50%;margin-left: 56.5px;margin-bottom: 10px;">
             <span class="bi bi-search form-control-feedback"></span>
-            <input type="text" class="form-control search-input" style="width: 40%;" placeholder="Search" formControlName="textsearch"
-                [(ngModel)]="textsearch">
+            <input type="text" class="form-control search-input" style="width: 40%;" placeholder="Search"
+                formControlName="textsearch" [(ngModel)]="textsearch">
         </div>
 
         <!-- <div class="searchDiv">

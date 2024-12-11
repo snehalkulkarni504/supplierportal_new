@@ -86,6 +86,8 @@ export class PodetailsreportComponent {
 
     this.PODetailsreportsForm = new FormGroup({
       textsearch: new FormControl(),
+      fromDate:new FormControl(),
+      toDate:new FormControl(),
     });
 
     this.fetchpodetails()
