@@ -49,14 +49,14 @@ export class PodetailsreportComponent {
    PODetailsreportsForm!: FormGroup;
 
   Po_deatils: Po_details[] = [
-    { suppliercode: 101, suppliername: 'ABC Corp', pono: 1, itemno: 1, materialcode: 'M001', materialdes: 'Steel Rod', materialqty: 100, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Pending', eta: '2024-11-2' },
-    { suppliercode: 102, suppliername: 'XYZ Ltd', pono: 2, itemno: 2, materialcode: 'M002', materialdes: 'Iron Sheet', materialqty: 200, materialuom: 'SQM', etd: '2024-11-20', deliverystatus: 'Shipped', eta: '2024-11-12' },
-    { suppliercode: 103, suppliername: 'DEF Inc', pono: 3, itemno: 3, materialcode: 'M003', materialdes: 'Copper Wire', materialqty: 150, materialuom: 'Meter', etd: '2024-11-20', deliverystatus: 'In Transit', eta: '2024-11-8' },
-    { suppliercode: 104, suppliername: 'GHI Ltd', pono: 4, itemno: 4, materialcode: 'M004', materialdes: 'Aluminum Plate', materialqty: 75, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Delivered', eta: '2024-11-10' },
-    { suppliercode: 105, suppliername: 'JKL Corp', pono: 5, itemno: 5, materialcode: 'M005', materialdes: 'Brass Tube', materialqty: 120, materialuom: 'Meter', etd: '2024-11-20', deliverystatus: 'Pending', eta: '2024-11-11' },
-    { suppliercode: 106, suppliername: 'MNO Industries', pono: 6, itemno: 6, materialcode: 'M006', materialdes: 'Stainless Steel', materialqty: 80, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Shipped', eta: '2024-11-13' },
-    { suppliercode: 107, suppliername: 'PQR Works', pono: 7, itemno: 7, materialcode: 'M007', materialdes: 'Titanium Bar', materialqty: 60, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'In Transit', eta: '2024-11-14' },
-    { suppliercode: 108, suppliername: 'STU Fabrications', pono: 8, itemno: 8, materialcode: 'M008', materialdes: 'Carbon Fiber', materialqty: 30, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Pending', eta: '2024-11-15' },
+    { suppliercode: '101', suppliername: 'ABC Corp', pono: 1, itemno: 1, materialcode: 'M001', materialdes: 'Steel Rod', materialqty: 100, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Pending', eta: '2024-11-2' },
+    // { suppliercode: 102, suppliername: 'XYZ Ltd', pono: 2, itemno: 2, materialcode: 'M002', materialdes: 'Iron Sheet', materialqty: 200, materialuom: 'SQM', etd: '2024-11-20', deliverystatus: 'Shipped', eta: '2024-11-12' },
+    // { suppliercode: 103, suppliername: 'DEF Inc', pono: 3, itemno: 3, materialcode: 'M003', materialdes: 'Copper Wire', materialqty: 150, materialuom: 'Meter', etd: '2024-11-20', deliverystatus: 'In Transit', eta: '2024-11-8' },
+    // { suppliercode: 104, suppliername: 'GHI Ltd', pono: 4, itemno: 4, materialcode: 'M004', materialdes: 'Aluminum Plate', materialqty: 75, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Delivered', eta: '2024-11-10' },
+    // { suppliercode: 105, suppliername: 'JKL Corp', pono: 5, itemno: 5, materialcode: 'M005', materialdes: 'Brass Tube', materialqty: 120, materialuom: 'Meter', etd: '2024-11-20', deliverystatus: 'Pending', eta: '2024-11-11' },
+    // { suppliercode: 106, suppliername: 'MNO Industries', pono: 6, itemno: 6, materialcode: 'M006', materialdes: 'Stainless Steel', materialqty: 80, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Shipped', eta: '2024-11-13' },
+    // { suppliercode: 107, suppliername: 'PQR Works', pono: 7, itemno: 7, materialcode: 'M007', materialdes: 'Titanium Bar', materialqty: 60, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'In Transit', eta: '2024-11-14' },
+    // { suppliercode: 108, suppliername: 'STU Fabrications', pono: 8, itemno: 8, materialcode: 'M008', materialdes: 'Carbon Fiber', materialqty: 30, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Pending', eta: '2024-11-15' },
   ];
 
   searchQuery: string = '';

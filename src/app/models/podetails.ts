@@ -24,7 +24,7 @@ export interface Adduser
 
 }
 export interface Po_details {
-    suppliercode: number;
+    suppliercode: string;
     suppliername: string;
     pono: number;
     itemno: number;
