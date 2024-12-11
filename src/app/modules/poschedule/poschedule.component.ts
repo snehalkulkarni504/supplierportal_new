@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SupplierService } from '../../Services/supplier.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { DocuploadComponent } from '../docupload/docupload.component';
+import { Router } from '@angular/router';
 
 
 interface Lot {
@@ -57,23 +58,44 @@ export class PoscheduleComponent implements OnInit {
   //constructor(private poService: PoServicesService,private toastr: ToastrService){}
   //PONumber! :number;
   constructor(private poService: SupplierService,private toastr: ToastrService,
-   private route: ActivatedRoute, private modalService: NgbModal){}
+   private route: ActivatedRoute, private modalService: NgbModal,private router: Router){}
 
+   page:any;
   ngOnInit(): void {
+    debugger;
+    this.route.queryParams.subscribe((params) => {
+      this.PONumber = params['PONumber'];
+      this.suppliername = params['suppliername'];
+      this.postatus = params['postatus'];
+      this.page= params['page'];
+    });
+    // const state = this.router.getCurrentNavigation()?.extras.state;
+
+    // if (state) {
+    //   this.PONumber = state['PONumber'];
+    //   this.postatus = state['postatus'];
+    //   this.suppliername = state['suppliername'];
+    // }
+
     this.clientName=this.suppliername
     if(this.suppliername=="" || this.postatus=="Closed"){
-      this.Hide=true;
+      this.Hide=false;
       console.log('yes')
    }
    else{
-    this.Hide=false;
+    this.Hide=true;
     console.log('no')
    }
+
+   if(this.page=="internal")
+   {
+    this.Hide=false;
+   }
    console.log("");
-   this.PONumber = Number(this.route.snapshot.paramMap.get('PONumber') || '0');
+  //  this.PONumber = Number(this.route.snapshot.paramMap.get('PONumber') || '0');
    this.UserID=Number(localStorage.getItem("mst_user_id"));
-   this.postatus= this.route.snapshot.paramMap.get('postatus') || '';
-   this.suppliername= this.route.snapshot.paramMap.get('suppliername') || ''
+  //  this.postatus= this.route.snapshot.paramMap.get('postatus') || '';
+  //  this.suppliername= this.route.snapshot.paramMap.get('suppliername') || ''
 
    console.log("this.suppliername",this.suppliername);
    console.log("this.UserID",this.UserID);

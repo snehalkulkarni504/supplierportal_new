@@ -23,7 +23,8 @@ const routes: Routes = [
       { path: 'suppliermaster', component: SupplierMasterComponent },
       { path: 'podetailsreport', component: PodetailsreportComponent },
       { path: 'role', component: RoleMasterComponent },
-      { path: 'poschedule/:PONumber/:postatus/:suppliername', component: PoscheduleComponent },
+      { path: 'poschedule', component: PoscheduleComponent },
+      // { path: 'poschedule/:PONumber/:postatus/:suppliername', component: PoscheduleComponent },
       { path: 'pointernal',component:pointernalComponent},
       { path: 'docupload', component:DocuploadComponent}
     ]

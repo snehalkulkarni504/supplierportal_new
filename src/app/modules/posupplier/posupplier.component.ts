@@ -61,11 +61,29 @@ export class POsupplierComponent implements OnInit {
 
   openDeliverySchedule(PONumber: string,postatus: string,suppliername: string | null) {
     // Navigate to the 'details' component with the specified ID
+    debugger;
     if (suppliername===null)
     {
       suppliername='';
     }
-    this.route.navigate(['/module/poschedule', PONumber,postatus,suppliername]);
+
+    this.route.navigate(['/module/poschedule'], {
+      queryParams: {
+        PONumber: PONumber,
+        postatus: postatus,
+        suppliername: suppliername,
+        page: "supplier"
+      },
+    });
+
+    // this.route.navigate(['/module/poschedule'], {
+    //   queryParams: {
+    //     PONumber: PONumber,
+    //     postatus: postatus,
+    //     suppliername: suppliername
+    //   },
+    // });
+    // this.route.navigate(['/module/poschedule', PONumber,postatus,suppliername]);
   }
   
 

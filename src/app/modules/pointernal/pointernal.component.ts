@@ -52,9 +52,18 @@ export class pointernalComponent {
     this.FillPOTable();
   }
 
-  openDeliverySchedule(PONumber: string) {
+  openDeliverySchedule(PONumber: any, suppliername:any) {
     // Navigate to the 'details' component with the specified ID
-    this.route.navigate(['/poschedule', PONumber]);
+    // this.route.navigate(['/poschedule', PONumber]);
+    this.route.navigate(['/module/poschedule'], {
+      queryParams: {
+        PONumber: PONumber,
+        postatus: "",
+        suppliername: suppliername,
+        page: "internal"
+      },
+    });
+
   }
   
   async FillPODropdown() {
