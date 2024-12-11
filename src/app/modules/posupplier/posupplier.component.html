@@ -73,12 +73,15 @@
         </div>
 
         <!-- View Icon -->
-        <i class="fas fa-eye me-3 clickable-icon" title="View" (click)="filterTableData()">
-        </i>
+        <!-- <i class="fas fa-eye me-3 clickable-icon" title="View" (click)="filterTableData()">
+        </i> -->
+        <button class="btn view-btn" (click)="filterTableData()">View</button>
 
-        <i class="fas fa-sync me-3 text-danger clickable-icon" title="Reset" (click)="ClearControls()
+        <!-- <i class="fas fa-sync me-3 text-danger clickable-icon" title="Reset" (click)="ClearControls()
         ">
-        </i>
+        </i> -->
+        <i class="bi bi-repeat clickable-icon" title="Clear" style="color: red;margin-left: 10px;"
+                        (click)="ClearControls()"></i>
 
       </div>
     </div>

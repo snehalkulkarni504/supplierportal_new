@@ -27,6 +27,13 @@
     transform: scale(1.2); /* Enlarge on click */
     color: #003f73; /* Optional color change on click */
   }
+
+  .clickable-icon {
+    cursor: pointer;
+    font-size: 30px;
+    color: #4d94c9;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
   
 
 .left-content {

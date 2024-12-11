@@ -65,35 +65,28 @@
                 <!-- From Date -->
                 <div class="date-section">
                     <label class="date-label">From Date:</label>
-                    <input type="date" class="form-control date-picker" [(ngModel)]="fromDate" placeholder="From Date">
+                    <input type="date" class="form-control date-picker" formControlName="fromDate" [(ngModel)]="fromDate" placeholder="From Date">
                 </div>
 
                 <!-- To Date -->
                 <div class="date-section">
                     <label class="date-label">To Date:</label>
-                    <input type="date" class="form-control date-picker" [(ngModel)]="toDate" placeholder="To Date">
+                    <input type="date" class="form-control date-picker"  formControlName="toDate" [(ngModel)]="toDate" placeholder="To Date">
                 </div>
 
                 <!-- View Button -->
                 <div class="form-group">
-                    <!-- <button class="btn view-btn" (click)="onViewClick()">View</button> -->
+                    <button class="btn view-btn" (click)="onViewClick()">View</button>
                     <!-- <i class="fas fa-eye me-3 clickable-icon" title="View" (click)="onViewClick()">
                 </i> -->
                     <!-- <i class="bi bi-eye-fill"></i> -->
                     <!-- <i class="bi bi-heart" style="background: red;"></i> -->
                     <!-- <i class="bi bi-tv-fill me-3 clickable-icon" title="View" (click)="onViewClick()"></i> -->
-                    <!-- <svg (click)="onViewClick()" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="003f73" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-                      </svg> -->
+                  
 
                     <i class="bi bi-repeat clickable-icon" title="Clear" style="color: red;"
                         (click)="onClearClick()"></i>
-                        
-                       <!-- <i></i> <svg (click)="onClearClick()" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ff0000" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
-                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
-                          </svg> -->
+                     
                 </div>
                 <!-- <div class="form-group">
                 <button class="btn clear-btn" (click)="onClearClick()">Clear</button>
