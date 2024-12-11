@@ -2,7 +2,7 @@
 
     <!--  <img alt="Loading Please Wait..." style="width:100px ; height:100px ;" src="../../../../assets/Spin-2.gif" /> -->
 
-    <div class="MasterHeader">
+    <!-- <div class="MasterHeader">
         <div style="width: 50%;">
             <h2>PO Details Report</h2>
         </div>
@@ -11,6 +11,21 @@
             <button class="btnbackLeft" style="background-color: #0066b2; color: aliceblue; border-radius: 10%;"
                 (click)="goBack()">Back</button>
         </div>
+    </div> -->
+    <div class="MasterHeader">
+        <div class="text-center" style="float: left; line-height: 60px;margin-left: 15px;">
+            <button (click)="goBack()" style="background: none; border: none; padding: 0;margin-right: 0px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="27px" viewBox="0 0 512 512">
+                    <path fill="#00509e"
+                        d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8 .4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z" />
+                </svg>
+            </button>
+        </div>
+        <div class="text-start" style="width: 90%; float: left;  ">
+            <h2 style=" font-weight: bold; color: #278bd8;line-height: 30px;font-size: 28px;margin-left: 40px;">
+                PO Details Report </h2>
+        </div>
+
     </div>
     <form [formGroup]="PODetailsreportsForm">
         <div class="MasterHeaderlable">
@@ -66,10 +81,19 @@
                 </i> -->
                     <!-- <i class="bi bi-eye-fill"></i> -->
                     <!-- <i class="bi bi-heart" style="background: red;"></i> -->
-                    <i class="bi bi-tv-fill me-3 clickable-icon" title="View" (click)="onViewClick()"></i>
-                    <!-- <button class="btn clear-btn" (click)="onClearClick()">Clear</button> -->
+                    <!-- <i class="bi bi-tv-fill me-3 clickable-icon" title="View" (click)="onViewClick()"></i> -->
+                    <!-- <svg (click)="onViewClick()" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="003f73" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                      </svg> -->
+
                     <i class="bi bi-repeat clickable-icon" title="Clear" style="color: red;"
                         (click)="onClearClick()"></i>
+                        
+                       <!-- <i></i> <svg (click)="onClearClick()" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ff0000" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                          </svg> -->
                 </div>
                 <!-- <div class="form-group">
                 <button class="btn clear-btn" (click)="onClearClick()">Clear</button>
@@ -80,8 +104,8 @@
 
         <div class="form-group has-search" style="width: 50%;margin-left: 56.5px;margin-bottom: 10px;">
             <span class="bi bi-search form-control-feedback"></span>
-            <input type="text" class="form-control search-input" style="width: 40%;" placeholder="Search" formControlName="textsearch"
-                [(ngModel)]="textsearch">
+            <input type="text" class="form-control search-input" style="width: 40%;" placeholder="Search"
+                formControlName="textsearch" [(ngModel)]="textsearch">
         </div>
 
         <!-- <div class="searchDiv">
