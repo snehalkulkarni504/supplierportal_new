@@ -47,16 +47,16 @@ export class DocuploadComponent {
     if(this.suppliername=="" || this.postatus){
       this.disable=true;
    }
-    this.fetchdocdetails();
+    this.fetchdocdetails(this.PoNumber,this.ItemNo,this.LotNumber);
     // this.formatDates();
     //this.filteredData = [...this.doc_deatils];
   }
 
 
 
-  fetchdocdetails() {
+  fetchdocdetails(pono:string,itemno:string,lotno:number) {
     debugger;
-    this.service.getdocdetails().subscribe(
+    this.service.getdocdetails(pono,itemno,lotno).subscribe(
       (data: any[]) => {
         debugger;
         this.doc_deatils = data;
@@ -195,7 +195,7 @@ export class DocuploadComponent {
             //     alert('Failed to save file details. Please try again.');
             //   }
             // );
-            this.fetchdocdetails();
+            this.fetchdocdetails(this.PoNumber,this.ItemNo,this.LotNumber);
             this.resetForm();
             this.saveTrigger.emit("Success");
           },
@@ -265,6 +265,11 @@ export class DocuploadComponent {
 
   goBack(): void {
     window.history.back();
+  }
+  onSearchEnter(event: Event): void {
+    const keyboardEvent = event as KeyboardEvent; 
+    keyboardEvent.preventDefault(); 
+    console.log('Enter key pressed:', this.textsearch);
   }
 
 

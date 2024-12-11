@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -54,8 +55,8 @@ export class SupplierService {
 
 
   
-getdocdetails(): Observable<any[]> {
-  return this.httpClient.get<any[]>(`${this.ApiUrl}Getdocuploaddeatils`);
+getdocdetails(pono:string,itemno:string,lotno:number): Observable<any[]> {
+  return this.httpClient.get<any[]>(`${this.ApiUrl}Getdocuploaddeatils/${pono}/${itemno}/${lotno}`);
 }
 
 uploadFile(file: File, docno:string, doctype:string, poNumber:string, itemNumber:string, lotNumber:string,remarks:string,updatedBy:string): Observable<any> {

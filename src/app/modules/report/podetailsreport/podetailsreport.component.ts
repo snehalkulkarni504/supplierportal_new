@@ -39,7 +39,14 @@ interface Menu {
   styleUrl: './podetailsreport.component.css'
 })
 export class PodetailsreportComponent {
-  constructor(public service: ReportService, public cdr: ChangeDetectorRef) { }
+  constructor(public service: ReportService, public cdr: ChangeDetectorRef) {
+    this.config = {
+      currentPage: 1,
+      itemsPerPage: 5
+    };
+   }
+
+   PODetailsreportsForm!: FormGroup;
 
   Po_deatils: Po_details[] = [
     { suppliercode: 101, suppliername: 'ABC Corp', pono: 1, itemno: 1, materialcode: 'M001', materialdes: 'Steel Rod', materialqty: 100, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Pending', eta: '2024-11-2' },
@@ -53,8 +60,9 @@ export class PodetailsreportComponent {
   ];
 
   searchQuery: string = '';
-  textsearch: string = '';
+  
   filteredData: any[] = [];
+  page: number = 1;
 
   supplierOptions: any[] = [];
   poOptions: any[] = [];
@@ -65,10 +73,20 @@ export class PodetailsreportComponent {
   toDate: string | null = null;
 
   filterMetadata = { count: 0 };
-  currentPage: number = 1; 
-  itemsPerPage: number = 10;
+  // currentPage: number = 1; 
+  // itemsPerPage: number = 10;
+  textsearch: string = '';
+   // page: number = 1;
+    pageSize: number = 5;
+    config: any;
+    currentPage = 1;
+    itemsPerPage = 5;
 
   ngOnInit(): void {
+
+    this.PODetailsreportsForm = new FormGroup({
+      textsearch: new FormControl(),
+    });
 
     this.fetchpodetails()
   }
@@ -117,14 +135,14 @@ export class PodetailsreportComponent {
     );
   }
 
-  onSearch(): void {
-    const query = this.searchQuery.toLowerCase(); 
-    this.filteredData = this.Po_deatils.filter(item =>
-      Object.values(item).some(value =>
-        value.toString().toLowerCase().includes(query)
-      )
-    );
-  }
+  // onSearch(): void {
+  //   const query = this.searchQuery.toLowerCase(); 
+  //   this.filteredData = this.Po_deatils.filter(item =>
+  //     Object.values(item).some(value =>
+  //       value.toString().toLowerCase().includes(query)
+  //     )
+  //   );
+  // }
 
   onViewClick(): void {
     this.applyFilters();
@@ -186,16 +204,16 @@ export class PodetailsreportComponent {
     this.cdr.detectChanges();
   }
 
-  get Data() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.filteredData.slice(startIndex, endIndex);
-  }
+  // get Data() {
+  //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  //   const endIndex = startIndex + this.itemsPerPage;
+  //   return this.filteredData.slice(startIndex, endIndex);
+  // }
   
 
-  onPageChange(page: number): void {
-    this.currentPage = page;
-  }
+  // onPageChange(page: number): void {
+  //   this.currentPage = page;
+  // }
 
 
   goBack(): void {
