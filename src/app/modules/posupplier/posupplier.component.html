@@ -36,8 +36,8 @@
       <div class="col-md-auto col-sm-6 d-flex align-items-center">
         <div class="date-section me-2">
           <label class="form-label mb-1">From PO Date:</label>
-          <input type="date" class="form-control date-picker" style="width: 135px; " formControlName="fromDate" [(ngModel)]="FromPODate" 
-          (change)="filterTableData()" />
+          <input type="date" class="form-control date-picker" style="width: 135px; " [(ngModel)]="FromPODate" 
+          [ngModelOptions]="{standalone: true}" (change)="filterTableData()"  />
         </div>
       </div>
 
@@ -45,8 +45,8 @@
       <div class="col-md-auto col-sm-6 d-flex align-items-center">
         <div class="date-section me-2">
           <label class="form-label mb-1">To PO Date:</label>
-          <input type="date" class="form-control date-picker" formControlName="ToPODate" [(ngModel)]="ToPODate" 
-          style="width: 135px; "  (change)="filterTableData()" />
+          <input type="date" class="form-control date-picker" [(ngModel)]="ToPODate" 
+          style="width: 135px; " [ngModelOptions]="{standalone: true}" (change)="filterTableData()" />
         </div>
       </div>
 
@@ -73,15 +73,12 @@
         </div>
 
         <!-- View Icon -->
-        <!-- <i class="fas fa-eye me-3 clickable-icon" title="View" (click)="filterTableData()">
-        </i> -->
-        <button class="btn view-btn" (click)="filterTableData()">View</button>
+        <i class="fas fa-eye me-3 clickable-icon" title="View" (click)="filterTableData()">
+        </i>
 
-        <!-- <i class="fas fa-sync me-3 text-danger clickable-icon" title="Reset" (click)="ClearControls()
+        <i class="fas fa-sync me-3 text-danger clickable-icon" title="Reset" (click)="ClearControls()
         ">
-        </i> -->
-        <i class="bi bi-repeat clickable-icon" title="Clear" style="color: red;margin-left: 10px;"
-                        (click)="ClearControls()"></i>
+        </i>
 
       </div>
     </div>
