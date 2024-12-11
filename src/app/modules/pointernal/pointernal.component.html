@@ -8,9 +8,9 @@
       <div class="row" class="line-content">
         <hr style="margin-top: 0.5rem" class="line-content">
     </div>
-    <div class="container-fluid" style="padding-top: 1rem;padding-bottom: 1rem;">
-    <div class="row">
-        <div class="col-auto d-flex align-items-center">
+    <div class="container-fluid py-2" style="padding-top: 1rem;padding-bottom: 1rem;display:flex;">
+    <div class="row g-2" style="display:flex">
+        <div class="col-md-auto col-sm-12 d-flex align-items-center">
             <label class="date-label" style="padding-right: 5px">Supplier :</label>
               <div class="form-group">
                 <button class="btn dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown"
@@ -33,7 +33,7 @@
                 (onChange)="onSuppChange($event)"
                 /> -->
         </div>
-        <div class="col-auto d-flex align-items-center" style="padding-right: 0px;padding-left: 0px">
+        <div class="col-md-auto col-sm-12  d-flex align-items-center" style="padding-right: 0px;padding-left: 0px">
           <label  class="date-label" style="padding-right: 5px">PO No.:</label><br>
             <div class="form-group">
               <button class="btn dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown"
@@ -66,7 +66,7 @@
             </ng-template>
             </ng-select> -->
         </div>
-        <div class="col-auto d-flex" style="padding-right: 5px;">
+        <div class="col-md-auto col-sm-6 d-flex" style="padding-right: 5px;">
           <!-- <label style="font-weight: bold;font-size: 13px;width: 100%;padding-right: 10px;">
             From PO Date :</label><br>
           <div class="input-group custom-input" style="padding-right: 5px;">
@@ -77,13 +77,13 @@
             <input type="date" class="form-control date-picker" [(ngModel)]="FromPODate" (change)="filterTableData()" placeholder="From PO Date">
          </div>
       </div>
-      <div class="col-auto d-flex align-items-center" style="padding-right: 5px;">
+      <div class="col-md-auto col-sm-6 d-flex align-items-center" style="padding-right: 5px;">
         <div class="date-section" style="padding-right: 5px;padding-left: 5px;">
           <label class="date-label">To PO Date :</label>
           <input type="date" class="form-control date-picker" [(ngModel)]="ToPODate" (change)="filterTableData()" placeholder="To PO Date">
        </div>
     </div>
-      <div class="col-auto d-flex align-items-center" style="padding-right: 5px;padding-left: 0px;">
+      <div class="col-md-auto col-sm-12 d-flex align-items-center" style="padding-right: 5px;padding-left: 0px;">
         <label class="date-label" style="padding-right: 5px">Status :</label>
         <div class="form-group">
           <button class="btn dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown"

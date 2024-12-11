@@ -115,6 +115,7 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem("username");
       localStorage.removeItem("mst_user_id");
       localStorage.removeItem("roleId");
+      localStorage.removeItem("supplierId")
     }
 
   }

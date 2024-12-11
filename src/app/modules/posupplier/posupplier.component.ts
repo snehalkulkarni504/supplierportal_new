@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormControl,FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SupplierService } from '../../Services/supplier.service';
 import { Router } from '@angular/router';
@@ -21,8 +21,6 @@ import { SearchPipe } from '../../SearchPipe/search.pipe';
   styleUrl: './posupplier.component.css'
 })
 export class POsupplierComponent implements OnInit {
-  // @ViewChild('FromPODateCalendar') private FromPODateCalendar: any;
-  // @ViewChild('ToPODateCalendar') private ToPODateCalendar: any;
   SupplierId: number|null = Number(localStorage.getItem("supplierId"));
   SupplierName: string |null = "";
   SupplierCode : string |null= "";
@@ -189,16 +187,27 @@ async FillPOTable(){
 filterTableData() {
   console.log(this.selectedPOs);
   if (this.selectedPOs.length||this.selectedstatus||this.FromPODate||this.ToPODate) {
-    console.log('Selected From date:', new Date(String(this.FromPODate)));
-    console.log('Selected To date:', this.ToPODate);
+   
+    console.log('Selected From date:', this.FromPODate);
+
+    const frompodate = new Date(new Date(String(this.FromPODate)).getFullYear(),
+    new Date(String(this.FromPODate)).getMonth(), new Date(String(this.FromPODate)).getDate())
+    frompodate.toString(); // Convert back to string format
+    const topodate = new Date(new Date(String(this.ToPODate)).getFullYear(),
+    new Date(String(this.ToPODate)).getMonth(), new Date(String(this.ToPODate)).getDate())
+    topodate.toString(); 
+
+    
+    console.log('Selected To date:', topodate);
+
     this.filteredTableData = this.POTableData.filter(data => {
       const [day, month, year] = data.poDate.split("-").map(Number); // Convert each part to a number
       const POdate  = new Date(year, month - 1, day); // Month is zero-based
       console.log(POdate); 
       return (!this.selectedPOs?.length ||  this.selectedPOs.some(selectedPO => Number(selectedPO.poNumber) === Number(data.poNumber)))
        && (!this.selectedstatus?.length || this.selectedstatus.some(selectstatus=>selectstatus===data.status))
-       && (!this.FromPODate  || new Date(POdate) >= new Date(String(this.FromPODate)))
-       && (!this.ToPODate  || new Date(POdate) <= new Date(String(this.ToPODate)))
+       && (!this.FromPODate  ||POdate >= frompodate)
+       && (!this.ToPODate  ||POdate <= topodate)
     });
   } else {
     this.filteredTableData = [...this.POTableData];

@@ -36,7 +36,8 @@
       <div class="col-md-auto col-sm-6 d-flex align-items-center">
         <div class="date-section me-2">
           <label class="form-label mb-1">From PO Date:</label>
-          <input type="date" class="form-control" style="width: 135px; " [(ngModel)]="FromPODate" (change)="filterTableData()" />
+          <input type="date" class="form-control date-picker" style="width: 135px; " [(ngModel)]="FromPODate" 
+          [ngModelOptions]="{standalone: true}" (change)="filterTableData()" />
         </div>
       </div>
 
@@ -44,7 +45,8 @@
       <div class="col-md-auto col-sm-6 d-flex align-items-center">
         <div class="date-section me-2">
           <label class="form-label mb-1">To PO Date:</label>
-          <input type="date" class="form-control" [(ngModel)]="ToPODate" style="width: 135px; " (change)="filterTableData()" />
+          <input type="date" class="form-control date-picker" [(ngModel)]="ToPODate" 
+          style="width: 135px; " [ngModelOptions]="{standalone: true}" (change)="filterTableData()" />
         </div>
       </div>
 
