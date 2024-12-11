@@ -51,6 +51,9 @@ export class POsupplierComponent implements OnInit {
   ngOnInit() {
     this.POSupplierScreen = new FormGroup({
       textsearch: new FormControl(),
+      FromPODate:new FormControl(),
+      ToPODate:new FormControl()
+
 
     });
     this.GetSuppliers();
