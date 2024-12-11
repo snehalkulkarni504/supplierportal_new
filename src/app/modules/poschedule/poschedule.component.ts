@@ -420,7 +420,8 @@ export class PoscheduleComponent implements OnInit {
    
  
   // Upload attachment
-  uploadAttachment(event: any, lot: any, child: any) {
+  uploadAttachment(event: any, lot: any, child: any, number:any) {
+    debugger;
     console.log("Test child",child);
     console.log("Test lot",lot);
 
@@ -435,11 +436,14 @@ export class PoscheduleComponent implements OnInit {
       ngbModalOptions
     );
 
+    debugger;
+
     modalRef.componentInstance.ItemNo= child.itemno;
-    modalRef.componentInstance.LotNumber= lot.lotnumber;
+    modalRef.componentInstance.LotNumber= number;
     modalRef.componentInstance.PoNumber = this.PONumber;
     modalRef.componentInstance.postatus = this.postatus;
     modalRef.componentInstance.suppliername = this.suppliername;
+    modalRef.componentInstance.page = this.page;
     modalRef.componentInstance.saveTrigger.subscribe((x: any) => {
 
       if (x != undefined || x != '') {

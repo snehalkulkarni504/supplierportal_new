@@ -21,7 +21,9 @@ export class DocuploadComponent {
   @Input() LotNumber:any;
   @Input() postatus:any;
   @Input() suppliername:any;
+  @Input() page:any;
   @Output() saveTrigger: EventEmitter<any> = new EventEmitter();
+
   
   doc_deatils = [
     { select: false, documentNo: 1, documentType: 'PDF', revision: 1, fileName: 'M001', poNumber: 101, itemNo: 1, lotNumber: 1, uploadDate: '2024-11-20', updatedBy: 'Eswar', remarks: 'abcd' },
@@ -51,6 +53,10 @@ export class DocuploadComponent {
    else
    {
     this.disable=false;
+   }
+
+   if(this.page=="internal"){
+    this.disable=true;
    }
     this.fetchdocdetails(this.PoNumber.toString(),this.ItemNo.toString(),this.LotNumber);
     // this.formatDates();

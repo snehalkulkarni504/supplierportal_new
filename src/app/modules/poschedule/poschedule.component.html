@@ -85,7 +85,7 @@
                 <!-- <button class="btn btn-success btn-sm ms-2" (click)="addLotToItem(child)">Add Lot</button> -->
                 &nbsp;
                 &nbsp;
-                <i class="bi bi-plus-lg" style="font-size: 15px; font-weight: bold; cursor: pointer;" title="Add Lot" (click)="addLotToItem(child)"></i>
+                <i *ngIf="Hide" class="bi bi-plus-lg" style="font-size: 15px; font-weight: bold; cursor: pointer;" title="Add Lot" (click)="addLotToItem(child)"></i>
               </td>
             
           </tr>
@@ -158,7 +158,7 @@
                <label for="file-upload-{{lot.lotNumber}}">
                  <i class="bi bi-paperclip" style="font-size: 17px; cursor: pointer;"></i>
                </label>
-               <input type="button" id="file-upload-{{lot.lotNumber}}" (click)="uploadAttachment($event, lot, child)" style="display: none;">
+               <input type="button" id="file-upload-{{lot.lotNumber}}" (click)="uploadAttachment($event, lot, child,lot.lotNumber)" style="display: none;">
              </td>
        
              <td *ngIf="Hide" style="border: 1px solid #ddd; text-align: center;">
