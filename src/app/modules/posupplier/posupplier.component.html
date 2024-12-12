@@ -10,81 +10,67 @@
   <div class="row" class="line-content">
     <hr style="margin-top: 0.5rem" class="line-content">
   </div>
-  <div class="container-fluid py-2">
+  <div class="container-fluid py-2" style="margin-left: -13px;">
     <div class="row align-items-center g-2">
+      
       <!-- Dropdown for PO Numbers -->
-      <div class="col-md-auto col-sm-12 d-flex align-items-center">
-        <label class="form-label me-2">PO No:</label>
-        <div class="form-group me-2">
-          <button class="btn btn-outline-primary dropdown-toggle custom-dropdown-btn" type="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            ---Select---
-          </button>
-          <ul class="dropdown-menu">
-            <li *ngFor="let PO of PONumbers">
-              <label class="dropdown-item">
-                <input type="checkbox" class="po-checkbox form-check-input me-2" [value]="PO.poNumber"
-                  (change)="togglePoSelection(PO, $event)" />
-                {{ PO.poNumber }}
-              </label>
-            </li>
-          </ul>
-        </div>
+      <div class="col-md-auto col-sm-12 d-flex flex-column align-items-start me-3">
+        <label class="form-label mb-1">PO No:</label>
+        <ng-select class="ng-selectcustomer" 
+          [multiple]="true" 
+          [items]="PONumbers" 
+          bindLabel="poNumber" 
+          bindValue="poNumber" 
+          [(ngModel)]="selectedPOs" 
+          (change)="togglePoSelection()" 
+          placeholder="---Select PO---"
+          style="width: 224px;">
+        </ng-select>
       </div>
-
+  
       <!-- From PO Date -->
-      <div class="col-md-auto col-sm-6 d-flex align-items-center">
-        <div class="date-section me-2">
-          <label class="form-label mb-1">From PO Date:</label>
-          <input type="date" class="form-control date-picker" style="width: 135px; " [(ngModel)]="FromPODate" 
-          [ngModelOptions]="{standalone: true}" (change)="filterTableData()"  />
-        </div>
+      <div class="col-md-auto col-sm-6 d-flex flex-column align-items-start me-3">
+        <label class="form-label mb-0">From PO Date:</label>
+        <input type="date" class="form-control date-picker" 
+               [(ngModel)]="FromPODate" 
+               [ngModelOptions]="{standalone: true}" 
+               (change)="filterTableData()" />
       </div>
-
+  
       <!-- To PO Date -->
-      <div class="col-md-auto col-sm-6 d-flex align-items-center">
-        <div class="date-section me-2">
-          <label class="form-label mb-1">To PO Date:</label>
-          <input type="date" class="form-control date-picker" [(ngModel)]="ToPODate" 
-          style="width: 135px; " [ngModelOptions]="{standalone: true}" (change)="filterTableData()" />
-        </div>
+      <div class="col-md-auto col-sm-6 d-flex flex-column align-items-start me-3">
+        <label class="form-label mb-0">To PO Date:</label>
+        <input type="date" class="form-control date-picker" 
+               [(ngModel)]="ToPODate" 
+               [ngModelOptions]="{standalone: true}" 
+               (change)="filterTableData()" />
       </div>
-
-      <!-- Status Dropdown and Buttons in One Row -->
-      <div class="col-md-auto col-sm-12 d-flex align-items-center">
-        <!-- Status Label -->
-        <label class="form-label me-2">Status:</label>
-
-        <!-- Status Dropdown -->
-        <div class="form-group me-3">
-          <button class="btn btn-outline-primary dropdown-toggle custom-dropdown-btn" type="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            ---Select---
-          </button>
-          <ul class="dropdown-menu">
-            <li *ngFor="let status of Status">
-              <label class="dropdown-item">
-                <input type="checkbox" class="status-checkbox form-check-input me-2" [value]="status"
-                  (change)="toggleStatusSelection(status, $event)" />
-                {{ status }}
-              </label>
-            </li>
-          </ul>
-        </div>
-
-        <!-- View Icon -->
-        <i class="fas fa-eye me-3 clickable-icon" title="View" (click)="filterTableData()">
-        </i>
-
-        <i class="fas fa-sync me-3 text-danger clickable-icon" title="Reset" (click)="ClearControls()
-        ">
-        </i>
-
+  
+      <!-- Status Dropdown (Converted to ng-select) -->
+      <div class="col-md-auto col-sm-12 d-flex flex-column align-items-start me-3">
+        <label class="form-label mb-1">Status:</label>
+        <ng-select class="ng-selectcustomer" 
+          [multiple]="true" 
+          [items]="Status" 
+          bindLabel="status" 
+          bindValue="status" 
+          [(ngModel)]="selectedstatus" 
+          (change)="toggleStatusSelection()" 
+          placeholder="---Select Status---"
+          style="width: 224px;">
+        </ng-select>
+      </div>
+  
+      <!-- View Icon -->
+      <div class="col-md-auto col-sm-12 d-flex align-items-center" style="margin-top: 35px;">
+        <img src="../../../assets/filter.png" (click)="filterTableData()" title="filter" class="filter-icon" alt=""> 
+        <i class="fas fa-sync me-3 text-danger clickable-icon" title="Reset" (click)="ClearControls()"></i>
       </div>
     </div>
   </div>
+  
   <div class="searchDiv">
-    <div class="form-group has-search" style="width: 50%;">
+    <div class="form-group has-search searchbox2">
       <span class="bi bi-search form-control-feedback"></span>
       <input type="text" class="form-control search-input" placeholder="Search" formControlName="textsearch"
         [(ngModel)]="textsearch">
@@ -92,7 +78,7 @@
 </div>
   <div class="justify-content-center">
     <div class="table-responsive">
-      <table class="table table-bordered table-striped" style="font-size: 13px !important;">
+      <table class="table table-bordered table-striped" style="font-size: 13px !important; min-width: 330px !important; overflow-x: auto;">
         <thead>
           <tr>
             <!-- <th>Timesheet No</th> -->

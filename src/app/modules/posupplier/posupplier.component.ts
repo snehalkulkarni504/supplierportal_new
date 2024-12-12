@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl,FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SupplierService } from '../../Services/supplier.service';
 import { Router } from '@angular/router';
@@ -18,14 +18,28 @@ import { SearchPipe } from '../../SearchPipe/search.pipe';
   imports: [CommonModule, FormsModule,ReactiveFormsModule, NgxPaginationModule,
      NgbPaginationModule,NgSelectModule,SearchPipe],
   templateUrl: './posupplier.component.html',
-  styleUrl: './posupplier.component.css'
+  styleUrl: './posupplier.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class POsupplierComponent implements OnInit {
   SupplierId: number|null = Number(localStorage.getItem("supplierId"));
   SupplierName: string |null = "";
   SupplierCode : string |null= "";
   myPlaceHolder='----Select----';
-  PONumbers: ponos[] = [];
+ PONumbers: ponos[] = [];
+  // PONumbers = [
+  //   { poNumber: 'PO001' },
+  //   { poNumber: 'PO002' },
+  //   { poNumber: 'PO003' },
+  //   { poNumber: 'PO004' },
+  //   { poNumber: 'PO005' },
+  //   { poNumber: 'PO006' },
+  //   { poNumber: 'PO007' },
+  //   { poNumber: 'PO008' },
+  //   { poNumber: 'PO009' },
+  //   { poNumber: 'PO010' }
+  // ];
+  
   SelectedPONumber :any;
   filterMetadata = { count: 0 };
   Status: string[] = ["Open","WIP","Closed"];
@@ -121,7 +135,7 @@ export class POsupplierComponent implements OnInit {
 
 
   async FillPODropdown() {
-    this.PONumbers = [];
+     this.PONumbers = [];
     // this.tableData.forEach((data) => {
     //   if (!this.departmentHeads.includes(data.DepartmentHead)) {
         // this.PONumbers.push("5000051930");
@@ -131,6 +145,7 @@ export class POsupplierComponent implements OnInit {
       await this.modulesService.getPONumber(this.SupplierCode).subscribe({
         next: (response:any) => {
           this.PONumbers = response;
+          
           console.log("API response", this.PONumbers);
           
         },
@@ -187,7 +202,16 @@ async FillPOTable(){
 //   this.POTableData.push(product);
 // }
 
+selectedPoText: string = '';
+
+getSelectedPoText(): string {
+  return this.selectedPOs.length > 0 
+    ? this.selectedPOs.map(po => po.poNumber).join(', ') 
+    : '---Select---';
+}
+
 filterTableData() {
+  // alert("testing");
   console.log(this.selectedPOs);
   if (this.selectedPOs.length||this.selectedstatus||this.FromPODate||this.ToPODate) {
    
@@ -297,30 +321,65 @@ updatePagination(): void {
 //   }
 // }
 
-togglePoSelection(po: any, event: Event): void {
-  const isChecked = (event.target as HTMLInputElement).checked;
-  if (isChecked) {
-    this.selectedPOs.push(po);
-  } else {
-    const index = this.selectedPOs.indexOf(po);
-    if (index > -1) {
-      this.selectedPOs.splice(index, 1);
-    }
-  }
+togglePoSelection(): void {
+  // Log the currently selected PO numbers
+  console.log("Selected POs:", this.selectedPOs);
+
+  // Dynamically update the button text if needed (already handled by ng-select directly)
+  this.selectedPoText = this.selectedPOs.map(po => po.poNumber).join(', ') || '---Select---';
+
+  console.log("this.selectedPOs",this.selectedPOs);
+  // Apply filtering logic based on selected POs
   this.filterTableData();
 }
-toggleStatusSelection(status: any, event: Event): void {
-  const isChecked = (event.target as HTMLInputElement).checked;
-  if (isChecked) {
-    this.selectedstatus.push(status);
-  } else {
-    const index = this.selectedstatus.indexOf(status);
-    if (index > -1) {
-      this.selectedstatus.splice(index, 1);
-    }
-  }
+
+
+// togglePoSelection(po: any, event: Event): void {
+//   const isChecked = (event.target as HTMLInputElement).checked;
+//   // console.log("PO Test:",po);
+//   this.selectedPoText= po.poNumber;
+//   if (isChecked) {
+//     this.selectedPOs.push(po);
+//   } else {
+//     const index = this.selectedPOs.indexOf(po);
+//     if (index > -1) {
+//       this.selectedPOs.splice(index, 1);
+//     }
+//   }
+//   this.filterTableData();
+// }
+selectedStatusText:any;
+
+toggleStatusSelection(): void {
+  // const isChecked = (event.target as HTMLInputElement).checked;
+  // if (isChecked) {
+  //   this.selectedstatus.push(status);
+  // } else {
+  //   const index = this.selectedstatus.indexOf(status);
+  //   if (index > -1) {
+  //     this.selectedstatus.splice(index, 1);
+  //   }
+  // }
+
+  this.selectedStatusText = this.selectedstatus.length > 0 
+    ? this.selectedstatus.join(', ') 
+    : '---Select---';
+
   this.filterTableData();
 }
+
+// toggleStatusSelection(status: any, event: Event): void {
+//   const isChecked = (event.target as HTMLInputElement).checked;
+//   if (isChecked) {
+//     this.selectedstatus.push(status);
+//   } else {
+//     const index = this.selectedstatus.indexOf(status);
+//     if (index > -1) {
+//       this.selectedstatus.splice(index, 1);
+//     }
+//   }
+//   this.filterTableData();
+// }
 
 onPageChange(page: number) {
   this.page = page;
