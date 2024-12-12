@@ -424,7 +424,7 @@ export class PoscheduleComponent implements OnInit {
     debugger;
     console.log("Test child",child);
     console.log("Test lot",lot);
-
+    console.log("number",number);
     const ngbModalOptions: NgbModalOptions = {
       backdrop: 'static',
       keyboard: false,

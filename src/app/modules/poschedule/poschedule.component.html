@@ -155,10 +155,10 @@
        
              <!-- Attachment (Non-editable) -->
              <td style="border: 1px solid #ddd; text-align: center;">
-               <label for="file-upload-{{lot.lotNumber}}">
+               <label for="file-upload-{{i}}">
                  <i class="bi bi-paperclip" style="font-size: 17px; cursor: pointer;"></i>
                </label>
-               <input type="button" id="file-upload-{{lot.lotNumber}}" (click)="uploadAttachment($event, lot, child,lot.lotNumber)" style="display: none;">
+               <input type="button" id="file-upload-{{i}}" (click)="uploadAttachment($event, lot, child,lot.lotNumber)" style="display: none;">
              </td>
        
              <td *ngIf="Hide" style="border: 1px solid #ddd; text-align: center;">
