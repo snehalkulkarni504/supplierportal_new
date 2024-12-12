@@ -85,7 +85,7 @@
                 <!-- <button class="btn btn-success btn-sm ms-2" (click)="addLotToItem(child)">Add Lot</button> -->
                 &nbsp;
                 &nbsp;
-                <i *ngIf="Hide" class="bi bi-plus-lg" style="font-size: 15px; font-weight: bold; cursor: pointer;" title="Add Lot" (click)="addLotToItem(child)"></i>
+                <i *ngIf="Invisible" class="bi bi-plus-lg" style="font-size: 15px; font-weight: bold; cursor: pointer;" title="Add Lot" (click)="addLotToItem(child)"></i>
               </td>
             
           </tr>
@@ -114,15 +114,22 @@
              <td style="border: 1px solid #ddd;">{{ lot.lotnumber }}</td>
              
              <!-- Lot Qty (Editable) -->
-             <td style="border: 1px solid #ddd;">
+
+             <td *ngIf="disable">
+              {{ lot.lotqty }}
+             </td>
+             <td *ngIf="!disable" style="border: 1px solid #ddd;">
                <ng-container *ngIf="lot.isEditing; else viewLotQty">
-                 <input type="number" [(ngModel)]="lot.lotqty" class="form-control form-control-sm" [ngClass]="{'required-field': !lot.lotqty}"/>
+                 <input type="number" [(ngModel)]="lot.lotqty" class="form-control form-control-sm" style="text-align: center;" [ngClass]="{'required-field': !lot.lotqty}"/>
                </ng-container>
                <ng-template #viewLotQty>{{ lot.lotqty }}</ng-template>
              </td>
        
              <!-- ETD (Editable) -->
-             <td style="border: 1px solid #ddd;">
+             <td *ngIf="disable">
+              {{ lot.etd }}
+             </td>
+             <td *ngIf="!disable" style="border: 1px solid #ddd;">
                <ng-container *ngIf="lot.isEditing; else viewETD">
                  <input type="date" [(ngModel)]="lot.etd" class="form-control form-control-sm" [ngClass]="{'required-field': !lot.etd}"/>
                </ng-container>
@@ -130,7 +137,10 @@
              </td>
        
              <!-- ETA (Editable) -->
-             <td style="border: 1px solid #ddd;">
+             <td *ngIf="disable">
+              {{ lot.eta }}
+             </td>
+             <td *ngIf="!disable" style="border: 1px solid #ddd;">
                <ng-container *ngIf="lot.isEditing; else viewETA">
                  <input type="date" [(ngModel)]="lot.eta" class="form-control form-control-sm" [ngClass]="{'required-field': !lot.eta}"/>
                </ng-container>
@@ -140,7 +150,7 @@
              <!-- Actual Dispatch (Editable) -->
              <td style="border: 1px solid #ddd;">
                <ng-container *ngIf="lot.isEditing; else viewActualDispatch">
-                 <input type="date" [(ngModel)]="lot.actualdispatch" class="form-control form-control-sm" [ngClass]="{'required-field': !lot.actualdispatch}"/>
+                 <input type="date" [(ngModel)]="lot.actualdispatch" class="form-control form-control-sm" />
                </ng-container>
                <ng-template #viewActualDispatch>{{ lot.actualdispatch }}</ng-template>
              </td>
@@ -148,7 +158,7 @@
              <!-- Actual Arrival (Editable) -->
              <td style="border: 1px solid #ddd;">
                <ng-container *ngIf="lot.isEditing; else viewActualArrival">
-                 <input type="date" [(ngModel)]="lot.actualarrival" class="form-control form-control-sm" [ngClass]="{'required-field': !lot.actualarrival}"/>
+                 <input type="date" [(ngModel)]="lot.actualarrival" class="form-control form-control-sm"/>
                </ng-container>
                <ng-template #viewActualArrival>{{ lot.actualarrival }}</ng-template>
              </td>
@@ -203,7 +213,7 @@
               <!-- Delete Icon (always visible) -->
               &nbsp;
               <ng-container *ngIf="!lot.isNew">
-              <i 
+              <i *ngIf="Invisible"
                 class="fas fa-trash" 
                 (click)="deleteLot(child, i,lot)" 
                 style="cursor: pointer; color: #dc3545; font-size: 1.2rem;" 
@@ -212,7 +222,7 @@
             
               <!-- Copy Icon (always visible) -->
               &nbsp;
-              <i 
+              <i *ngIf="Invisible"
                 class="fas fa-copy" 
                 (click)="copyLot(lot, child)" 
                 style="cursor: pointer; color: #6c757d; font-size: 1.2rem;" 

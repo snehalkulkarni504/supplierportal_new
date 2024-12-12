@@ -52,13 +52,13 @@ export class pointernalComponent {
     this.FillPOTable();
   }
 
-  openDeliverySchedule(PONumber: any, suppliername:any) {
+  openDeliverySchedule(PONumber: any, suppliername:any, status:any) {
     // Navigate to the 'details' component with the specified ID
     // this.route.navigate(['/poschedule', PONumber]);
     this.route.navigate(['/module/poschedule'], {
       queryParams: {
         PONumber: PONumber,
-        postatus: "",
+        postatus: status,
         suppliername: suppliername,
         page: "internal"
       },

@@ -59,7 +59,8 @@ export class PoscheduleComponent implements OnInit {
   //PONumber! :number;
   constructor(private poService: SupplierService,private toastr: ToastrService,
    private route: ActivatedRoute, private modalService: NgbModal,private router: Router){}
-
+   Invisible:boolean=true;
+   disable:boolean=false;
    page:any;
   ngOnInit(): void {
     debugger;
@@ -89,7 +90,9 @@ export class PoscheduleComponent implements OnInit {
 
    if(this.page=="internal")
    {
-    this.Hide=false;
+    this.Invisible=false;
+    this.disable=true;
+    // this.Hide=false;
    }
    console.log("");
   //  this.PONumber = Number(this.route.snapshot.paramMap.get('PONumber') || '0');
@@ -506,18 +509,21 @@ export class PoscheduleComponent implements OnInit {
    const totalAllocatedQty = child.lotDetails.reduce((sum: number, l: any) => sum + l.lotqty, 0);
    const remainingQty = child.itemqty - totalAllocatedQty;
    console.log("totalAllocatedQty", totalAllocatedQty);
- 
+   console.log("saved:,",lot);
    if (totalAllocatedQty > child.itemqty) {
      this.toastr.warning(`The total quantity (${totalAllocatedQty}) exceeds the maximum allowed quantity of ${child.itemqty}. Please adjust the lot quantity.`,'warning');
      return;
    }
  
    // Validate required fields
-   if (lot.lotqty === "" || lot.actualarrival === "" || lot.actualdispatch === "" || lot.eta === "" || lot.etd === "") {
+   if (lot.lotqty === "" || lot.eta === "" || lot.etd === "") {
      this.toastr.warning("Please fill all required fields.");
      return;
    }
- 
+   
+   if(lot.actualdispatch!=""){
+    moment(lot.actualdispatch).format('YYYY-MM-DD').toString()
+   }
    // Prepare the data for API in an array format as per the requirement
    const LotData = [{
      "poNumber": `${this.PONumber}`,
@@ -525,10 +531,10 @@ export class PoscheduleComponent implements OnInit {
      "userId": `${this.UserID}`,  //add dynamic username later
      "lotnumber": lot.lotnumber,
      "lotqty": lot.lotqty,
-     "etd": moment(lot.etd).format('YYYY-MM-DD').toString(),
-     "eta": moment(lot.eta).format('YYYY-MM-DD').toString(),
-     "actualdispatch": moment(lot.actualdispatch).format('YYYY-MM-DD').toString(),
-     "actualarrival": moment(lot.actualarrival).format('YYYY-MM-DD').toString(),
+     "etd": lot.etd ? moment(lot.etd).format('YYYY-MM-DD').toString() : lot.etd,
+     "eta": lot.eta ? moment(lot.eta).format('YYYY-MM-DD').toString() : lot.eta,
+     "actualdispatch": lot.actualdispatch ? moment(lot.actualdispatch).format('YYYY-MM-DD').toString(): lot.actualdispatch,
+     "actualarrival": lot.actualarrival ? moment(lot.actualarrival).format('YYYY-MM-DD').toString() : lot.actualarrival,
      "attachment": "string",
      "isEditing": false,
      "isNew": false
