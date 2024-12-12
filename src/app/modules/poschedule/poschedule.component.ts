@@ -439,7 +439,7 @@ export class PoscheduleComponent implements OnInit {
     debugger;
 
     modalRef.componentInstance.ItemNo= child.itemno;
-    modalRef.componentInstance.LotNumber= number;
+    modalRef.componentInstance.LotNumber= lot.lotnumber;
     modalRef.componentInstance.PoNumber = this.PONumber;
     modalRef.componentInstance.postatus = this.postatus;
     modalRef.componentInstance.suppliername = this.suppliername;
