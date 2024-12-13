@@ -23,6 +23,7 @@ export class DocuploadComponent {
   @Input() suppliername:any;
   @Input() page:any;
   @Output() saveTrigger: EventEmitter<any> = new EventEmitter();
+  
 
   
   doc_deatils = [
@@ -44,24 +45,61 @@ export class DocuploadComponent {
   remarks: string = '';
   selectedFile: File | null = null;
   disable:boolean=false;
+  roleid:any;
+  tpsolaruser:boolean=false;
+  
+
+  // ngOnInit(): void {
+  //   debugger;
+  //   if(this.suppliername=="" || this.postatus=="Closed"){
+  //     this.disable=true;
+  //  }
+  //  else
+  //  {
+  //   this.disable=false;
+  //  }
+
+  //  if(this.page=="internal"){
+  //   this.disable=true;
+  //  }
+  //   this.fetchdocdetails(this.PoNumber.toString(),this.ItemNo.toString(),this.LotNumber);
+  //   // this.formatDates();
+  //   //this.filteredData = [...this.doc_deatils];
+  //   this.roleid=Number(localStorage.getItem("roleId"));
+  //   if(this.roleid==6)
+  //   {
+  //     this.tpsolaruser=true
+  //   }
+     
+  // }
 
   ngOnInit(): void {
     debugger;
-    if(this.suppliername=="" || this.postatus=="Closed"){
-      this.disable=true;
-   }
-   else
-   {
-    this.disable=false;
-   }
-
-   if(this.page=="internal"){
-    this.disable=true;
-   }
-    this.fetchdocdetails(this.PoNumber.toString(),this.ItemNo.toString(),this.LotNumber);
-    // this.formatDates();
-    //this.filteredData = [...this.doc_deatils];
+  
+    // Check if suppliername is empty or postatus is "Closed"
+    this.disable = this.suppliername === "" || this.postatus === "Closed";
+  
+    // Additional condition for internal pages
+    if (this.page === "internal") {
+      this.disable = true;
+    }
+  
+    // Fetch roleId from localStorage and parse it as a number
+    const storedRoleId = localStorage.getItem("roleId");
+    if (storedRoleId) {
+      this.roleid = Number(storedRoleId);
+    } else {
+      console.error("roleId not found in localStorage");
+      this.roleid = null; // Handle missing roleId gracefully
+    }
+  
+    // Check if the user is a TPSolar user
+    this.tpsolaruser = this.roleid === 6;
+  
+    // Fetch document details
+    this.fetchdocdetails(this.PoNumber.toString(), this.ItemNo.toString(), this.LotNumber);
   }
+  
 
 
 
