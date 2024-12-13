@@ -73,8 +73,8 @@
             <td>
               <i class="fas fa-edit" type="button" style="cursor: pointer; color: #ffc107; font-size: 1.2rem;"
                 (click)="toggleAddRolePopup(role)"></i>
-               <i class="fas fa-trash" type="button" style="padding-left: 20px;cursor: pointer; color: #dc3545; font-size: 1.2rem;"
-                (click)="openDeleteConfirmation(role.id)" ></i> 
+               <!-- <i class="fas fa-trash" type="button" style="padding-left: 20px;cursor: pointer; color: #dc3545; font-size: 1.2rem;"
+                (click)="openDeleteConfirmation(role.id)" ></i>  -->
             </td>
              <!-- <td>
               <svg (click)="openDeleteConfirmation(role.id)" xmlns="http://www.w3.org/2000/svg"  width="20" height="20" fill="#dc3545" class="bi bi-trash" viewBox="0 0 16 16">
@@ -155,7 +155,7 @@
                     [value]="option.supplierId">{{option.supplierName}}</ng-option>
                 </ng-select>
               </div>
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <label>Status</label>
                 <div>
                   <input class="form-check-input" style="margin: 5px;" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="IsActive" 
@@ -164,7 +164,7 @@
                     {{Active}}
                   </label>
                 </div>
-              </div>
+              </div> -->
             </div>
           </form>
 

@@ -147,8 +147,18 @@ export class UsermasterComponent {
       }
       
     });
-
   }
+  onRoleChange(selectedRoleId: number): void {
+    const selectedRole = this.roleOptions.find((role: { id: number; }) => role.id === selectedRoleId);
+  
+    if (selectedRole?.name === 'Supplier') {
+      this.getSupplierdata();
+    } else {
+      this.supplierOptions = [];
+      this.AddUserMasterForm.get('supplierId')?.reset();
+    }
+  }
+  
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;

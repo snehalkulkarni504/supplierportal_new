@@ -31,9 +31,9 @@
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg></i></button> -->
-                <button type="button" class="btn btn-primary1" (click)="toggleAddSupplierPopup()" title="Add User">
-                    <i class="fa fa-plus ng-tns-c205-30"></i> <!-- FontAwesome Icon -->
-                </button>
+                <!-- <button type="button" class="btn btn-primary1" (click)="toggleAddSupplierPopup()" title="Add User">
+                    <i class="fa fa-plus ng-tns-c205-30"></i> 
+                </button> -->
             </div>
         </div>
 
@@ -46,11 +46,11 @@
                         <th>Supplier Name</th>
                         <th>Country</th>
                         <!-- <th>Country Id</th> -->
-                        <th>Status</th>
-                        <th>Created By</th>
+                        <!-- <th>Status</th> -->
+                        <!-- <th>Created By</th> -->
                         <!-- <th>Created Id</th> -->
-                        <th>Created On</th>
-                        <th>Action</th>
+                        <!-- <th>Created On</th> -->
+                        <!-- <th>Action</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -62,18 +62,18 @@
                         <td>{{ supplier.supplierName }}</td>
                         <td>{{ supplier.country }}</td>
                         <td hidden>{{ supplier.countryId}}</td>
-                        <td>{{ supplier.status }}</td>
-                        <td>{{ supplier.createdBy }}</td>
+                        <td hidden>{{ supplier.status }}</td>
+                        <td hidden>{{ supplier.createdBy }}</td>
                         <td hidden>{{ supplier.mst_user_id }}</td>
-                        <td>{{ supplier.createdOn | date: 'dd-MMM-yyyy'}}</td>
-                        <td>
+                        <td hidden>{{ supplier.createdOn | date: 'dd-MMM-yyyy'}}</td>
+                        <!-- <td>
                             <i class="fas fa-edit" type="button"
                                 style="cursor: pointer; color: #ffc107; font-size: 1.2rem;"
                                 (click)="toggleAddSupplierPopup(supplier)"></i>
                             <i class="fas fa-trash" type="button"
                                 style="padding-left: 20px;cursor: pointer; color: #dc3545; font-size: 1.2rem;"
                                 (click)="openDeleteConfirmation(supplier.supplierId)"></i>
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>
