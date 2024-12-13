@@ -13,6 +13,13 @@ export interface ponos {
     supplierCode: string,
     poNumber:number
 }
+
+export interface status {
+    status: string
+    // poNumber:number
+}
+
+
 export interface Adduser
 {
     userName:string,

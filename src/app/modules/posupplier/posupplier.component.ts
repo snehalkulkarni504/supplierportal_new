@@ -42,9 +42,13 @@ export class POsupplierComponent implements OnInit {
   
   SelectedPONumber :any;
   filterMetadata = { count: 0 };
-  Status: string[] = ["Open","WIP","Closed"];
-  selectedPOs: ponos[] = [];
+  
+  Status: string[] = ["Open", "WIP", "Closed"];
   selectedstatus: string[] = [];
+  selectedStatusText: string = '---Select---';
+
+  selectedPOs: ponos[] = [];
+  // selectedstatus: string[] = [];
   FromPODate: string | null = null;
   ToPODate: string | null = null;
   POSupplierScreen!: FormGroup;
@@ -63,6 +67,7 @@ export class POsupplierComponent implements OnInit {
 
 
   ngOnInit() {
+    // this.selectedstatus.push("vishal");
     this.POSupplierScreen = new FormGroup({
       textsearch: new FormControl(),
       FromPODate:new FormControl(),
@@ -101,6 +106,9 @@ export class POsupplierComponent implements OnInit {
     // this.route.navigate(['/module/poschedule', PONumber,postatus,suppliername]);
   }
   
+  goBack(): void {
+    window.history.back();
+  }
 
   GetSuppliers() {
     this.Suppliers = [];
@@ -348,9 +356,9 @@ togglePoSelection(): void {
 //   }
 //   this.filterTableData();
 // }
-selectedStatusText:any;
+// selectedStatusText:any;
 
-toggleStatusSelection(): void {
+toggleStatusSelection( value:any ): void {
   // const isChecked = (event.target as HTMLInputElement).checked;
   // if (isChecked) {
   //   this.selectedstatus.push(status);
@@ -361,9 +369,13 @@ toggleStatusSelection(): void {
   //   }
   // }
 
+  console.log("this.selectedstatus",value);
   this.selectedStatusText = this.selectedstatus.length > 0 
     ? this.selectedstatus.join(', ') 
     : '---Select---';
+
+  // this.selectedStatusText = this.selectedstatus.map(po => po.poNumber).join(', ') || '---Select---';
+
 
   this.filterTableData();
 }
