@@ -275,3 +275,22 @@
   background-color:#4d94c9 !important;
   color: #000 !important;
   }
+  
+  /* Make the table container scrollable horizontally */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS devices */
+}
+
+/* Adjust table styles */
+.table {
+  width: 100%;
+  table-layout: auto; /* Ensure table columns adjust based on content */
+  border-collapse: collapse;
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    margin-top: 15px;
+  }
+}
