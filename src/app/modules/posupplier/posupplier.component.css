@@ -373,7 +373,31 @@ ngb-pagination ::ng-deep ul > li > a {
     margin-right: 10%; */
     font-family: Helvetica, Arial;
 }
+.po-details-heading {
+    font-weight: bold;
+    color: #278bd8;
+    line-height: 60px;
+    font-size: 28px;
+    margin-left: 0px;
+    white-space: nowrap;
+  }
 
+  /* Responsive styling */
+  @media (max-width: 768px) {
+    .po-details-heading {
+      font-size: 24px;
+      margin-left: 70px;
+      line-height: 50px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .po-details-heading {
+      font-size: 20px;
+      margin-left: 20px;
+      line-height: 40px;
+    }
+  }
 .MasterHeaderlable {
     width: 80%;
     display: inline-flex;

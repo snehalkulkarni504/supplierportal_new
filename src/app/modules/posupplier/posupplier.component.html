@@ -2,25 +2,33 @@
   <form [formGroup]="POSupplierScreen">
   <!-- <p>posupplier works!</p> -->
   <div class="MasterHeaderrr">
-    <div class="text-center" style="width: 10%; float: left; line-height: 60px;margin-left: -75px;">
+    <div class="text-center" style="width: 10%; float: left; line-height: 60px; margin-left: -75px;">
       <i class="fas fa-arrow-circle-left back_button" 
-      style="color: #00509e;cursor: pointer;position: absolute; left: 61px; top: 65px; font-size: 24px;" 
+      style="color: #00509e; cursor: pointer; position: absolute; left: 61px; top: 65px; font-size: 24px;" 
       title="Back"
       (click)="goBack()"
       aria-label="Go back to the previous page"
       onmouseover="this.style.transform='scale(1.1)'; this.style.transition='transform 0.2s ease-in-out'"
-    onmouseout="this.style.transform='scale(1)'; this.style.transition='transform 0.2s ease-in-out'"
-    tabindex="0">
-    </i>
+      onmouseout="this.style.transform='scale(1)'; this.style.transition='transform 0.2s ease-in-out'"
+      tabindex="0">
+      </i>
+    </div>
+
+    <!-- <div class="text-start" style="width: auto; float: left;">
+      <h2 style="font-weight: bold; color: #278bd8; line-height: 60px; font-size: 28px; margin-left: 70px; white-space: nowrap;">
+          PO Details
+      </h2>
+    </div> -->
+    <div class="text-start" style="width: auto; float: left;">
+      <h2 class="po-details-heading">
+        PO Details
+      </h2>
+    </div>
+</div>
+
       <!-- <div class="col-12" class="left-content">
         <h4>PO Details</h4>
       </div> -->
-  </div>
-  <div class="text-start"  style="width: 90%;  ">
-    <h2 style=" font-weight: bold; color: #278bd8;line-height: 60px;font-size: 28px;margin-left: 0px;">
-        PO Deatails</h2>
-</div>
-</div>
   <!-- <div class="col-12" class="centered-content">
     <p style="margin-bottom: 0.5rem">{{SupplierName}}</p>
   </div>
