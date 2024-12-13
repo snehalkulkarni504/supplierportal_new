@@ -400,9 +400,24 @@
 }
 
 
+.filter-icon{
+    height: 46px;
+     cursor: pointer;
+     padding: 5px ; 
+     /* border: 1px solid red;  */
+     /* border-radius: 5px; */
+     margin-right: 5px;
+     transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.filter-icon:active{
+    transform: scale(1.2); /* Enlarge on click */
+}
+
 .clickable-icon {
     cursor: pointer;
-    font-size: 24px;
+    font-size: 32px;
+    margin-left: 15px;
     color: #00509e;
     transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
   }
@@ -419,12 +434,7 @@
     color: #003f73; /* Optional color change on click */
   }
 
-  .clickable-icon {
-    cursor: pointer;
-    font-size: 30px;
-    color: #4d94c9;
-    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
-}
+  
 .pagination{
     width: 80%;
     margin-left: 45px;
