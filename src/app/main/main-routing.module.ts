@@ -10,6 +10,8 @@ import { PoscheduleComponent } from '../modules/poschedule/poschedule.component'
 import { SupplierMasterComponent } from '../modules/master/supplier-master/supplier-master.component';
 import { pointernalComponent } from '../modules/pointernal/pointernal.component';
 import { DocuploadComponent } from '../modules/docupload/docupload.component';
+import { LoginComponent } from '../login/login.component';
+import { AuthGuard } from '../auth.guard';
 
 
 const routes: Routes = [
@@ -18,7 +20,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'supplier', component: POsupplierComponent },
+      { path: 'supplier', component: POsupplierComponent , canActivate: [AuthGuard] },
       { path: 'user', component: UsermasterComponent },
       { path: 'suppliermaster', component: SupplierMasterComponent },
       { path: 'podetailsreport', component: PodetailsreportComponent },
@@ -26,7 +28,8 @@ const routes: Routes = [
       { path: 'poschedule', component: PoscheduleComponent },
       // { path: 'poschedule/:PONumber/:postatus/:suppliername', component: PoscheduleComponent },
       { path: 'pointernal',component:pointernalComponent},
-      { path: 'docupload', component:DocuploadComponent}
+      { path: 'docupload', component:DocuploadComponent},
+      { path: 'login', component:LoginComponent}
     ]
   } 
 

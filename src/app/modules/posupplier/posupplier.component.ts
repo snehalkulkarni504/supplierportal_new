@@ -1,4 +1,4 @@
-import { Component,OnInit, ViewEncapsulation } from '@angular/core';
+import { Component,OnInit, ViewEncapsulation,NgModule } from '@angular/core';
 import { FormControl,FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SupplierService } from '../../Services/supplier.service';
 import { Router } from '@angular/router';
@@ -9,8 +9,10 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Supplier } from '../../models/supplier';
 import { SearchPipe } from '../../SearchPipe/search.pipe';
+
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //import { faEdit } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-posupplier',
@@ -26,54 +28,34 @@ export class POsupplierComponent implements OnInit {
   SupplierName: string |null = "";
   SupplierCode : string |null= "";
   myPlaceHolder='----Select----';
- PONumbers: ponos[] = [];
-  // PONumbers = [
-  //   { poNumber: 'PO001' },
-  //   { poNumber: 'PO002' },
-  //   { poNumber: 'PO003' },
-  //   { poNumber: 'PO004' },
-  //   { poNumber: 'PO005' },
-  //   { poNumber: 'PO006' },
-  //   { poNumber: 'PO007' },
-  //   { poNumber: 'PO008' },
-  //   { poNumber: 'PO009' },
-  //   { poNumber: 'PO010' }
-  // ];
-  
+  PONumbers: ponos[] = [];
   SelectedPONumber :any;
   filterMetadata = { count: 0 };
   
-  Status: string[] = ["Open", "WIP", "Closed"];
+  Status: string[] =[];
+  selectedPOs: ponos[] = [];
   selectedstatus: string[] = [];
   selectedStatusText: string = '---Select---';
-
-  selectedPOs: ponos[] = [];
   // selectedstatus: string[] = [];
   FromPODate: string | null = null;
   ToPODate: string | null = null;
   POSupplierScreen!: FormGroup;
   POTableData: Podetails[] = [];
   filteredTableData: Podetails[] = [];
-  dropdownSettings = {};
   textsearch: string = '';
-  paginatedData: Podetails[] = [];
   page: number = 1;
   pageSize: number = 5;
   totalPages:number=0;
   Suppliers: Supplier[] = [];
   
-  constructor(private modulesService: SupplierService, private route: Router) { }
-
-
+  constructor(private modulesService: SupplierService, private route: Router) { 
+   }
 
   ngOnInit() {
-    // this.selectedstatus.push("vishal");
     this.POSupplierScreen = new FormGroup({
       textsearch: new FormControl(),
       FromPODate:new FormControl(),
       ToPODate:new FormControl()
-
-
     });
     this.GetSuppliers();
     
@@ -153,7 +135,6 @@ export class POsupplierComponent implements OnInit {
       await this.modulesService.getPONumber(this.SupplierCode).subscribe({
         next: (response:any) => {
           this.PONumbers = response;
-          
           console.log("API response", this.PONumbers);
           
         },
@@ -184,6 +165,9 @@ async FillPOTable(){
     next: (response: any) => {
       this.POTableData = response;
       this.filteredTableData = [...this.POTableData];
+      this.Status=Array.from(
+        new Set(this.filteredTableData.map(item => item.status))
+      );
       console.log("API response", this.POTableData);
       // this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
       //this.updatePagination();
@@ -219,7 +203,6 @@ getSelectedPoText(): string {
 }
 
 filterTableData() {
-  // alert("testing");
   console.log(this.selectedPOs);
   if (this.selectedPOs.length||this.selectedstatus||this.FromPODate||this.ToPODate) {
    
@@ -238,8 +221,8 @@ filterTableData() {
     this.filteredTableData = this.POTableData.filter(data => {
       const [day, month, year] = data.poDate.split("-").map(Number); // Convert each part to a number
       const POdate  = new Date(year, month - 1, day); // Month is zero-based
-      console.log(POdate); 
-      return (!this.selectedPOs?.length ||  this.selectedPOs.some(selectedPO => Number(selectedPO.poNumber) === Number(data.poNumber)))
+      console.log(Number(data.poNumber)); 
+      return (!this.selectedPOs?.length ||  this.selectedPOs.some(selectedPO => selectedPO.poNumber === Number(data.poNumber)))
        && (!this.selectedstatus?.length || this.selectedstatus.some(selectstatus=>selectstatus===data.status))
        && (!this.FromPODate  ||POdate >= frompodate)
        && (!this.ToPODate  ||POdate <= topodate)
@@ -301,13 +284,13 @@ onSearch(): void {
   //this.updatePagination();
 }
 
-updatePagination(): void {
-  const startIndex = (this.page-1) * this.pageSize;
-  const endIndex = startIndex + this.pageSize;
-  console.log('filtered',this.filteredTableData)
-  this.paginatedData = this.filteredTableData.slice(startIndex, endIndex);
-  this.totalPages = this.filteredTableData.length; // Update total count
-}
+// updatePagination(): void {
+//   const startIndex = (this.page-1) * this.pageSize;
+//   const endIndex = startIndex + this.pageSize;
+//   console.log('filtered',this.filteredTableData)
+//   this.paginatedData = this.filteredTableData.slice(startIndex, endIndex);
+//   this.totalPages = this.filteredTableData.length; // Update total count
+// }
 
 
 // goToPage(page: number): void {
@@ -397,6 +380,8 @@ onPageChange(page: number) {
   this.page = page;
   //this.updatePagination();
 }
+
+
 
 }
 

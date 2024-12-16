@@ -6,6 +6,8 @@ import { fadeInOut, INavbarData } from './helper';
 //import { navbarData } from './nav-data';
 import { SublevelMenuComponent } from "./sublevel-menu.component";
 import { CommonModule } from '@angular/common';
+import { ConfirmDialogService } from './../Services/confirmation-dialog.service';
+import { AuthService } from './../Services/authservice';
 //import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
  
 interface SideNavToggle {
@@ -55,7 +57,9 @@ export class SidenavComponent {
     }
   }
 
-  constructor(public router: Router, private adminService : AdminService) {}
+  constructor(public router: Router, private adminService : AdminService,
+    private confirmationDialogService: ConfirmDialogService,
+    public authService:AuthService) {}
 
   ngOnInit(): void {
     this.username = localStorage.getItem("username");
@@ -121,6 +125,19 @@ export class SidenavComponent {
         }
       }
     }
+  }
+
+  onLogout(): void {
+    this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to logout ?','LogOut','Cancel','sm')
+    .then((confirmed) =>{ if(confirmed) 
+      {
+        this.authService.logout();
+        //this.router.navigate(['/']);
+  }
+})
+    .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+    ;
+    // Add your logout logic here, e.g., clear user session, navigate to login page, etc.
   }
 
   

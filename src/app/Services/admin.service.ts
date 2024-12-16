@@ -81,6 +81,5 @@ export class AdminService {
   addRoleDetails(user: any):Observable<any>{
     return this.httpClient.post<any>( this.ApiUrl+'AddRoleData',user);
   }
- 
   
 }
