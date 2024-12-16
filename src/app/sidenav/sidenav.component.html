@@ -28,7 +28,8 @@
                     <label style="margin-left: 10px;">Hi, {{username}}</label>
                 </div>
 
-                <div class="col-md-2 text-end">
+                <div class="col-md-2 text-end" (click)="onLogout()">
+                    <span class="logo_logout">
                     <svg ngbTooltip="Logout" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0066b2"
                         class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -36,6 +37,7 @@
                         <path fill-rule="evenodd"
                             d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
                     </svg>
+                </span>
                 </div>
             </div>
         </div>
@@ -78,7 +80,7 @@
             </li>
         </ul>
     </div>
-    <div class="logo-container_logout" @fadeInOut>
+    <div class="logo-container_logout" @fadeInOut (click)="onLogout()">
         <span class="logo_logout">
             <svg ngbTooltip="Logout" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff"
             class="bi bi-box-arrow-right" viewBox="0 0 16 16">
