@@ -8,9 +8,9 @@
           </svg>
         </button>
       </div>
-        <div class="text-start" style="width: 90%; float: left;">
-          <h2 style=" font-weight: bold; color: #278bd8;line-height: 60px;font-size: 28px; margin-left: 85px;">
-              Role Master</h2>
+      <div class="text-start"  style="width: 90%; float: left;  ">
+          <h2 style=" font-weight: bold; color: #278bd8;line-height: 60px;font-size: 28px;margin-left: 100px;">
+            Role Master</h2>
         </div>
       
     </div>
@@ -42,7 +42,8 @@
         <thead>
           <tr>
             <th hidden>Role_Id</th>
-            <th>Sr. No</th>
+            <th>S.No</th>
+            <th>RoleId</th>
             <th>Role Name</th>
             <th>Menu</th>
             <th hidden>Menu</th>
@@ -58,6 +59,7 @@
             *ngFor="let data of getRole | search: textsearch:filterMetadata | paginate: { itemsPerPage: 5, currentPage: page } let i=index">
             <!-- <td hidden>{{data.roleId}}</td> -->
             <td>{{(page - 1) * 5 + i + 1}}</td>
+            <td>{{data.roleId}}</td>
             <td>{{data.roleName}}</td>
             <td>{{data.menu}}</td>
             <td hidden>{{data.menuId}}</td>
