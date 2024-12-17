@@ -45,11 +45,12 @@ export class UsermasterComponent {
   fullName: any;
   emailId: any;
   roleId: any;
-  supplierId: any;
+  supplierId?: any;
   MST_Role_Id: any;
   IsActive: boolean = false;
   Active = "Active";
   display = "none";
+  
 
   roleOptions: any = [];
   supplierOptions: any=[];
@@ -327,9 +328,13 @@ debugger;
         fullName: this.fullName,
         emailId: this.emailId,
         ModifiedBy: this.user,
-        supplierId:this.supplierId
+        supplierId:this.supplierId|| undefined 
+        
 
       };
+      if (this.roleId === 5 && this.supplierId) {
+        updateData.supplierId = this.supplierId;
+      }
 
       this.updateuserdetailsinfo(updateData);
       console.log('Updated role:', updateData);
@@ -342,8 +347,14 @@ debugger;
         fullName: this.fullName,
         emailId: this.emailId,
         createdBy: this.user,
-        supplierId:this.supplierId
+        supplierId:this.supplierId || undefined 
+
+        
       };
+      if (this.roleId === 5 && this.supplierId) {
+        newRoleData.supplierId = this.supplierId;
+      }
+
       if (this.isDuplicate(this.userName)) {
         this.toastr.warning('Username already exists.');
         return;

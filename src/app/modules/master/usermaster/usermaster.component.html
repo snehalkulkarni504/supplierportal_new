@@ -147,7 +147,7 @@
                 </ng-select>
               </div>
               <div class="col-md-12" style="height: 20px;"></div>
-              <div class="col-md-6">
+              <div class="col-md-6" *ngIf="roleId === 5">
                 <label for="dropdown5" class="default-lbl">Supplier</label>
                 <ng-select [ngModelOptions]="{standalone: true}" [searchable]="true" placeholder="Please select"
                   [(ngModel)]='supplierId' formControlName="supplierId" >
@@ -156,7 +156,7 @@
                     [value]="option.supplierId">{{option.supplierName}}</ng-option>
                 </ng-select>
               </div>
-              <!-- <div class="col-md-6">
+              <div class="col-md-6" *ngIf="isEditing">
                 <label>Status</label>
                 <div>
                   <input class="form-check-input" style="margin: 5px;" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="IsActive" 
@@ -165,7 +165,7 @@
                     {{Active}}
                   </label>
                 </div>
-              </div> -->
+              </div>
             </div>
           </form>
 
