@@ -51,12 +51,13 @@
         <ng-select class="ng-selectcustomer" 
           [multiple]="true" 
           [items]="PONumbers" 
-          bindLabel="poNumber" 
-          bindValue="poNumber" 
+          bindLabel="poNumber"
           [(ngModel)]="selectedPOs" 
           (change)="togglePoSelection()" 
           placeholder="---Select PO---"
-          style="width: 224px;">
+          style="width: 224px;"
+          [ngModelOptions]="{standalone: true}">
+          
         </ng-select>
       </div>
   
@@ -89,7 +90,8 @@
           [(ngModel)]="selectedstatus" 
           (change)="toggleStatusSelection(selectedstatus)" 
           placeholder="---Select Status---"
-          style="width: 224px;">
+          style="width: 224px;"
+          [ngModelOptions]="{standalone: true}">
         </ng-select>
       </div>
   
