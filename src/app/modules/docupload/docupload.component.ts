@@ -212,7 +212,7 @@ export class DocuploadComponent {
 
   onUpload(): void {
     if (this.selectedFile && this.documentNo && this.documenttype) {
-      this.modalService.dismissAll();
+      // this.modalService.dismissAll();
       const updatedby = 'Bikash';
 
       this.service.uploadFile(this.selectedFile,this.documentNo,this.documenttype, this.PoNumber, this.ItemNo, this.LotNumber,this.remarks,updatedby)

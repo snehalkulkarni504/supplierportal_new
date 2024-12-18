@@ -313,7 +313,7 @@ export class PoscheduleComponent implements OnInit {
            expanded: false // Ensure expanded is false if not provided
          }))
        }));
-       console.log(this.parentTableData);
+       console.log("test now-",this.parentTableData);
      },
      error: (err) => {
        console.error('Error fetching data:', err);
@@ -521,9 +521,12 @@ export class PoscheduleComponent implements OnInit {
      return;
    }
    
+
    if(lot.actualdispatch!=""){
-    moment(lot.actualdispatch).format('YYYY-MM-DD').toString()
+    lot.actualdispatch= moment(lot.actualdispatch).format('YYYY-MM-DD').toString()
    }
+   console.log("lot.actualdispatch-",lot.actualdispatch);
+
    // Prepare the data for API in an array format as per the requirement
    const LotData = [{
      "poNumber": `${this.PONumber}`,
@@ -533,7 +536,7 @@ export class PoscheduleComponent implements OnInit {
      "lotqty": lot.lotqty,
      "etd": lot.etd ? moment(lot.etd).format('YYYY-MM-DD').toString() : lot.etd,
      "eta": lot.eta ? moment(lot.eta).format('YYYY-MM-DD').toString() : lot.eta,
-     "actualdispatch": lot.actualdispatch ? moment(lot.actualdispatch).format('YYYY-MM-DD').toString(): lot.actualdispatch,
+     "actualdispatch": lot.actualdispatch,
      "actualarrival": lot.actualarrival ? moment(lot.actualarrival).format('YYYY-MM-DD').toString() : lot.actualarrival,
      "attachment": "string",
      "isEditing": false,

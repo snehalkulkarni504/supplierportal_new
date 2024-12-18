@@ -148,6 +148,8 @@
              </td>
        
              <!-- Actual Dispatch (Editable) -->
+
+             
              <td style="border: 1px solid #ddd;">
                <ng-container *ngIf="lot.isEditing; else viewActualDispatch">
                  <input type="date" [(ngModel)]="lot.actualdispatch" class="form-control form-control-sm" />
@@ -156,6 +158,7 @@
              </td>
        
              <!-- Actual Arrival (Editable) -->
+             
              <td style="border: 1px solid #ddd;">
                <ng-container *ngIf="lot.isEditing; else viewActualArrival">
                  <input type="date" [(ngModel)]="lot.actualarrival" class="form-control form-control-sm"/>
