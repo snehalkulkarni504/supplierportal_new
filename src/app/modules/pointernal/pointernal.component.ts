@@ -281,6 +281,7 @@ togglePoSelection(): void {
   console.log("this.selectedPOs",this.selectedPOs);
   // Apply filtering logic based on selected POs
   this.filterTableData();
+  this.FillPODropdown();
 }
 
 toggleStatusSelection( value:any ): void {
