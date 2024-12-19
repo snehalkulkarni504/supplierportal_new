@@ -87,7 +87,9 @@ export class PoscheduleComponent implements OnInit {
     this.Hide=true;
     console.log('no')
    }
-
+   if(this.postatus=="Closed"){
+    this.Invisible=false;
+   }
    if(this.page=="internal")
    {
     this.Invisible=false;
@@ -523,7 +525,18 @@ export class PoscheduleComponent implements OnInit {
    
 
    if(lot.actualdispatch!=""){
-    lot.actualdispatch= moment(lot.actualdispatch).format('YYYY-MM-DD').toString()
+    lot.actualdispatch= moment(lot.actualdispatch).format('YYYY-MM-DD').toString();
+   }
+
+   if(lot.actualarrival!=""){
+    lot.actualarrival=moment(lot.actualarrival).format('YYYY-MM-DD').toString();
+   }
+
+   if(lot.actualdispatch=="Invalid date"){
+    lot.actualdispatch="";
+   }
+   if(lot.actualarrival=="Invalid date"){
+    lot.actualarrival="";
    }
    console.log("lot.actualdispatch-",lot.actualdispatch);
 
@@ -537,7 +550,7 @@ export class PoscheduleComponent implements OnInit {
      "etd": lot.etd ? moment(lot.etd).format('YYYY-MM-DD').toString() : lot.etd,
      "eta": lot.eta ? moment(lot.eta).format('YYYY-MM-DD').toString() : lot.eta,
      "actualdispatch": lot.actualdispatch,
-     "actualarrival": lot.actualarrival ? moment(lot.actualarrival).format('YYYY-MM-DD').toString() : lot.actualarrival,
+     "actualarrival": lot.actualarrival,
      "attachment": "string",
      "isEditing": false,
      "isNew": false

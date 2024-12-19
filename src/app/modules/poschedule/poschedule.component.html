@@ -149,8 +149,10 @@
        
              <!-- Actual Dispatch (Editable) -->
 
-             
-             <td style="border: 1px solid #ddd;">
+             <td *ngIf="disable">
+              {{ lot.eta }}
+             </td>
+             <td *ngIf="!disable" style="border: 1px solid #ddd;">
                <ng-container *ngIf="lot.isEditing; else viewActualDispatch">
                  <input type="date" [(ngModel)]="lot.actualdispatch" class="form-control form-control-sm" />
                </ng-container>
@@ -158,8 +160,10 @@
              </td>
        
              <!-- Actual Arrival (Editable) -->
-             
-             <td style="border: 1px solid #ddd;">
+             <td *ngIf="!disable">
+              {{ lot.actualarrival }}
+             </td>
+             <td *ngIf="disable" style="border: 1px solid #ddd;">
                <ng-container *ngIf="lot.isEditing; else viewActualArrival">
                  <input type="date" [(ngModel)]="lot.actualarrival" class="form-control form-control-sm"/>
                </ng-container>
@@ -170,7 +174,7 @@
              <td style="border: 1px solid #ddd; text-align: center;">
                <label for="file-upload-{{i}}">
                  <i class="bi bi-paperclip" style="font-size: 17px; cursor: pointer;"></i>
-               </label>
+               </label> 
                <input type="button" id="file-upload-{{i}}" (click)="uploadAttachment($event, lot, child,lot.lotNumber)" style="display: none;">
              </td>
        

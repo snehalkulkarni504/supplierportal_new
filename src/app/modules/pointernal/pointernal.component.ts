@@ -58,7 +58,7 @@ export class pointernalComponent {
     this.FillPOTable();
   }
 
-  openDeliverySchedule(PONumber: any, suppliername:any, status:any) {
+  openDeliverySchedule(PONumber: any, status:any, suppliername:any) {
     // Navigate to the 'details' component with the specified ID
     // this.route.navigate(['/poschedule', PONumber]);
     this.route.navigate(['/module/poschedule'], {
