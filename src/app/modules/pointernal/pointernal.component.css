@@ -46,7 +46,7 @@ width: 270px;
     }
   
     .ng-selectcustomer {
-      width: 300px !important; /* Ensure the select box takes full width on small screens */
+      width: 320px !important; /* Ensure the select box takes full width on small screens */
     }
   
     .date-picker {
