@@ -23,6 +23,8 @@ export class DocuploadComponent {
   @Input() suppliername:any;
   @Input() page:any;
   @Output() saveTrigger: EventEmitter<any> = new EventEmitter();
+  @Output() errorOccurred: EventEmitter<string> = new EventEmitter();
+
   
 
   
@@ -251,7 +253,8 @@ export class DocuploadComponent {
           error: (error) => {
             console.error('File upload failed:', error);
             alert('File upload failed!');
-            this.saveTrigger.emit("Unable To Upload File");
+           // this.saveTrigger.emit("Unable To Upload File");
+           this.errorOccurred.emit(error.message);
           }
         });
     }
