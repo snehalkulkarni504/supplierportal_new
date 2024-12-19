@@ -1,21 +1,20 @@
 import { Component,OnInit,ViewChild,ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl,FormGroup,FormsModule ,ReactiveFormsModule} from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { Router } from '@angular/router';
 import { Podetails, ponos } from '../../models/podetails';
 import { SupplierService } from '../../Services/supplier.service';
 import { Supplier } from '../../models/supplier';
+import { SearchPipe } from '../../SearchPipe/search.pipe';
 
 @Component({
   selector: 'app-pointernal',
   standalone: true,
-  imports: [CommonModule,
-  FormsModule,
-  NgbPaginationModule,
-  NgxPaginationModule],
+  imports: [CommonModule, FormsModule,ReactiveFormsModule, NgxPaginationModule,
+    NgbPaginationModule,NgSelectModule,SearchPipe],
   templateUrl: './pointernal.component.html',
   styleUrl: './pointernal.component.css',
   encapsulation: ViewEncapsulation.None
@@ -36,17 +35,24 @@ export class pointernalComponent {
   timesheetDH!: FormGroup
   POTableData: Podetails[] = [];
   filteredTableData: Podetails[] = [];
-  searchQuery: string = '';
-  paginatedData: Podetails[] = [];
+  textsearch: string = '';
   page: number = 1;
   pageSize: number = 5;
   totalPages:number=0;
+  selectedStatusText: string = '---Select---';
+  filterMetadata = { count: 0 };
+  POInternalScreen!: FormGroup;
   constructor(private modulesService: SupplierService,private route: Router)
   {}
 
   
 
   ngOnInit():void {
+    this.POInternalScreen = new FormGroup({
+      textsearch: new FormControl(),
+      FromPODate:new FormControl(),
+      ToPODate:new FormControl()
+    });
     this.FillPODropdown();
     this.FillSupplierDropdown();
     this.FillPOTable();
@@ -145,7 +151,7 @@ async FillPOTable(){
       this.filteredTableData = [...this.POTableData];
       console.log("API response", this.POTableData);
       //this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
-      this.updatePagination();
+      //this.updatePagination();
     },
     error: (e:any) => {
       //this.spinnerService.hide();
@@ -199,7 +205,7 @@ filterTableData() {
     this.filteredTableData = [...this.POTableData];
   }
   //this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
-  this.updatePagination();
+  //this.updatePagination();
 }
 
 
@@ -213,7 +219,7 @@ ClearControls()
   this.filteredTableData=this.POTableData;
   this.FillPODropdown();
   //this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
-  this.updatePagination();
+  //this.updatePagination();
 
   const suppCheckboxes = document.querySelectorAll('.supp-checkbox') as NodeListOf<HTMLInputElement>;
   suppCheckboxes.forEach((checkbox) => (checkbox.checked = false));
@@ -225,22 +231,22 @@ ClearControls()
   statusCheckboxes.forEach((checkbox) => (checkbox.checked = false));
 }
 
-onSearch(): void {
-  const query = this.searchQuery.toLowerCase();  // Convert the query to lowercase for case-insensitive search
-  this.filteredTableData = this.POTableData.filter(item =>
-    Object.values(item).some(value =>
-      value.toString().toLowerCase().includes(query)  // Check if any value contains the search query
-    )
-  );
-}
+// onSearch(): void {
+//   const query = this.searchQuery.toLowerCase();  // Convert the query to lowercase for case-insensitive search
+//   this.filteredTableData = this.POTableData.filter(item =>
+//     Object.values(item).some(value =>
+//       value.toString().toLowerCase().includes(query)  // Check if any value contains the search query
+//     )
+//   );
+// }
 
-updatePagination(): void {
-  const startIndex = (this.page-1) * this.pageSize;
-  const endIndex = startIndex + this.pageSize;
-  console.log('filtered',this.filteredTableData)
-  this.paginatedData = this.filteredTableData.slice(startIndex, endIndex);
-  this.totalPages = this.filteredTableData.length; // Update total count
-}
+// updatePagination(): void {
+//   const startIndex = (this.page-1) * this.pageSize;
+//   const endIndex = startIndex + this.pageSize;
+//   console.log('filtered',this.filteredTableData)
+//   this.paginatedData = this.filteredTableData.slice(startIndex, endIndex);
+//   this.totalPages = this.filteredTableData.length; // Update total count
+// }
 
 async toggleSupplierSelection(supp: any, event: Event): Promise<void> {
   const isChecked = (event.target as HTMLInputElement).checked;
@@ -257,33 +263,54 @@ async toggleSupplierSelection(supp: any, event: Event): Promise<void> {
   await this.filterTableData();
 }
 
-togglePoSelection(po: any, event: Event): void {
-  const isChecked = (event.target as HTMLInputElement).checked;
-  if (isChecked) {
-    this.selectedPOs.push(po);
-  } else {
-    const index = this.selectedPOs.indexOf(po);
-    if (index > -1) {
-      this.selectedPOs.splice(index, 1);
-    }
-  }
+selectedPoText: string = '';
+
+getSelectedPoText(): string {
+  return this.selectedPOs.length > 0 
+    ? this.selectedPOs.map(po => po.poNumber).join(', ') 
+    : '---Select---';
+}
+
+togglePoSelection(): void {
+  // Log the currently selected PO numbers
+  console.log("Selected POs:", this.selectedPOs);
+
+  // Dynamically update the button text if needed (already handled by ng-select directly)
+  this.selectedPoText = this.selectedPOs.map(po => po.poNumber).join(', ') || '---Select---';
+
+  console.log("this.selectedPOs",this.selectedPOs);
+  // Apply filtering logic based on selected POs
   this.filterTableData();
 }
-toggleStatusSelection(status: any, event: Event): void {
-  const isChecked = (event.target as HTMLInputElement).checked;
-  if (isChecked) {
-    this.selectedstatus.push(status);
-  } else {
-    const index = this.selectedstatus.indexOf(status);
-    if (index > -1) {
-      this.selectedstatus.splice(index, 1);
-    }
-  }
+
+toggleStatusSelection( value:any ): void {
+  // const isChecked = (event.target as HTMLInputElement).checked;
+  // if (isChecked) {
+  //   this.selectedstatus.push(status);
+  // } else {
+  //   const index = this.selectedstatus.indexOf(status);
+  //   if (index > -1) {
+  //     this.selectedstatus.splice(index, 1);
+  //   }
+  // }
+
+  console.log("this.selectedstatus",value);
+  this.selectedStatusText = this.selectedstatus.length > 0 
+    ? this.selectedstatus.join(', ') 
+    : '---Select---';
+
+  // this.selectedStatusText = this.selectedstatus.map(po => po.poNumber).join(', ') || '---Select---';
+
+
   this.filterTableData();
 }
 
 onPageChange(page: number) {
   this.page = page;
-  this.updatePagination();
+  //this.updatePagination();
+}
+
+goBack(): void {
+  window.history.back();
 }
 }
