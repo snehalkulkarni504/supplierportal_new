@@ -39,38 +39,56 @@
   <!-- <div class="row" class="line-content">
     <hr style="margin-top: 0.5rem;color: #00509e;" class="line-content">
   </div> -->
-  <div class="container-fluid py-2" style="margin-left: -13px;">
+  <div class="container-fluid py-2" style="margin-left: -13px;padding-right: 0px;">
     <div class="row align-items-center g-2">
 
       <!-- Dropdown for Supplier -->
       <div class="col-md-auto col-sm-12 d-flex flex-column align-items-start me-3">
         <label class="form-label mb-1">Supplier:</label>
-        <ng-select class="ng-selectcustomer" 
+        <ng-select #mySelectSupp class="ng-selectcustomer" 
           [multiple]="true" 
           [items]="Suppliers" 
           bindLabel="suppliername"
+          bindvlaue="suppliername"
           [(ngModel)]="selectedsuppliers" 
-          (change)="togglePoSelection()" 
+          (change)="toggleSupplierSelection()" 
           placeholder="---Select Supplier---"
           style="width: 200px;"
-          [ngModelOptions]="{standalone: true}">
+          [ngModelOptions]="{standalone: true}"
+          [closeOnSelect]="true">
           
+          <ng-template ng-header-tmp let-items="items" >
+            <input  #select type="checkbox" (click)="selectAllsupplier(select.checked)" [checked]='selectedsuppliers.length==Suppliers.length'/> Select All
+       </ng-template>
+         
+       <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+           <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.suppliername}}
+       </ng-template>
         </ng-select>
       </div>
       
       <!-- Dropdown for PO Numbers -->
       <div class="col-md-auto col-sm-12 d-flex flex-column align-items-start me-3">
         <label class="form-label mb-1">PO No:</label>
-        <ng-select class="ng-selectcustomer" 
+        <ng-select #mySelect class="ng-selectcustomer" 
           [multiple]="true" 
           [items]="PONumbers" 
           bindLabel="poNumber"
+          bindvalue="poNumber"
           [(ngModel)]="selectedPOs" 
           (change)="togglePoSelection()" 
           placeholder="---Select PO---"
           style="width: 170px;"
-          [ngModelOptions]="{standalone: true}">
-          
+          [ngModelOptions]="{standalone: true}"
+        [closeOnSelect]="true"
+        >
+        <ng-template ng-header-tmp let-items="items" >
+            <input  #poselect type="checkbox" (click)="selectAllPO(poselect.checked)" [checked]='selectedPOs.length==PONumbers.length'/> Select All
+       </ng-template>
+         
+       <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+           <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.poNumber}}
+       </ng-template>
         </ng-select>
       </div>
   
@@ -140,7 +158,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let value of filteredTableData | search: textsearch:filterMetadata | paginate: { itemsPerPage: 5, currentPage: page } let i=index">
+          <tr *ngFor="let value of filteredTableData | search: textsearch:filterMetadata | paginate: { itemsPerPage: 10, currentPage: page } let i=index">
             <!-- <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td> -->
             <td>{{value.supplierName}}</td>
             <td>{{value.poNumber}}</td>

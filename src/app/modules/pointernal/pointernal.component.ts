@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormControl,FormGroup,FormsModule ,ReactiveFormsModule} from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 import { Router } from '@angular/router';
 import { Podetails, ponos } from '../../models/podetails';
 import { SupplierService } from '../../Services/supplier.service';
@@ -22,6 +22,8 @@ import { SearchPipe } from '../../SearchPipe/search.pipe';
 export class pointernalComponent {
   @ViewChild('FromPODateCalendar') private FromPODateCalendar: any;
   @ViewChild('ToPODateCalendar') private ToPODateCalendar: any;
+  @ViewChild('mySelectSupp') mySelectSupp!: NgSelectComponent;
+  @ViewChild('mySelect') mySelect!: NgSelectComponent;
   SupplierName: string = "Akcome Metals Technology (Nantong) LTD";
   myPlaceHolder='----Select----';
   PONumbers: ponos[] = [];
@@ -37,7 +39,7 @@ export class pointernalComponent {
   filteredTableData: Podetails[] = [];
   textsearch: string = '';
   page: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 10;
   totalPages:number=0;
   selectedStatusText: string = '---Select---';
   filterMetadata = { count: 0 };
@@ -248,17 +250,17 @@ ClearControls()
 //   this.totalPages = this.filteredTableData.length; // Update total count
 // }
 
-async toggleSupplierSelection(supp: any, event: Event): Promise<void> {
-  const isChecked = (event.target as HTMLInputElement).checked;
-  if (isChecked) {
-    this.selectedsuppliers.push(supp);
-  } else {
-    const index = this.selectedsuppliers.indexOf(supp);
-    if (index > -1) {
-      this.selectedsuppliers.splice(index, 1);
-    }
-  }
-  console.log('onchange',this.selectedsuppliers)
+async toggleSupplierSelection() {
+  // const isChecked = (event.target as HTMLInputElement).checked;
+  // if (isChecked) {
+  //   this.selectedsuppliers.push(supp);
+  // } else {
+  //   const index = this.selectedsuppliers.indexOf(supp);
+  //   if (index > -1) {
+  //     this.selectedsuppliers.splice(index, 1);
+  //   }
+  // }
+  // console.log('onchange',this.selectedsuppliers)
   await this.FillPODropdown();
   await this.filterTableData();
 }
@@ -281,7 +283,7 @@ togglePoSelection(): void {
   console.log("this.selectedPOs",this.selectedPOs);
   // Apply filtering logic based on selected POs
   this.filterTableData();
-  this.FillPODropdown();
+  //this.FillPODropdown();
 }
 
 toggleStatusSelection( value:any ): void {
@@ -305,6 +307,28 @@ toggleStatusSelection( value:any ): void {
 
   this.filterTableData();
 }
+
+selectAllsupplier(val:any) {
+  if(val) {
+    this.selectedsuppliers = this.Suppliers.map( account => account);
+    this.mySelectSupp.close();
+  } else {
+    this.selectedsuppliers = [];
+  }
+  console.log(val);
+}
+
+selectAllPO(val:any) {
+  if(val) {
+    this.selectedPOs = this.PONumbers.map( account => account);
+    this.mySelect.close();
+  } else {
+    this.selectedPOs = [];
+  }
+  console.log(val);
+}
+
+
 
 onPageChange(page: number) {
   this.page = page;

@@ -1,4 +1,4 @@
-import { Component,OnInit, ViewEncapsulation,NgModule } from '@angular/core';
+import { Component,OnInit, ViewEncapsulation,NgModule, ViewChild } from '@angular/core';
 import { FormControl,FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SupplierService } from '../../Services/supplier.service';
 import { Router } from '@angular/router';
@@ -6,7 +6,7 @@ import { Podetails, ponos } from '../../models/podetails';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 import { Supplier } from '../../models/supplier';
 import { SearchPipe } from '../../SearchPipe/search.pipe';
 
@@ -24,6 +24,7 @@ import { SearchPipe } from '../../SearchPipe/search.pipe';
   encapsulation: ViewEncapsulation.None,
 })
 export class POsupplierComponent implements OnInit {
+  @ViewChild('mySelect') mySelect!: NgSelectComponent;
   SupplierId: number|null = Number(localStorage.getItem("supplierId"));
   SupplierName: string |null = "";
   SupplierCode : string |null= "";
@@ -44,7 +45,7 @@ export class POsupplierComponent implements OnInit {
   filteredTableData: Podetails[] = [];
   textsearch: string = '';
   page: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 10;
   totalPages:number=0;
   Suppliers: Supplier[] = [];
   
@@ -136,7 +137,6 @@ export class POsupplierComponent implements OnInit {
         next: (response:any) => {
           this.PONumbers = response;
           console.log("API response", this.PONumbers);
-          
         },
         error: (e:any) => {
           //this.spinnerService.hide();
@@ -266,11 +266,11 @@ ClearControls()
   // this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
   //this.updatePagination();
 
-  const poCheckboxes = document.querySelectorAll('.po-checkbox') as NodeListOf<HTMLInputElement>;
-  poCheckboxes.forEach((checkbox) => (checkbox.checked = false));
+  // const poCheckboxes = document.querySelectorAll('.po-checkbox') as NodeListOf<HTMLInputElement>;
+  // poCheckboxes.forEach((checkbox) => (checkbox.checked = false));
 
-  const statusCheckboxes = document.querySelectorAll('.status-checkbox') as NodeListOf<HTMLInputElement>;
-  statusCheckboxes.forEach((checkbox) => (checkbox.checked = false));
+  // const statusCheckboxes = document.querySelectorAll('.status-checkbox') as NodeListOf<HTMLInputElement>;
+  // statusCheckboxes.forEach((checkbox) => (checkbox.checked = false));
 }
 
 onSearch(): void {
@@ -381,7 +381,15 @@ onPageChange(page: number) {
   //this.updatePagination();
 }
 
-
+selectAll(val:any) {
+  if(val) {
+    this.selectedPOs = this.PONumbers.map( account => account);
+    this.mySelect.close();
+  } else {
+    this.selectedPOs = [];
+  }
+  console.log(val);
+}
 
 }
 
