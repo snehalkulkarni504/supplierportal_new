@@ -12,6 +12,7 @@ import { pointernalComponent } from '../modules/pointernal/pointernal.component'
 import { DocuploadComponent } from '../modules/docupload/docupload.component';
 import { LoginComponent } from '../login/login.component';
 import { AuthGuard } from '../auth.guard';
+import { LotDeletionReportComponent } from '../modules/report/lot-deletion-report/lot-deletion-report.component';
 
 
 const routes: Routes = [
@@ -29,7 +30,9 @@ const routes: Routes = [
       // { path: 'poschedule/:PONumber/:postatus/:suppliername', component: PoscheduleComponent },
       { path: 'pointernal',component:pointernalComponent},
       { path: 'docupload', component:DocuploadComponent},
-      { path: 'login', component:LoginComponent}
+      { path: 'login', component:LoginComponent},
+      { path: 'lotdetailreport', component: LotDeletionReportComponent },
+      
     ]
   } 
 

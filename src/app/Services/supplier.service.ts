@@ -43,10 +43,10 @@ export class SupplierService {
   }
 
 
-  DeleteLotDetails(PONumber : number, ItemNo: number, LotNumber: number): Observable<any> {
-    return this.httpClient.delete(`${this.ApiUrl}DeleteLotDetail/${PONumber}/${ItemNo}/${LotNumber}`);
+  DeleteLotDetails(PONumber : number, ItemNo: number, LotNumber: number, Qty: number, Reason: string, userID: number): Observable<any> {
+    return this.httpClient.delete(`${this.ApiUrl}DeleteLotDetail/${PONumber}/${ItemNo}/${LotNumber}/${Reason}/${Qty}/${userID}`);
     
-  }  
+  } 
 
   
   getsuppliers(){

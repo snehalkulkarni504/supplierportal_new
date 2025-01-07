@@ -69,7 +69,7 @@
       </thead>
       <tbody class="text-center">
         <ng-container *ngFor="let child of selectedParentRowData.items;let i = index;">
-          <tr>
+          <tr *ngIf="(disable && child.lotDetails && child.lotDetails.length > 0) || !disable">
             <td>{{i+1}}</td>
             <td>{{ selectedParentRowData.poNumber }}</td>
             <td>{{ child.itemno }}</td>
@@ -119,7 +119,7 @@
               {{ lot.lotqty }}
              </td>
              <td *ngIf="!disable" style="border: 1px solid #ddd;">
-               <ng-container *ngIf="lot.isEditing; else viewLotQty">
+               <ng-container *ngIf="lot.isEditing && !lot.actualdispatch; else viewLotQty">
                  <input type="number" [(ngModel)]="lot.lotqty" class="form-control form-control-sm" style="text-align: center;" [ngClass]="{'required-field': !lot.lotqty}"/>
                </ng-container>
                <ng-template #viewLotQty>{{ lot.lotqty }}</ng-template>

@@ -62,6 +62,7 @@ export class PoscheduleComponent implements OnInit {
    Invisible:boolean=true;
    disable:boolean=false;
    page:any;
+   rowvisible: boolean= true;
   ngOnInit(): void {
     debugger;
     this.route.queryParams.subscribe((params) => {
@@ -642,49 +643,64 @@ export class PoscheduleComponent implements OnInit {
    console.log("lot.lotnumber",lot.lotnumber);
    
    Swal.fire({
-     title: 'Are you sure?',
-     // text: `You are about to delete lot ${lot.lotnumber} with quantity ${lot.lotqty}. This action cannot be undone.`,
-     // icon: 'warning',
-     showCancelButton: true,
-     confirmButtonText: 'Yes, delete it!',
-     cancelButtonText: 'No, cancel!',
-     reverseButtons: true,
-     confirmButtonColor: "#d33",
-     width: '400px',  // Set the width of the modal
-     padding: '20px',  // Adjust padding to make the modal smaller
-   }).then((result:any) => {
-     if (result.isConfirmed) {
-       this.poService.DeleteLotDetails(this.PONumber, child.itemno, lot.lotnumber).subscribe(
-         {
-           next: (response:any) => {
-             if(response==0){
-             console.log('Lot Deleted successfully:', response);
-             child.lotDetails.splice(index, 1); // Remove lot from child array
-             // Optionally, you can update the local child data to reflect the saved lot
-             this.toastr.success("Lot Delted Successfully");
-             lot.isEditing = false;  // Disable editing mode after save
-             lot.isNew = false;  // Mark the lot as saved
-             }
-             else
-             {
-               this.toastr.error("failed to delete");
-             }
-           },
-           error: (error:any) => {
-             console.error('Error deleting lot:', error);
-             this.toastr.error('Failed to delete the lot. Please try again.');
-           },
-           complete: () => {
-             console.log('API call complete.');
-             // this.loadParentTableData();
-           }
-         }
-       );
-     } else {
-       // Handle cancellation (optional)
-       // Swal.fire('Cancelled', 'The lot was not deleted.', 'info');
-     }
-   });
+    title: 'Are you sure?',
+    text: `You are about to delete lot ${lot.lotnumber} with quantity ${lot.lotqty}. This action cannot be undone.`,
+    // icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true,
+    confirmButtonColor: "#d33",
+    width: '400px',  // Set the width of the modal
+    padding: '10px',  // Adjust padding to make the modal smaller
+    input: 'textarea',  // Set input type as textarea for multiple lines
+    inputPlaceholder: 'Please provide a reason for deletion...',  // Placeholder text
+    inputAttributes: {
+      'aria-label': 'Type your reason for deletion here'
+    },
+    showLoaderOnConfirm: true,  // Show loader while processing
+    preConfirm: (reason) => {
+      if (!reason) {
+        Swal.showValidationMessage('Please provide a reason for deleting the lot');
+        return false;  // Prevent confirmation if reason is empty
+      }
+      return reason;  // Return the reason if provided
+    },
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      const reason = result.value;  // Get the reason for deletion
+      
+      // alert(reason);
+      // return;
+      // Proceed with deleting the lot after confirming and getting the reason
+      this.poService.DeleteLotDetails(this.PONumber, child.itemno, lot.lotnumber, lot.lotqty, reason,this.UserID).subscribe(
+        {
+          next: (response: any) => {
+            if (response === 0) {
+              console.log('Lot Deleted successfully:', response);
+              child.lotDetails.splice(index, 1);  // Remove lot from child array
+              this.toastr.success("Lot Deleted Successfully");
+              lot.isEditing = false;  // Disable editing mode after save
+              lot.isNew = false;  // Mark the lot as saved
+            } else {
+              this.toastr.error("Failed to delete");
+            }
+          },
+          error: (error: any) => {
+            console.error('Error deleting lot:', error);
+            this.toastr.error('Failed to delete the lot. Please try again.');
+          },
+          complete: () => {
+            console.log('API call complete.');
+          }
+        }
+      );
+    } else {
+      // Handle cancellation (optional)
+      // Swal.fire('Cancelled', 'The lot was not deleted.', 'info');
+    }
+  });
+  
  }
 
 }
