@@ -49,6 +49,7 @@ export class DocuploadComponent {
   disable:boolean=false;
   roleid:any;
   tpsolaruser:boolean=false;
+  storeduser:any;
   
 
   // ngOnInit(): void {
@@ -88,6 +89,9 @@ export class DocuploadComponent {
   
     // Fetch roleId from localStorage and parse it as a number
     const storedRoleId = localStorage.getItem("roleId");
+    const storeduser = localStorage.getItem("username");
+    this.storeduser=storeduser;
+    
     if (storedRoleId) {
       this.roleid = Number(storedRoleId);
     } else {
@@ -214,8 +218,8 @@ export class DocuploadComponent {
 
   onUpload(): void {
     if (this.selectedFile && this.documentNo && this.documenttype) {
-      // this.modalService.dismissAll();
-      const updatedby = 'Bikash';
+     // this.modalService.dismissAll();
+      const updatedby = this.storeduser;
 
       this.service.uploadFile(this.selectedFile,this.documentNo,this.documenttype, this.PoNumber, this.ItemNo, this.LotNumber,this.remarks,updatedby)
         .subscribe({
@@ -223,29 +227,6 @@ export class DocuploadComponent {
             console.log('File uploaded successfully:', response);
             alert('File uploaded successfully!');
 
-            // const fileDetails = {
-            //   filename: this.selectedFile!.name,
-            //   documentno: this.documentNo,
-            //   documenttype: this.documenttype,
-            //   pono: '103',
-            //   itemno: '1',
-            //   lotno: 5,
-            //  // revision: 0,
-            //   remarks: this.remarks,
-            //   updatedby: 'Snehal'
-            // };
-
-            // debugger;
-            // this.service.uploadFileDetails(fileDetails).subscribe(
-            //   (detailsResponse) => {
-            //     console.log('File details saved successfully:', detailsResponse);
-            //     this.fetchdocdetails();
-            //   },
-            //   (error) => {
-            //     console.error('Error saving file details:', error);
-            //     alert('Failed to save file details. Please try again.');
-            //   }
-            // );
             this.fetchdocdetails(this.PoNumber,this.ItemNo,this.LotNumber);
             this.resetForm();
             this.saveTrigger.emit("Success");

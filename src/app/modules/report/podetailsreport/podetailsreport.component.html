@@ -1,17 +1,4 @@
 <div class="setHeight">
-
-    <!--  <img alt="Loading Please Wait..." style="width:100px ; height:100px ;" src="../../../../assets/Spin-2.gif" /> -->
-
-    <!-- <div class="MasterHeader">
-        <div style="width: 50%;">
-            <h2>PO Details Report</h2>
-        </div>
-        <div class="text-end" style="width: 50%;">
-            <br>
-            <button class="btnbackLeft" style="background-color: #0066b2; color: aliceblue; border-radius: 10%;"
-                (click)="goBack()">Back</button>
-        </div>
-    </div> -->
     <div class="MasterHeader">
         <div class="text-center" style="float: left; line-height: 60px;margin-left: 15px;">
             <button (click)="goBack()" style="background: none; border: none; padding: 0;margin-right: 0px;">
@@ -31,7 +18,6 @@
         <div class="MasterHeaderlable">
 
             <div class="filter-section">
-
                 <div class="form-group">
                     <button class="btn dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -83,19 +69,27 @@
                         (click)="onClearClick()"></i>
                 </div> -->
                 <div class="col-md-auto col-sm-12 d-flex align-items-center">
-                    <img src="../../../assets/filter.png" (click)="onViewClick()" title="filter" class="filter-icon" alt=""> 
+                    <img src="../../../assets/filter.png" (click)="onViewClick()" title="filter" class="filter-icon"
+                        alt="">
                     <!-- <i class="fas fa-sync me-3 text-danger clickable-icon" title="Reset" (click)="onClearClick()"></i> -->
                     <i class="bi bi-repeat clickable-icon" title="Clear" style="color: red;"
                         (click)="onClearClick()"></i>
-                  </div>
+                </div>
             </div>
 
         </div>
 
-        <div class="form-group has-search" style="width: 50%;margin-left: 56.5px;margin-bottom: 10px;">
-            <span class="bi bi-search form-control-feedback"></span>
-            <input type="text" class="form-control search-input" style="width: 40%;" placeholder="Search"
+        <div class="form-group has-search d-flex" style="max-width: 90%; margin-left: 56.5px;margin-bottom: 5px;">
+            
+            <div class="form-group">
+                <span class="bi bi-search form-control-feedback"></span>
+                <input type="text" class="form-control search-input" style="width: 220px;" placeholder="Search"
                 formControlName="textsearch" [(ngModel)]="textsearch">
+            </div>
+            <div class="form-group" style="margin-left: 70%;">
+                <button class="form-control download-btn" style="padding-left: 10px;" (click)="downloadExcel()">Download</button>
+            </div>
+
         </div>
 
         <!-- <div class="searchDiv">
@@ -105,7 +99,6 @@
                 (input)="onSearch()">
         </div>
     </div> -->
-
 
         <div class="table-container">
             <table class="table table-bordered table-striped" style="font-size: 13px !important;">

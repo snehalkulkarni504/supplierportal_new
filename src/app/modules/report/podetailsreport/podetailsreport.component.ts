@@ -8,6 +8,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Router } from '@angular/router';
 import { SearchPipe } from '../../../SearchPipe/search.pipe';
+import * as XLSX from 'xlsx';
+
 
  
 interface MenuItem {
@@ -50,13 +52,6 @@ export class PodetailsreportComponent {
 
   Po_deatils: Po_details[] = [
     { suppliercode: '101', suppliername: 'ABC Corp', pono: 1, itemno: 1, materialcode: 'M001', materialdes: 'Steel Rod', materialqty: 100, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Pending', eta: '2024-11-2' },
-    // { suppliercode: 102, suppliername: 'XYZ Ltd', pono: 2, itemno: 2, materialcode: 'M002', materialdes: 'Iron Sheet', materialqty: 200, materialuom: 'SQM', etd: '2024-11-20', deliverystatus: 'Shipped', eta: '2024-11-12' },
-    // { suppliercode: 103, suppliername: 'DEF Inc', pono: 3, itemno: 3, materialcode: 'M003', materialdes: 'Copper Wire', materialqty: 150, materialuom: 'Meter', etd: '2024-11-20', deliverystatus: 'In Transit', eta: '2024-11-8' },
-    // { suppliercode: 104, suppliername: 'GHI Ltd', pono: 4, itemno: 4, materialcode: 'M004', materialdes: 'Aluminum Plate', materialqty: 75, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Delivered', eta: '2024-11-10' },
-    // { suppliercode: 105, suppliername: 'JKL Corp', pono: 5, itemno: 5, materialcode: 'M005', materialdes: 'Brass Tube', materialqty: 120, materialuom: 'Meter', etd: '2024-11-20', deliverystatus: 'Pending', eta: '2024-11-11' },
-    // { suppliercode: 106, suppliername: 'MNO Industries', pono: 6, itemno: 6, materialcode: 'M006', materialdes: 'Stainless Steel', materialqty: 80, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Shipped', eta: '2024-11-13' },
-    // { suppliercode: 107, suppliername: 'PQR Works', pono: 7, itemno: 7, materialcode: 'M007', materialdes: 'Titanium Bar', materialqty: 60, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'In Transit', eta: '2024-11-14' },
-    // { suppliercode: 108, suppliername: 'STU Fabrications', pono: 8, itemno: 8, materialcode: 'M008', materialdes: 'Carbon Fiber', materialqty: 30, materialuom: 'KG', etd: '2024-11-20', deliverystatus: 'Pending', eta: '2024-11-15' },
   ];
 
   searchQuery: string = '';
@@ -73,10 +68,9 @@ export class PodetailsreportComponent {
   toDate: string | null = null;
 
   filterMetadata = { count: 0 };
-  // currentPage: number = 1; 
-  // itemsPerPage: number = 10;
+
   textsearch: string = '';
-   // page: number = 1;
+
     pageSize: number = 5;
     config: any;
     currentPage = 1;
@@ -150,6 +144,8 @@ export class PodetailsreportComponent {
     this.applyFilters();
   }
 
+  podata:any
+
   applyFilters(): void {
     this.filteredData = this.Po_deatils.filter(item => {
       const isSupplierMatch = this.selectedSuppliers.length === 0 || this.selectedSuppliers.includes(item.suppliername);
@@ -158,7 +154,9 @@ export class PodetailsreportComponent {
       const isToDateMatch = !this.toDate || new Date(item.eta) <= new Date(this.toDate);
 
       return isSupplierMatch && isPoMatch && isFromDateMatch && isToDateMatch;
+
     });
+    
   }
 
   toggleSupplierSelection(supplier: string, event: Event): void {
@@ -173,6 +171,7 @@ export class PodetailsreportComponent {
       }
     }
     this.applyFilters();
+    this.poOptions = [...new Set(this.filteredData.map(item => item.pono))];
   }
 
 
@@ -204,22 +203,23 @@ export class PodetailsreportComponent {
     poCheckboxes.forEach((checkbox) => (checkbox.checked = false));
 
     this.cdr.detectChanges();
+    this.poOptions = [...new Set(this.filteredData.map(item => item.pono))];
   }
 
-  // get Data() {
-  //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-  //   const endIndex = startIndex + this.itemsPerPage;
-  //   return this.filteredData.slice(startIndex, endIndex);
-  // }
-  
-
-  // onPageChange(page: number): void {
-  //   this.currentPage = page;
-  // }
 
 
   goBack(): void {
     window.history.back();
   }
+
+
+  downloadExcel(): void {
+    const table = document.querySelector('table'); // Reference to your table
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.Po_deatils);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'PO Details');
+    XLSX.writeFile(wb, 'PODetailsReport.xlsx');
+}
+
 
 }

@@ -463,3 +463,17 @@
         background-color:#4d94c9 !important;
         color: #000 !important;
     }
+
+    .download-btn {
+        background-color: #4d94c9;
+        color: white;
+        padding: 8px 13px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        /* margin-left: 75%; */
+    }
+    
+    .download-btn:hover {
+        background-color: #0066b2;
+    }
