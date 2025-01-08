@@ -18,5 +18,9 @@ getpodetails(): Observable<any[]> {
   return this.httpClient.get<any[]>(`${this.ApiUrl}Getpodetailsreport`);
 }
 
+getLotDeletionDetails(): Observable<any[]> {
+  return this.httpClient.get<any[]>(`${this.ApiUrl}GetLotDeletionDetails`);
+}
+
 
 }

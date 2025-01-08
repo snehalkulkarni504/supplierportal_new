@@ -1,0 +1,479 @@
+.setHeight
+{
+    height: auto;
+}
+
+
+* {
+    font-family: Helvetica, Arial !important;
+}
+/* 
+.table {
+    width: 90% !important;
+    margin-bottom: 0px;
+    font-family: Helvetica, Arial !important;
+} */
+
+.table {
+    width: 120% !important;
+    max-height: 200px;
+    overflow-y: auto;
+    /* margin-top: 15px; */
+    margin-bottom: 0px;
+    font-family: Helvetica, Arial !important;
+    
+}
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    max-height: 50dvh;
+    overflow-y: auto;
+    overflow-x: auto;
+    margin-right: 59px;
+    margin-left: 56px;
+    padding-right: -32px;
+    margin-bottom: 10px;
+  
+    border-bottom: 2px solid whitesmoke;
+}
+
+
+.table td {
+    text-align: center;
+}
+
+.table thead {
+    text-align: center;
+    position: sticky; /* Keep the header fixed while scrolling */
+    top: 0;
+    background-color: #4d94c9;
+    z-index: 2;
+}
+
+.table thead tr th {
+    background-color: #4d94c9;
+    color: #fff;
+    padding: 3px;
+}
+
+#add-btn {
+    margin: 0px;
+    padding: 7px 10px;
+}
+
+.default-btn_popup {
+    background-color: #4d94c9;
+    color: #fff;
+}
+
+
+
+.modal-close-icn:hover {
+    rotate: 90deg;
+    cursor: pointer;
+}
+
+.modal {
+    background: rgba(0, 0, 0, .5);
+}
+
+.default-lbl {
+    margin: 0px 0px 3px 2px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+
+}
+
+.searchDiv {
+    width: 70%;
+    margin-left: 58px;
+}
+
+
+
+.has-search .form-control {
+    padding-left: 2.8rem;
+}
+
+.form-group.has-error input {
+    border: 2px solid #4d94c9 !important;
+    background-color: #ffeeee;
+
+}
+
+/* Style for the error message */
+.error-message {
+    color: #4d94c9;
+    font-size: 11px;
+    margin-left: 8px;
+
+
+}
+
+.search-input {
+    height: 38px;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 38px;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #f8f6f6;
+    background-color: #4d94c9;
+}
+
+.error-message {
+    color: #4d94c9;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+
+
+
+.MasterHeader {
+    max-width: 100%;
+    display: inline-flex;
+    height: 60px;
+    /* margin-left: 0%;
+    margin-right: 0%; */
+    font-family: Helvetica, Arial;
+    /* border-bottom: 1px solid #4d94c9; */
+    /* border-width: 20px; */
+    border-style: width 50%;;
+   
+    /* box-shadow: 0 6px 2px -6px #da291c; */
+}
+ 
+.MasterHeaderlable {
+    width: 90%;
+    display: inline-flex;
+    margin-left: 49px;
+    font-family: Helvetica, Arial;
+    border-top: 1px solid #4d94c9;
+    padding-top: 10px;
+}
+
+.searchbox {
+    width: 20%;
+    display: inline-flex;
+    margin-left: 58px;
+    font-family: Helvetica, Arial;
+}
+
+.MasterHeader h2 {
+    /* position: absolute; */
+    margin: 20px 0px;
+}
+
+.custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.00rem;
+    height: 1.00rem;
+    border: 2px solid #4d94c9;
+    border-radius: 0.25rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.custom-checkbox:checked {
+    background-color: #4d94c9;
+}
+
+.custom-checkbox:checked::before {
+    display: block;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.00rem;
+}
+
+.common-font {
+    margin-top: 10px;
+    font-family: Helvetica, Arial !important;
+    /* Change to your desired font */
+    font-size: 13px;
+    /* Adjust font size as needed */
+    color: #333;
+    /* Adjust text color as needed */
+}
+
+.modal-body {
+    /* max-height: calc(100vh - 250px); */
+    overflow-y: auto;
+}
+
+.form-group label {
+    font-size: 12px;
+    /* Smaller label font */
+    margin-bottom: 3px;
+}
+
+.form-select {
+    position: relative;
+    width: 100%;
+    padding-right: 30px;
+    /* Space for the dropdown arrow */
+    appearance: none;
+    /* Remove default arrow */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.form-select:focus {
+    border-color: #4d94c9;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 102, 178, 0.3);
+}
+
+.form-select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.pagination {
+    width: 80%;
+    margin-left: 5%;
+}
+
+/* Flex container for all form fields to align them in a row */
+.filter-section {
+    display: flex;
+    align-items: center;
+    /* Vertically aligns elements in the center */
+    gap: 15px;
+    /* Adds space between elements */
+    justify-content: space-between;
+    /* Spreads items evenly */
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    width: 100%;
+    /* Ensures the section takes full width */
+}
+
+/* Ensure the form fields are of equal width and aligned on the same line */
+.filter-section .form-group,
+.date-section {
+    display: flex;
+    gap: 11px;
+}
+
+/* Aligning the "From Date" and "To Date" input fields */
+.date-section {
+    display: flex;
+    align-items: center;
+    /* Aligns the label to the left */
+    gap: 5px;
+    /* Adds space between label and input */
+    flex: 1 1 auto;
+    margin-right: 15px;
+    /* Ensures equal spacing between the date inputs */
+}
+
+/* Adjustments for the Date Labels */
+.date-label {
+    font-size: 14px;
+    color: #03070c;
+    white-space: nowrap;
+    /* Prevent label from wrapping */
+    margin: 10;
+    /* Remove margin for perfect alignment */
+    font-weight: bold;
+    /* Optional, makes the label stand out */
+}
+
+
+
+.view-btn {
+    background-color: #4d94c9;
+    color: white;
+    border-radius: 5px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    /* margin-left: 50px; */
+    gap: 5px;
+}
+
+.clear-btn {
+    background-color: #f44336;
+    /* Red background */
+    color: white;
+    border-radius: 5px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    background-color: #d32f2f;
+    /* Darker red on hover */
+}
+
+
+/* Dropdown button and form fields should take equal width */
+.custom-dropdown-btn,
+.date-picker,
+.form-control {
+    width: 100%;
+}
+
+/* Ensure the dropdowns have consistent width and reduced size */
+.custom-dropdown-btn {
+    width: 150px;
+    background-color: #4d94c9;
+    color: white;
+    /* Reduced width for the dropdown button */
+}
+
+.custom-dropdown-menu {
+    width: 160px;
+    /* Reduced width for the dropdown menu */
+}
+
+/* Adjust the form control elements (inputs, selects) to have a consistent width */
+.form-select,
+.form-control,
+.custom-dropdown-btn {
+    width: 100%;
+}
+
+/* Hover effect for dropdown items */
+.dropdown-item:hover {
+    background-color: #0066b2;
+    /* Blue color when hovering */
+    color: white;
+    /* Change text color to white on hover */
+}
+
+/* Style for checkbox input within dropdown */
+.dropdown-item input[type="checkbox"] {
+    margin-right: 10px;
+    /* Adds space between checkbox and text */
+}
+
+.searchDiv input {
+    width: 50%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    border: 3px solid #4d94c9;
+    outline: none;
+    /* Light grey border initially */
+    border-radius: 4px;
+}
+
+.searchDiv input:focus {
+    border-color: #4d94c9;
+    box-shadow: 0 0 5px rgba(0, 102, 178, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .filter-section {
+        flex-wrap: wrap;
+        /* Stacks fields vertically on smaller screens */
+    }
+
+    .filter-section .form-group,
+    .date-section {
+        flex: 1 1 100%;
+        /* Stacks elements vertically on smaller screens */
+        min-width: 100%;
+        /* Ensures full-width on small screens */
+    }
+}
+
+
+.filter-icon{
+    height: 46px;
+     cursor: pointer;
+     padding: 5px ; 
+     /* border: 1px solid red;  */
+     /* border-radius: 5px; */
+     margin-right: 5px;
+     transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.filter-icon:active{
+    transform: scale(1.2); /* Enlarge on click */
+}
+
+.clickable-icon {
+    cursor: pointer;
+    font-size: 32px;
+    margin-left: 15px;
+    color: #00509e;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+
+  clickable-icon-reset{
+    cursor: pointer;
+    font-size: 24px;
+    /* color: #00509e; */
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+  
+  .clickable-icon:active {
+    transform: scale(1.2); /* Enlarge on click */
+    color: #003f73; /* Optional color change on click */
+  }
+
+  
+.pagination{
+    width: 80%;
+    margin-left: 45px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .pagination-controls {
+        flex-direction: column;
+        align-items: center;
+      }
+    
+      .pagination-controls .pagination-btn {
+        margin-bottom: 10px;
+      }
+    
+      .pagination-controls .page-info {
+        margin-bottom: 10px;
+      }
+    }
+    ngb-pagination ::ng-deep ul > li > a {
+        color: #000 !important;
+   }
+        
+    ngb-pagination ::ng-deep ul > li.active > a {
+        background-color:#4d94c9 !important;
+        color: #000 !important;
+    }
+
+    .download-btn {
+        background-color: #4d94c9;
+        color: white;
+        padding: 8px 13px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        /* margin-left: 75%; */
+    }
+    
+    .download-btn:hover {
+        background-color: #0066b2;
+    }

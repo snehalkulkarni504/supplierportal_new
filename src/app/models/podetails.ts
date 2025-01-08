@@ -43,3 +43,14 @@ export interface Po_details {
     deliverystatus: string | null;
     eta: string;
   }
+
+export interface lotdeletiondetails{
+  id: number;                  // ID - Primary Key, auto-increment
+  poNumber: string | null;     // PONumber - Purchase Order Number
+  itemNumber: string | null;   // ItemNumber - Item Identifier
+  lotNumber: number | null;    // LotNumber - Lot Identifier
+  itemQty: number | null;      // ItemQty - Quantity of Items
+  remark: string | null;       // Remark - Reason/Note for Deletion
+  createDate: Date | null;     // CreateDate - Date of Record Creation
+  createdBy: number | null;    // CreatedBy - ID of the User who created the record
+}
