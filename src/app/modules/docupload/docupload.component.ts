@@ -51,6 +51,10 @@ export class DocuploadComponent {
   tpsolaruser:boolean=false;
   storeduser:any;
   
+  documentTypes: string[] = ['PDF', 'Word Document', 'Excel Sheet', 'Image'];
+  showValidationError: boolean = false;
+
+
 
   // ngOnInit(): void {
   //   debugger;
@@ -216,34 +220,80 @@ export class DocuploadComponent {
 
 
 
+  // onUpload(): void {
+  //   if (this.selectedFile && this.documentNo && this.documenttype) {
+  //    // this.modalService.dismissAll();
+  //     const updatedby = this.storeduser;
+
+  //     this.service.uploadFile(this.selectedFile,this.documentNo,this.documenttype, this.PoNumber, this.ItemNo, this.LotNumber,this.remarks,updatedby)
+  //       .subscribe({
+  //         next: (response) => {
+  //           console.log('File uploaded successfully:', response);
+  //           alert('File uploaded successfully!');
+
+  //           this.fetchdocdetails(this.PoNumber,this.ItemNo,this.LotNumber);
+  //           this.resetForm();
+  //           this.saveTrigger.emit("Success");
+  //         },
+  //         error: (error) => {
+  //           console.error('File upload failed:', error);
+  //           alert('File upload failed!');
+  //          // this.saveTrigger.emit("Unable To Upload File");
+  //          this.errorOccurred.emit(error.message);
+  //         }
+  //       });
+  //   }
+
+  //   else {
+  //     alert('Please attach a file and provide necessary details.');
+  //   }
+  // }
+
+
+
   onUpload(): void {
-    if (this.selectedFile && this.documentNo && this.documenttype) {
-     // this.modalService.dismissAll();
-      const updatedby = this.storeduser;
-
-      this.service.uploadFile(this.selectedFile,this.documentNo,this.documenttype, this.PoNumber, this.ItemNo, this.LotNumber,this.remarks,updatedby)
-        .subscribe({
-          next: (response) => {
-            console.log('File uploaded successfully:', response);
-            alert('File uploaded successfully!');
-
-            this.fetchdocdetails(this.PoNumber,this.ItemNo,this.LotNumber);
-            this.resetForm();
-            this.saveTrigger.emit("Success");
-          },
-          error: (error) => {
-            console.error('File upload failed:', error);
-            alert('File upload failed!');
-           // this.saveTrigger.emit("Unable To Upload File");
-           this.errorOccurred.emit(error.message);
-          }
-        });
+    this.showValidationError = false;
+  
+    // Validate required fields
+    if (!this.documentNo || !this.documenttype) {
+      this.showValidationError = true;
+      alert('Please fill out all mandatory fields (marked with *).');
+      return;
     }
-
-    else {
+  
+    if (this.selectedFile && this.documentNo && this.documenttype) {
+      const updatedby = this.storeduser;
+  
+      this.service.uploadFile(
+        this.selectedFile,
+        this.documentNo,
+        this.documenttype,
+        this.PoNumber,
+        this.ItemNo,
+        this.LotNumber,
+        this.remarks,
+        updatedby
+      ).subscribe({
+        next: (response) => {
+          console.log('File uploaded successfully:', response);
+          alert('File uploaded successfully!');
+  
+          this.fetchdocdetails(this.PoNumber, this.ItemNo, this.LotNumber);
+          this.resetForm();
+          this.saveTrigger.emit("Success");
+        },
+        error: (error) => {
+          console.error('File upload failed:', error);
+          alert('File upload failed!');
+          this.errorOccurred.emit(error.message);
+        }
+      });
+    } else {
       alert('Please attach a file and provide necessary details.');
     }
   }
+  
+
 
   resetForm(): void {
     this.selectedFile = null;

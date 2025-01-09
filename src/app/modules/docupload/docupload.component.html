@@ -84,7 +84,7 @@
         </ul>
     </nav>
 
-<!-- 
+    <!-- 
     <div class="table-container">
         <table class="table">
           <thead>
@@ -147,19 +147,33 @@
                     <label for="fileUpload" class="file-label">
                         <i class="fas fa-upload"></i> Choose a File
                     </label>
-                    <input type="file" id="fileUpload" class="file-hidden" [disabled]="disable" (change)="onFileChange($event)">
+                    <input type="file" id="fileUpload" class="file-hidden" [disabled]="disable"
+                        (change)="onFileChange($event)">
                     <p *ngIf="selectedFile" class="file-name">Selected: {{ selectedFile.name }}</p>
                 </div>
             </div>
             <div class="input-fields-container">
                 <div class="input-group">
-                    <label for="documentNo" style="margin-top: 8px; padding-right: 4px;">Document No:</label>
+
+                    <label for="documentNo" style="margin-top: 8px; padding-right: 4px;">Document No:<span style="color: red;">*</span></label>
                     <input type="text" style="border-radius: 7px; width: 10%;" id="documentNo" [(ngModel)]="documentNo"
-                        class="form-control" placeholder="Enter Document Number">
+                        class="form-control" [class.is-invalid]="!documentNo && showValidationError" placeholder="Enter Document Number" required>
+
+
                     <label for="documenttype" style="margin-top: 8px; padding-right: 4px; padding-left: 8px;">Document
-                        Type:</label>
-                    <input type="text" style="width: 10%; border-radius: 7px; " id="documenttype"
-                        [(ngModel)]="documenttype" class="form-control" placeholder="Enter Document type">
+                        Type:<span style="color: red;">*</span></label>
+                    <!-- <input type="text" style="width: 10%; border-radius: 7px; " id="documenttype"
+                        [(ngModel)]="documenttype" class="form-control" placeholder="Enter Document type"> -->
+                        <select
+                        style="width: 10%; border-radius: 7px;" 
+                        id="documentType" 
+                        [(ngModel)]="documenttype" 
+                        class="form-control" 
+                        [class.is-invalid]="!documenttype && showValidationError" 
+                        required>
+                        <option value="" disabled selected>Select Document Type</option>
+                        <option *ngFor="let type of documentTypes" [value]="type">{{ type }}</option>
+                      </select>
                 </div>
 
                 <div class="input-group" style="margin-top: 6px;">
@@ -173,7 +187,7 @@
 
         <div class="button-group">
             <button class="btn btn-primary" [disabled]="disable" (click)="onUpload()">Upload</button>
-            <button class="btn btn-secondary"  (click)="onDownload()">Download</button>
+            <button class="btn btn-secondary" (click)="onDownload()">Download</button>
         </div>
     </div>
 
@@ -208,12 +222,9 @@
             </div>
         </div>
     </div> -->
-    
+
     <div *ngIf="tpsolaruser" class="button-group">
         <button class="btn btn-secondary" (click)="onDownload()">Download</button>
     </div>
-    
-
-
 
 </div>

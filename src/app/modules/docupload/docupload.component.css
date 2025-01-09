@@ -379,6 +379,12 @@ ngb-pagination ::ng-deep ul>li.active>a {
     transform: scale(1.02);
 }
 
+.is-invalid {
+    border-color: red !important;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+  }
+  
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     .upload-container {
