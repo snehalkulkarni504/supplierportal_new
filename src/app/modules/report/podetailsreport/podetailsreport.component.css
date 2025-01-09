@@ -477,3 +477,42 @@
     .download-btn:hover {
         background-color: #0066b2;
     }
+
+    .ng-select .ng-select-container {
+        max-height: 200px; /* Set the maximum height */
+        overflow-y: auto;  /* Enable vertical scrolling */
+      }
+
+      .custom-dropdown .ng-select-container {
+        max-height: 200px; /* Set the maximum height */
+        overflow-y: auto;  /* Enable vertical scrolling */
+      }
+      
+      
+
+    @media (max-width: 768px) {
+        .form-label {
+            font-size: 0.9rem; /* Adjust font size for better readability */
+          }
+        
+          .ng-selectcustomer {
+            width: 320px !important; /* Ensure the select box takes full width on small screens */
+          }
+        
+          .date-picker {
+              width: 320px !important; /* Make the date inputs fill the available space */
+          }
+          
+          .dropdown-menu {
+            min-width: 200px; /* Ensure dropdown menu width doesn't shrink too much */
+          }
+          
+      }
+ 
+      .ng-value-container
+      {
+        height: 62px;
+        overflow-y: auto;
+      }
+
+    

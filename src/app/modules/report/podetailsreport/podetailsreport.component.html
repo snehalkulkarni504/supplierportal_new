@@ -18,7 +18,7 @@
         <div class="MasterHeaderlable">
 
             <div class="filter-section">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <button class="btn dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Select Supplier
@@ -48,57 +48,107 @@
                     </ul>
                 </div>
 
-                <!-- From Date -->
                 <div class="date-section">
                     <label class="date-label">From Date:</label>
                     <input type="date" class="form-control date-picker" formControlName="fromDate"
                         [(ngModel)]="fromDate" placeholder="From Date">
                 </div>
 
-                <!-- To Date -->
                 <div class="date-section">
                     <label class="date-label">To Date:</label>
                     <input type="date" class="form-control date-picker" formControlName="toDate" [(ngModel)]="toDate"
                         placeholder="To Date">
                 </div>
 
-                <!-- View Button -->
-                <!-- <div class="form-group">
-                    <button class="btn view-btn" (click)="onViewClick()">View</button>
-                    <i class="bi bi-repeat clickable-icon" title="Clear" style="color: red;"
-                        (click)="onClearClick()"></i>
-                </div> -->
                 <div class="col-md-auto col-sm-12 d-flex align-items-center">
                     <img src="../../../assets/filter.png" (click)="onViewClick()" title="filter" class="filter-icon"
                         alt="">
-                    <!-- <i class="fas fa-sync me-3 text-danger clickable-icon" title="Reset" (click)="onClearClick()"></i> -->
                     <i class="bi bi-repeat clickable-icon" title="Clear" style="color: red;"
                         (click)="onClearClick()"></i>
                 </div>
+                -->
+
+
+                <div class="col-md-auto col-sm-12 d-flex flex-column align-items-start me-3">
+                    <label class="form-label mb-1">Supplier:</label>
+                    <ng-select #mySelectSupp class="ng-selectcustomer" [multiple]="true" [items]="supplierOptions"
+                        bindLabel="supplier" bindvlaue="supplier" [(ngModel)]="Suppliers"
+                        (change)="onSupplierSelectionChange($event)" placeholder="---Select Supplier---"
+                        style="width: 200px;" [ngModelOptions]="{standalone: true}" [closeOnSelect]="false">
+
+                        <!-- <ng-template ng-header-tmp let-items="items" >
+                            <input  #select type="checkbox" [checked]='Suppliers.length==supplierOptions.length'/> Select All
+                       </ng-template>
+
+
+                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                            <input id="item-{{index}}" type="checkbox" [checked]="item$.supplier" /> {{item.supplier}}
+                        </ng-template> -->
+                    </ng-select>
+                </div>
+
+
+                <div class="col-md-auto col-sm-12 d-flex flex-column align-items-start me-3">
+                    <label class="form-label mb-1">PO No:</label>
+             
+
+                    <ng-select #mySelect class="ng-selectcustomer" [multiple]="true" [items]="poOptions"
+                        bindLabel="value" bindvalue="value" [(ngModel)]="selectedPOs"
+                        (change)="onPONumberChange($event)" placeholder="---Select PO---" style="width: 200px;"
+                        [ngModelOptions]="{standalone: true}" [closeOnSelect]="true">
+                    </ng-select>
+
+
+
+
+                </div>
+
+
+                <div class="col-md-auto col-sm-6 d-flex flex-column align-items-start me-3">
+                    <label class="form-label mb-0">From PO Date:</label>
+                    <input type="date" class="form-control date-picker" [(ngModel)]="fromDate"
+                        [ngModelOptions]="{standalone: true}" style="width: 140px;" />
+                </div>
+
+                <div class="col-md-auto col-sm-6 d-flex flex-column align-items-start me-3">
+                    <label class="form-label mb-0">To PO Date:</label>
+                    <input type="date" class="form-control date-picker" [(ngModel)]="toDate"
+                        [ngModelOptions]="{standalone: true}" style="width: 140px;" />
+                </div>
+
+
+
+                <div class="col-md-auto col-sm-12 d-flex align-items-center" style="margin-top: 35px;">
+                    <img src="../../../assets/filter.png" (click)="onViewClick()" title="filter" class="filter-icon"
+                        alt="">
+                    <i class="bi bi-repeat clickable-icon" title="Clear" style="color: red;"
+                        (click)="onClearClick()"></i>
+                </div>
+
+
+
             </div>
 
         </div>
 
+
+
+
+
         <div class="form-group has-search d-flex" style="max-width: 90%; margin-left: 56.5px;margin-bottom: 5px;">
-            
+
             <div class="form-group">
                 <span class="bi bi-search form-control-feedback"></span>
                 <input type="text" class="form-control search-input" style="width: 220px;" placeholder="Search"
-                formControlName="textsearch" [(ngModel)]="textsearch">
+                    formControlName="textsearch" [(ngModel)]="textsearch">
             </div>
             <div class="form-group" style="margin-left: 70%;">
-                <button class="form-control download-btn" style="padding-left: 10px;" (click)="downloadExcel()">Download</button>
+                <button class="form-control download-btn" style="padding-left: 10px;"
+                    (click)="downloadExcel()">Download</button>
             </div>
 
         </div>
 
-        <!-- <div class="searchDiv">
-        <div class="form-group has-search" style="width: 50%;">
-            <span class="bi bi-search form-control-feedback"></span>
-            <input type="text" class="form-control search-input" placeholder="Search" [(ngModel)]="searchQuery"
-                (input)="onSearch()">
-        </div>
-    </div> -->
 
         <div class="table-container">
             <table class="table table-bordered table-striped" style="font-size: 13px !important;">

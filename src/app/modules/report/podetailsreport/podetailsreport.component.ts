@@ -4,11 +4,15 @@ import { FormBuilder, FormControl, FormGroup, Validators, FormsModule,ReactiveFo
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReportService } from '../../../Services/report.service';
 import { Po_details } from '../../../models/podetails';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Router } from '@angular/router';
 import { SearchPipe } from '../../../SearchPipe/search.pipe';
 import * as XLSX from 'xlsx';
+import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
+import { Podetails,ponos } from '../../../models/podetails';
+import { Supplier } from '../../../models/supplier';
+
+
 
 
  
@@ -41,6 +45,15 @@ interface Menu {
   styleUrl: './podetailsreport.component.css'
 })
 export class PodetailsreportComponent {
+
+  @ViewChild('mySelectSupp') mySelectSupp!: NgSelectComponent;
+
+  PONumbers: ponos[] = [];
+  Suppliers: Supplier[] = [];
+  selectedsuppliers: Supplier[] = [];
+
+
+
   constructor(public service: ReportService, public cdr: ChangeDetectorRef) {
     this.config = {
       currentPage: 1,
@@ -121,7 +134,10 @@ export class PodetailsreportComponent {
 
         // Populate dropdown options
         this.supplierOptions = [...new Set(data.map(item => item.suppliername))];
-        this.poOptions = [...new Set(data.map(item => item.pono))];
+        this.poOptions = [...new Set(this.Po_deatils.map(item => item.pono))];
+
+
+        console.log(this.supplierOptions);
 
         console.log("Data fetched and formatted successfully", data);
       },
@@ -144,7 +160,20 @@ export class PodetailsreportComponent {
     this.applyFilters();
   }
 
-  podata:any
+
+  // applyFilters(): void {
+  //   this.filteredData = this.Po_deatils.filter(item => {
+  //     const isSupplierMatch = this.selectedSuppliers.length === 0 || this.selectedSuppliers.includes(item.suppliername);
+  //     const isPoMatch = this.selectedPOs.length === 0 || this.selectedPOs.includes(item.pono);
+  //     const isFromDateMatch = !this.fromDate || new Date(item.eta) >= new Date(this.fromDate);
+  //     const isToDateMatch = !this.toDate || new Date(item.eta) <= new Date(this.toDate);
+
+  //     return isSupplierMatch && isPoMatch && isFromDateMatch && isToDateMatch;
+
+  //   });
+    
+  // }
+
 
   applyFilters(): void {
     this.filteredData = this.Po_deatils.filter(item => {
@@ -152,16 +181,19 @@ export class PodetailsreportComponent {
       const isPoMatch = this.selectedPOs.length === 0 || this.selectedPOs.includes(item.pono);
       const isFromDateMatch = !this.fromDate || new Date(item.eta) >= new Date(this.fromDate);
       const isToDateMatch = !this.toDate || new Date(item.eta) <= new Date(this.toDate);
-
+  
       return isSupplierMatch && isPoMatch && isFromDateMatch && isToDateMatch;
-
     });
-    
   }
+  
+  
+  
+  
 
-  toggleSupplierSelection(supplier: string, event: Event): void {
-    debugger;
+
+  toggleSupplierSelection(supplier: any, event: Event): void {
     const isChecked = (event.target as HTMLInputElement).checked;
+    
     if (isChecked) {
       this.selectedSuppliers.push(supplier);
     } else {
@@ -170,42 +202,72 @@ export class PodetailsreportComponent {
         this.selectedSuppliers.splice(index, 1);
       }
     }
+  
+    // Apply filters after updating the selected suppliers
     this.applyFilters();
+    // Update PO options based on filtered data
     this.poOptions = [...new Set(this.filteredData.map(item => item.pono))];
   }
 
+  onSupplierSelectionChange(event: any): void {
+  this.selectedSuppliers = event; // Update selected suppliers
+  this.applyFilters(); // Apply the filters after selection
+}
 
-  togglePoSelection(po: any, event: Event): void {
-    const isChecked = (event.target as HTMLInputElement).checked;
-    if (isChecked) {
-      this.selectedPOs.push(po);
-    } else {
-      const index = this.selectedPOs.indexOf(po);
-      if (index > -1) {
-        this.selectedPOs.splice(index, 1);
-      }
-    }
-    this.applyFilters();
-  }
+  
 
-  onClearClick(): void {
-    this.selectedSuppliers = [];
+onPONumberChange(selectedPOs: any[]): void {
+  this.selectedPOs = selectedPOs;
+  this.applyFilters();
+}
+
+
+
+isAllPoSelected(): boolean {
+  return this.selectedPOs.length === this.poOptions.length;
+}
+
+
+toggleSelectAllPo(event: Event): void {
+  const isChecked = (event.target as HTMLInputElement).checked;
+
+  if (isChecked) {
+    this.selectedPOs = [...this.poOptions];
+  } else {
     this.selectedPOs = [];
-    this.fromDate = null;
-    this.toDate = null;
-
-    this.filteredData = [...this.Po_deatils];
-
-    const supplierCheckboxes = document.querySelectorAll('.supplier-checkbox') as NodeListOf<HTMLInputElement>;
-    supplierCheckboxes.forEach((checkbox) => (checkbox.checked = false));
-
-    const poCheckboxes = document.querySelectorAll('.po-checkbox') as NodeListOf<HTMLInputElement>;
-    poCheckboxes.forEach((checkbox) => (checkbox.checked = false));
-
-    this.cdr.detectChanges();
-    this.poOptions = [...new Set(this.filteredData.map(item => item.pono))];
   }
 
+  this.applyFilters();
+}
+
+
+onClearClick(): void {
+  this.selectedSuppliers = [];
+  this.selectedPOs = [];
+  this.fromDate = null;
+  this.toDate = null;
+
+  this.filteredData = [...this.Po_deatils];
+
+  if (this.mySelectSupp) {
+    this.mySelectSupp.clearModel();
+  }
+
+  // Reset dropdown states
+  const supplierCheckboxes = document.querySelectorAll('.supplier-checkbox') as NodeListOf<HTMLInputElement>;
+  supplierCheckboxes.forEach((checkbox) => (checkbox.checked = false));
+
+  const poCheckboxes = document.querySelectorAll('.po-checkbox') as NodeListOf<HTMLInputElement>;
+  poCheckboxes.forEach((checkbox) => (checkbox.checked = false));
+
+  // Recalculate the filtered PO options
+  this.poOptions = [...new Set(this.filteredData.map(item => item.pono))];
+
+  this.applyFilters();
+  this.cdr.detectChanges();
+}
+
+  
 
 
   goBack(): void {
@@ -214,12 +276,13 @@ export class PodetailsreportComponent {
 
 
   downloadExcel(): void {
-    const table = document.querySelector('table'); // Reference to your table
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.Po_deatils);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'PO Details');
     XLSX.writeFile(wb, 'PODetailsReport.xlsx');
 }
+
+
 
 
 }
