@@ -57,7 +57,7 @@ export class SupplierService {
   
 getdocdetails(pono:string,itemno:string,lotno:number): Observable<any[]> {
   debugger;
-  return this.httpClient.get<any[]>(`${this.ApiUrl}Getdocdeatils/${pono}/${itemno}/${lotno}`);
+  return this.httpClient.get<any[]>(`${this.ApiUrl}Getdocuploaddeatils/${pono}/${itemno}/${lotno}`);
 }
 
 uploadFile(file: File, docno:string, doctype:string, poNumber:string, itemNumber:string, lotNumber:string,remarks:string,updatedBy:string): Observable<any> {
