@@ -1,0 +1,178 @@
+/* Add responsiveness */
+
+.table {
+  width: 100%;
+  table-layout: fixed;
+  font-size: 13px !important;
+}
+
+.lot-details-th{
+  border: 1px solid #ddd; 
+  background-color: #4d94c9; 
+  color: white;
+  word-wrap: break-word; 
+  word-break: break-word;
+}
+
+
+.back_button:hover{
+  color: #00509e;
+}
+
+.po-Details-th{
+  background-color: #4d94c9; 
+  color: white;
+}
+.po-th{
+  background-color: #4d94c9;
+   color: white
+}
+
+.po-thead{
+  background-color: #4d94c9;
+   color: white;
+}
+
+@media (max-width: 768px) {
+  .table td, .table th {
+    padding: 8px 4px;
+    font-size: 12px;
+  }
+  .btn-sm {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+
+/* Add spacing for file upload input */
+input[type="file"] {
+  display: inline-block;
+  margin: 0;
+}
+
+
+i.bi {
+  border: none;
+  background: none;
+  color: #333;
+}
+
+i.bi:hover {
+  color: #0056b3; /* Darker color for hover effect */
+}
+
+.icon-active {
+  transform: scale(1.1); /* Slightly larger when active */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.custom-header {
+  background-color: #4d94c9 !important;  /* Blue color */
+  color: white !important;  /* White text */
+}
+
+.custom-header th {
+  text-align: center;
+  padding: 10px;
+}
+
+
+/* Hover effect for all icons */
+
+td i:hover {
+  opacity: 0.85; /* Slightly dim the icon on hover */
+  transform: scale(1.1); /* Slightly enlarge the icon */
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Click effect (active state) */
+td i:active {
+  transform: scale(0.95); /* Slightly shrink the icon when clicked */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add a subtle shadow to simulate pressing */
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+}
+
+.required-field {
+  border: 2px solid red;
+  background-color: rgb(244, 230, 230);
+}
+
+.custom-toast {
+  margin-top: 30px;
+  min-height: 20px; /* Set desired height */
+  padding: 10px 20px; /* Adjust padding */
+  font-size: 14px; /* Adjust font size */
+  line-height: 1.5; /* Maintain proper text spacing */
+}
+.icon-bold {
+  font-size: 22px; /* Make the icon appear bold by increasing size */
+  font-weight: bold; /* Optional: May not apply to icons but adds consistency */
+  cursor: pointer;
+}
+ 
+.icon-bold:hover {
+  color: #28a745; /* Optional: Green on hover */
+}
+
+.modal.show .modal-dialog {
+  transform: none;
+  margin-top: 60px;
+}
+
+::ng-deep .modal-class
+{
+margin-top: 55px;
+}
+/* .custom-modal-class {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  height: 100vh; 
+}
+
+.custom-modal-class .modal-dialog {
+  margin: 0 auto; 
+  max-width: 60%; 
+}
+
+.custom-modal-class .modal-content {
+  height: 500px; 
+} */
+
+.status-cell {
+text-align: center;
+font-weight: bold;
+border: 1px solid #ddd;
+border-radius: 6px;
+padding: 6px 10px;
+box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+transition: all 0.3s ease-in-out;
+text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+/* WIP */
+.pending-row {
+background: linear-gradient(145deg, #fff88a, #e6d92f);
+color: #333;
+}
+
+/* Approved */
+.approved-row {
+background: linear-gradient(145deg, #a3e635, #72b319);
+color: #1f3b08;
+}
+
+/* Rejected */
+.rejected-row {
+background: linear-gradient(145deg, #fca5a5, #f87171);
+color: #6b0000;
+}
+
+/* Hover Effect */
+.status-cell:hover {
+box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
+transform: scale(1.05);
+cursor: pointer;
+}

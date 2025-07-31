@@ -45,7 +45,6 @@ isVisible: any;
   isEditing: boolean = false;
 
   rollMasterForm!: FormGroup;
-  //roleUnitMaster: RoleUnitMaster[] = [];
   getMenu: any = {};
   getRole: any = {};
 
@@ -75,72 +74,37 @@ isVisible: any;
   currentSelected: {} = {}
   roleData: any = {};
   showDropDown: boolean = false
-  // shareIndividualCheckedList :{}={}
-  // shareCheckedList :any[]=[]
+
   IsActive: boolean = false;
   Active = "Active";
   items: any = {};
   UserId:any;
-  // MenuSpecific: TreeviewItem[] = [];
-  // DummyMenuSpecific: TreeviewItem[] = [];
+  
 
-
-
-
-
-  // config = TreeviewConfig.create({
-  //   hasAllCheckBox: false,
-  //   hasFilter: false,
-  //   hasCollapseExpand: false,
-  //   decoupleChildFromParent: false
-  // });
   ngOnInit(): void {
 
     debugger;
 
     // this.getmenus();
 
-    if (localStorage.getItem("userName") == null) {
+    if (localStorage.getItem("username") == null) {
       // this.router.navigate(['/welcome']);
       //return;
     }
-    this.UserId= 1; //localStorage.getItem("userId");
+    this.UserId= localStorage.getItem("mst_user_id");
     
-
-
-    // const dropdownButton = document.getElementById('multiSelectDropdown');
-    // const dropdownMenu = document.querySelector('.dropdown-menu');
-
     this.rollMasterForm = new FormGroup({
       textsearch: new FormControl(),
 
     });
 
     this.getRoleData();
-    //console.log('menu list', this.getMenuList())
-
     const chBoxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]');
     const dpBtn = document.getElementById('multiSelectDropdown');
 
-    // let mySelectedListItems = [];
-
   }
 
-  // onCheckboxChange(item: any): void {
-  //   if (item.checked) {
-  //     // Add the selected item to the selectedItems array
-  //     this.selectedItems.push(item);
-  //     //console.log(this.selectedItems)
-  //   } else {
-  //     // Remove the item from the selectedItems array
-  //     this.selectedItems = this.selectedItems.filter(selectedItem => selectedItem.id !== item.id);
-
-  //   }
-
-  // }
   IsCheckedBox() {
-
-    //console.log(this.IsActive)
     if (this.IsActive) {
       this.Active = "Active";
     }
@@ -149,10 +113,10 @@ isVisible: any;
     }
 
   }
-  async openModal() {
+  async openModal(): Promise<void> {
 
-    this.getmenus();
     this.display = "block";
+    await this.getmenus();
     if (this.editModal) {
       debugger;
       this.txt_btn = 'Update';
@@ -169,14 +133,13 @@ isVisible: any;
         this.Active = "Deactive";
         this.IsActive = false;
       }
-      // console.log('edit array', this.menu, this.getRole[this.editRowIndex].MenuId)
 
     } else {
+      debugger;
       this.IsActive = true;
       this.Active = "Active";
 
       this.isEditing = false;
-      //  this.getMenuList();
       this.header = 'Add Role';
       this.txt_btn = 'Save';
       this.roleName = "";
@@ -191,14 +154,6 @@ isVisible: any;
   };
 
 
-  // async getMenuList() {
-  //   const data = await this.service.getMenuList().toPromise();
-  //   this.getMenu = data;
-
-  //   this.updatelist = this.getMenu.map((d: any) => ({ ...d, checked: false }));
-  //   //console.log('menu', this.updatelist)
-  // }
-
   getRoleData() {
     debugger;
     this.service.getRoleDetails().subscribe((_result: any) => {
@@ -207,26 +162,6 @@ isVisible: any;
     })
   }
 
-  // deleteRow(rowIndex: any) {
-
-  //   if (confirm("Are you sure you want to delete Role?")) {
-
-  //     this.dataArr = {
-  //       RoleId: rowIndex,
-  //       ModifiedBy: Number(localStorage.getItem("userId"))
-  //     };
-  //     this.service.deleteRole(this.dataArr).subscribe({
-  //       next: (_res) => {
-
-  //         this.toastr.success("Data Deleted Successfully.");
-  //         this.getRoleData();
-  //       },
-  //       error: (error) => {
-  //         console.error('API call error:', error);
-  //       },
-  //     });
-  //   }
-  // }
 
   onCloseHandled() {
     this.display = "none";
@@ -238,7 +173,6 @@ isVisible: any;
   }
 
   onItemChange(item: any): void {
-    // this.menu = event.target.value;
 
     if (item.selected) {
       this.checkedList.push(item.text);
@@ -265,57 +199,73 @@ isVisible: any;
 
   updatelist: any;
 
-  async editModalMethod(rowIndex: any, item: any) {
-    //const data = await this.service.getMenuList().toPromise();
-    //this.updatelist = data;
-    debugger;
+// async editModalMethod2(rowIndex: any, item: any) {
+//     debugger;
+//     this.menuList = [];
+//     this.editRowIndex = [];
+//     this.editModal = true;
+//     this.editRowIndex = item;
+//     this.openModal();
+//     console.log(this.getRole);
+//     console.log(this.MenuSpecific);
+//     console.log(item);
 
-    this.menuList = [];
-    this.editRowIndex = [];
-    this.editModal = true;
-    this.editRowIndex = item;
-    //change
-    
-    this.openModal();
+//     setTimeout(() => {
+//       for (let i = 0; i < item.menuId.split(',').length; i++) {
+//         for (let j = 0; j < this.MenuSpecific.length; j++) {
+//           if (item.menuId.split(',')[i] == this.MenuSpecific[j].value) {
+//             this.MenuSpecific[j].checked = true
+//           }
+//           for (let k = 0; k < this.MenuSpecific[j].items.length; k++) {
+//             if (item.menuId.split(',')[i] == this.MenuSpecific[j].items[k].value) {
+//               this.MenuSpecific[j].items[k].checked = true
+//             }
+//           }
 
-    // this.getRole
+//         }
+//       }
+//     }, 300);
+//   }
 
-    // const data = await this.service.getMenu(3).toPromise()
-    // // console.log('data', data);
-    // this.MenuSpecific = data;
+async editModalMethod(rowIndex: any, item: any) {
+  this.editRowIndex = item;
+  this.editModal = true;
 
-    // this.MenuSpecific = data.map((value: { text: any; value: any; children: any, checked:boolean; }) => {
-    //   return new TreeviewItem({ text: value.text, value: value.value, children: value.children,checked:false });
-    // });
+  await this.openModal(); // Make openModal() return a Promise that waits for getmenus()
 
-    
-    console.log(this.getRole);
-    console.log(this.MenuSpecific);
-    console.log(item);
+  const selectedIds = item.menuId?.split(',') ?? [];
 
-    setTimeout(() => {
-      for (let i = 0; i < item.menuId.split(',').length; i++) {
-        for (let j = 0; j < this.MenuSpecific.length; j++) {
-          if (item.menuId.split(',')[i] == this.MenuSpecific[j].value) {
-            this.MenuSpecific[j].checked = true
-          }
-          for (let k = 0; k < this.MenuSpecific[j].items.length; k++) {
-            if (item.menuId.split(',')[i] == this.MenuSpecific[j].items[k].value) {
-              this.MenuSpecific[j].items[k].checked = true
-            }
-          }
+  this.MenuSpecific.forEach((menu: { checked: boolean; items: any[]; }) => {
+    menu.checked = false;
+    menu.items?.forEach((submenu: any) => submenu.checked = false);
+  });
 
-        }
+  this.MenuSpecific.forEach((menu: { value: { toString: () => any; }; checked: boolean; items: any[]; }) => {
+    let hasSubmenu = false;
+
+    if (selectedIds.includes(menu.value.toString())) {
+      menu.checked = true;
+    }
+
+    menu.items?.forEach((submenu: any) => {
+      if (selectedIds.includes(submenu.value.toString())) {
+        submenu.checked = true;
+        hasSubmenu = true;
       }
-      //console.log('my menu checked ', this.MenuSpecific);
-    }, 300);
+    });
 
-  }
+    if (hasSubmenu) {
+      menu.checked = true;
+    }
+  });
+
+  this.getMenuId();
+}
 
 
- 
 
-  onSaveButton() {
+
+onSaveButton() {
     debugger;
     if (!this.onClickBlankInputValidation()) {
       if (this.editModal) {
@@ -332,14 +282,13 @@ isVisible: any;
         console.log(this.roleData);
         debugger;
         this.service.updateRoleDetails(data1).subscribe(
-          (        // this.service.updateRoleDetails(this.roleData).subscribe(
+          (  
           response: any) => {
             console.log('Record updated successfully:', response);
             this.getRoleData();
             //
             
             this.Toastr.success("Data Updated Successfully.");
-            //this.onCloseHandled(); // Close the modal
           },
           (          error: any) => {
             console.error('Error inserting record:', error);
@@ -347,11 +296,8 @@ isVisible: any;
           }
         );
 
-        // console.log('saved role data', this.roleData)
       }
       else {
-
-        // console.log(list)
         this.dataArr = {
           Role_name: this.roleName,
           Description: this.roleDescription,
@@ -364,7 +310,6 @@ isVisible: any;
 
         this.service.addRoleDetails(this.dataArr).subscribe(
           (response:any) => {
-            // console.log('Record inserted successfully:', response);
             this.getRoleData();
             this.Toastr.success("Data Inserted Successfully.");
           },
@@ -380,9 +325,7 @@ isVisible: any;
     }
   }
   onSelectedChange(e: any) {
-    //console.log('checked',e)
     this.checkedList = e;
-    //console.log('updated menu specific',this.MenuSpecific)
   }
 
   Menu_fromDB: any = [];
@@ -390,22 +333,12 @@ isVisible: any;
     debugger;
     try {
       this.MenuSpecific = [];
-      // const data = await this.service.getMenu(3).toPromise();
-
       const data = await this.service.getMenu(3).toPromise()
       this.MenuSpecific = data;
-      // this.MenuSpecific = this.Menu_fromDB.map((value: {
-      //   text: any; value: any; children: any,
-      //   checked: boolean;
-      // }) => {
-      //   return new TreeviewItem({ text: value.text, value: value.value, children: value.children, checked: value.checked });
-      // });
-
     }
     catch (err) {
       console.error('Error fetching menus', err);
     }
-
   }
   onClickBlankInputValidation(): boolean {
     if (this.roleName == '') {
@@ -427,66 +360,64 @@ isVisible: any;
   }
 
   getMenuId() {
-    debugger;
     this.checkedList = "";
-
-    var ul = document.getElementById("menus") as any;
-    var main_class = ul!.getElementsByClassName("mainmenu_class") as any;
-
-    for (var i = 0; i < main_class.length; i++) {
-      if (main_class[i].getElementsByTagName('input').length > 1) {
-        for (var j = 1; j < main_class[i].getElementsByTagName('input').length; j++) {
-          if (main_class[i].getElementsByTagName('input')[j].checked) {
-            this.checkedList += main_class[i].getElementsByTagName('input')[j].value + ",";
-          }
-        }
+  
+    this.MenuSpecific.forEach((menu: { checked: any; value: string; items: any[]; }) => {
+      let addedMenu = false;
+  
+      if (menu.checked) {
+        this.checkedList += menu.value + ",";
+        addedMenu = true;
       }
-      else {
-        if (main_class[i].getElementsByTagName('input')[0].checked) {
-          this.checkedList += main_class[i].getElementsByTagName('input')[0].value + ",";
-        }
-      }
-    }
-
-    console.log(this.checkedList);
-  }
-
-  SelectAllManus(menuid: any, evt: any) {
-    debugger;
-
-    if (menuid.items.length > 0) {
-      let checkbox = document.getElementById(evt.target.id) as any;
-      if (checkbox.checked) {
-
-        for (let i = 0; i < this.MenuSpecific.length; i++) {
-          for (let j = 0; j < this.MenuSpecific[i].items.length; j++) {
-            for (var k = 0; k < menuid.items.length; k++) {
-              if (this.MenuSpecific[i].value == menuid.value) {
-                this.MenuSpecific[i].items[j].checked = true
-              }
+  
+      if (menu.items && menu.items.length > 0) {
+        menu.items.forEach((submenu: any) => {
+          if (submenu.checked) {
+            this.checkedList += submenu.value + ",";
+  
+            if (!addedMenu) {
+              this.checkedList += menu.value + ",";
+              addedMenu = true;
             }
           }
-        }
+        });
       }
-      else {
-        for (let i = 0; i < this.MenuSpecific.length; i++) {
-          for (let j = 0; j < this.MenuSpecific[i].items.length; j++) {
-            for (var k = 0; k < menuid.items.length; k++) {
-              if (this.MenuSpecific[i].value == menuid.value) {
-                this.MenuSpecific[i].items[j].checked = false
-              }
-            }
-          }
-        }
-      }
+    });
+  
+    if (this.checkedList.endsWith(",")) 
+    {
+      this.checkedList = this.checkedList.slice(0, -1);
     }
-
-    setTimeout(() => {
-      this.getMenuId();
-    }, 200);
-
-
+  
+    console.log("Final checked IDs:", this.checkedList);
   }
+  
+  
+  
+  onSubmenuChange(menu: any) {
+    const anyChecked = menu.items.some((submenu: any) => submenu.checked);
+    menu.checked = anyChecked;
+  
+    this.getMenuId();
+  }  
+
+  
+
+  SelectAllManus(menu: any, evt: any) {
+    const isChecked = evt.target.checked;
+  
+    menu.checked = isChecked;
+  
+    // Update all submenus
+    if (menu.items && menu.items.length > 0) {
+      menu.items.forEach((submenu: any) => {
+        submenu.checked = isChecked;
+      });
+    }
+  
+    this.getMenuId();
+  }  
+  
   onSearchEnter(event: Event): void {
     const keyboardEvent = event as KeyboardEvent; 
     keyboardEvent.preventDefault(); 

@@ -6,9 +6,12 @@ import { Podetails, ponos } from '../../models/podetails';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+//import { NgxSpinnerService } from 'ngx-spinner';
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 import { Supplier } from '../../models/supplier';
 import { SearchPipe } from '../../SearchPipe/search.pipe';
+import { ToastrService } from 'ngx-toastr';
+// import * as XLSX from 'xlsx';
 
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //import { faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -48,8 +51,18 @@ export class POsupplierComponent implements OnInit {
   pageSize: number = 10;
   totalPages:number=0;
   Suppliers: Supplier[] = [];
-  
-  constructor(private modulesService: SupplierService, private route: Router) { 
+
+  selectedFile!: File | undefined;
+  display = "none";
+  dateDisplay = 'none'
+  poPopupDisplay = 'none'
+  selectedfilename:string='';
+  showError1: boolean = false;
+  fromDate: string = '';
+  toDate: string = '';
+  selectedFromPO: number | null = null;
+  selectedToPO: number | null = null;
+  constructor(private modulesService: SupplierService,public toastr: ToastrService, private route: Router) { 
    }
 
   ngOnInit() {
@@ -58,6 +71,9 @@ export class POsupplierComponent implements OnInit {
       FromPODate:new FormControl(),
       ToPODate:new FormControl()
     });
+
+
+
     this.GetSuppliers();
     
   }
@@ -88,20 +104,162 @@ export class POsupplierComponent implements OnInit {
     // });
     // this.route.navigate(['/module/poschedule', PONumber,postatus,suppliername]);
   }
+
+  //excel download
+
+Downloadtemplate()
+ {
+   const excelFilePath = 'assets/UpoadPurches order Example.xlsx';
+   this.downloadExcelFile(excelFilePath,'UpoadPurches order Example.xlsx');
+ }
+
+downloadExcelFile(filePath : string,filename : string): void {
+   // Path to your Excel file in the assets folder
+  fetch(filePath)
+    .then(response => response.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename; // Set your desired file name
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+}
+
+ openUploadModal(): void {
+   this.selectedFile=undefined;
+   //this.uploadDisplay = 'block';
+   this.display = "block";
+   const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+   fileInput.value = '';
+  // this.uploadfromdate='';
+ }
+
+   onCloseHandled() {
+   this.showError1=false;
+   this.display = "none";
+   this.dateDisplay = "none";
+   this.selectedfilename='';
+   this.fromDate='';
+   this.toDate='';
+   this.ClearControls();
+  }
+
+  submitDate(){
+    this.FromPODate = this.fromDate;
+    this.ToPODate = this.toDate;
+    this.filterTableData()
+    this.dateDisplay = "none";
+    this.fromDate='';
+    this.toDate='';
+  }
+
+  closePOPopup() {
+  this.poPopupDisplay = 'none';
+  this.selectedFromPO = null;
+  this.selectedToPO = null;
+}
+
+
+
+   onFileSelected(event: any): void {
+   const file: File = event.target.files[0];
+  this.selectedFile = file;
+  this.selectedfilename = file.name;
+  // const reader: FileReader = new FileReader();
+  // reader.onload = (e: any) => {
+  //   const data = new Uint8Array(e.target.result);
+  //   const workbook = XLSX.read(data, { type: 'array' });
+  //   const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+  //   const sheetData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+
+  //   const headerRowIndex = 7;
+  //   const fileHeaders = sheetData[headerRowIndex] as string[];
+  //   //this.selectedFile = undefined;
+
+  //   // if (!this.validateHeaders(fileHeaders, expectedHeaders)) {
+  //   //   this.toastr.error('Excel headers are incorrect or not in the correct order.');
+  //   //   this.selectedFile = undefined;
+  //   //   return;
+  //   // }
+
+  //   const dataRows = sheetData.slice(headerRowIndex + 1) as any;
+  //   // if (!this.validateMandatoryFields(dataRows, fileHeaders, mandatoryFields)) {
+  //   //   this.toastr.error('Mandatory fields (Part Name, Displacement, Current Program, BomQty) are missing in one or more rows.');
+  //   //   this.selectedFile = undefined;
+  //   //   return;
+  //   // }
+
+  //   this.toastr.success('Excel file is valid.');
+  // };
+  // reader.readAsArrayBuffer(file);
+}
+
+uploadExcel(): void {
   
-  goBack(): void {
+  if (!this.selectedFile) {
+  this.toastr.error("No file selected or file failed validation.");
+  return;
+}
+
+this.sendExcelDataToAPI(this.selectedFile);
+}
+
+
+
+sendExcelDataToAPI(uploadfile: File): void {
+
+
+  //this.SpinnerService.show('spinner');
+
+  this.modulesService.uploadExcelData(uploadfile).subscribe(
+    { next: (_res: any) => {
+      if(_res==true){
+      console.log('Excel data uploaded successfully:', _res);
+      this.toastr.success("Data Uploaded Successfully.");
+      this.onCloseHandled();
+      this.GetSuppliers();
+      //this.SpinnerService.hide('spinner');
+      }
+      
+    },
+    error: (error: any) => {
+      console.error('API call error:', error);
+    },}
+    
+  );
+  //row.editable = false;  // Disable edit mode after successful update
+
+
+
+
+  
+}
+  
+goBack(): void {
     window.history.back();
   }
 
   GetSuppliers() {
     this.Suppliers = [];
-  
+    const storedRoleId = localStorage.getItem("roleId");
+    if(storedRoleId=='3')
+    {
+      this.SupplierId=3;
+      this.SupplierName="Admin";
+      this.FillPODropdown();
+      this.FillPOTable();
+    }
     // this.tableData.forEach((data) => {
     //   if (!this.departmentHeads.includes(data.DepartmentHead)) {
         // this.PONumbers.push("5000051930");
         // this.PONumbers.push("5000051910");
         // this.PONumbers.push("5000051940");
       // }
+      else
+      {
       this.modulesService.getsuppliers().subscribe({
         next: (response:any) => {
           this.Suppliers = response;
@@ -122,6 +280,7 @@ export class POsupplierComponent implements OnInit {
           //this.spinnerService.hide();
         },
       });
+    }
   }
 
 
@@ -151,24 +310,18 @@ export class POsupplierComponent implements OnInit {
 
 async FillPOTable(){
   this.POTableData=[];
-  // this.addpo(5000051910,"2014-10-20","Non Eng. PO","Completed",'','');
-  // this.addpo(5000051920,"2014-09-25","Non Eng. PO","New",'To be Scheduled on 29-Nov-24','');
-  // this.addpo(5000051930,"2014-09-30","Non Eng. PO","New",'','Update the delivery Schedule');
-  // this.addpo(5000051940,"2014-09-20","Non Eng. PO","New",'','Update the delivery Schedule');
-  // this.addpo(5000051950,"2014-09-22","Non Eng. PO","Completed",'','Update the delivery Schedule');
-  // this.addpo(5000051960,"2014-09-25","Non Eng. PO","New",'','Update the delivery Schedule');
-  // this.addpo(5000051970,"2014-09-27","Non Eng. PO","New",'','Update the delivery Schedule');
-  // this.addpo(5000051980,"2014-09-28","Non Eng. PO","New",'','Update the delivery Schedule');
-  // this.addpo(5000051990,"2014-10-03","Non Eng. PO","New",'','Update the delivery Schedule');
 
   this.modulesService.getPOHeaders(this.SupplierCode).subscribe({
     next: (response: any) => {
-      this.POTableData = response;
+      //this.POTableData = response;
+      this.POTableData = response.filter((item: any) => item.isPODeleted !== 'L');
+
       this.filteredTableData = [...this.POTableData];
       this.Status=Array.from(
         new Set(this.filteredTableData.map(item => item.status))
       );
       console.log("API response", this.POTableData);
+      console.log("filter",this.filteredTableData);
       // this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
       //this.updatePagination();
     },
@@ -194,6 +347,13 @@ async FillPOTable(){
 //   this.POTableData.push(product);
 // }
 
+get fromDropdownOptions(): ponos[] {
+  return this.PONumbers.filter(po => po.poNumber !== this.selectedToPO);
+}
+
+get toDropdownOptions(): ponos[] {
+  return this.PONumbers.filter(po => po.poNumber !== this.selectedFromPO);
+}
 selectedPoText: string = '';
 
 getSelectedPoText(): string {
@@ -222,7 +382,7 @@ filterTableData() {
       const [day, month, year] = data.poDate.split("-").map(Number); // Convert each part to a number
       const POdate  = new Date(year, month - 1, day); // Month is zero-based
       console.log(Number(data.poNumber)); 
-      return (!this.selectedPOs?.length ||  this.selectedPOs.some(selectedPO => selectedPO.poNumber === Number(data.poNumber)))
+      return (!this.selectedPOs?.length ||  this.selectedPOs.some(selectedPO => selectedPO.poNumber == Number(data.poNumber)))
        && (!this.selectedstatus?.length || this.selectedstatus.some(selectstatus=>selectstatus===data.status))
        && (!this.FromPODate  ||POdate >= frompodate)
        && (!this.ToPODate  ||POdate <= topodate)
@@ -233,6 +393,20 @@ filterTableData() {
   // this.totalPages = Math.ceil(this.filteredTableData.length / this.itemsPerPage);
    //this.updatePagination();
 }
+
+applyPOFilter() {
+  if (this.selectedFromPO != null && this.selectedToPO != null) {
+    const from = Math.min(this.selectedFromPO, this.selectedToPO);
+    const to = Math.max(this.selectedFromPO, this.selectedToPO);
+
+    this.filteredTableData = this.POTableData.filter(row => {
+      const poNumber = Number(row.poNumber);
+      return poNumber >= from && poNumber <= to;
+    });
+  }
+  this.closePOPopup();
+}
+
 //   onItemSelect(item: any) {
 //     console.log('onItemSelect', item);
 //     //this.selectedPOs.push(item)

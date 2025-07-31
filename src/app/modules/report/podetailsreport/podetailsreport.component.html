@@ -103,6 +103,31 @@
 
                 </div>
 
+                <div class="col-md-auto col-sm-12 d-flex flex-column align-items-start me-3">
+        <label class="form-label mb-1">Material Code:</label>
+        <ng-select #mySelect class="ng-selectcustomer" 
+          [multiple]="true" 
+          [items]="materialcodeList" 
+          bindLabel="materialcode"
+          bindvalue="materialcode"
+          [(ngModel)]="selectedMaterialcodes" 
+          (change)="toggleMaterialCodeSelection()" 
+          placeholder="---Select Material code---"
+          style="width: 224px;"
+          [ngModelOptions]="{standalone: true}"
+        [closeOnSelect]="true"
+        
+        >
+        <ng-template ng-header-tmp let-items="items" >
+            <input  #select type="checkbox" (click)="selectAll(select.checked)" [checked]='selectedMaterialcodes.length==materialcodeList.length'/> Select All
+       </ng-template>
+         
+       <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+           <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}
+       </ng-template>
+        </ng-select>
+      </div>
+
 
                 <div class="col-md-auto col-sm-6 d-flex flex-column align-items-start me-3">
                     <label class="form-label mb-0">From PO Date:</label>
@@ -155,18 +180,21 @@
                 <thead>
                     <tr>
                         <th>Sr No.</th>
-                        <th>Supplier Code</th>
                         <th>Supplier Name</th>
                         <th>PO No</th>
                         <th>Item No</th>
-                        <th>Lot No</th>
                         <th>Material Code</th>
                         <th>Material Description</th>
                         <th>Material Quantity</th>
+                        <th>Lot No</th>
+                        <th>Lot Quantity</th>
                         <th>Material UOM</th>
                         <th>ETD</th>
-                        <th>Delivery Status</th>
                         <th>ETA</th>
+                        <th>Actual Dispatch</th>
+                        <th>Actual Arrival</th>
+                        <th>Delivery Status</th>
+                        
                     </tr>
                 </thead>
 
@@ -174,18 +202,21 @@
                     <tr
                         *ngFor="let d of filteredData | search: textsearch:filterMetadata | paginate: { itemsPerPage: 5, currentPage: page } let i=index">
                         <td>{{(page - 1) * 10 + i + 1}}</td>
-                        <td>{{ d.suppliercode }}</td>
+                        <!-- <td>{{ d.suppliercode }}</td> -->
                         <td>{{ d.suppliername }}</td>
                         <td>{{ d.pono }}</td>
                         <td>{{ d.itemno }}</td>
-                        <td>{{d.lotno}}</td>
                         <td>{{ d.materialcode }}</td>
                         <td>{{ d.materialdes }}</td>
                         <td>{{ d.materialqty }}</td>
+                        <td>{{ d.lotno}}</td>
+                        <td>{{ d.lotQty}}</td>
                         <td>{{ d.materialuom }}</td>
-                        <td>{{ d.etd}}</td>
+                        <td>{{ d.etd | date:'dd/MM/yyyy'}}</td>
+                        <td>{{ d.eta | date:'dd/MM/yyyy'}}</td>
+                        <td>{{ d.ActualArrival | date:'dd/MM/yyyy'}}</td>
+                        <td>{{ d.ActualDispatch | date:'dd/MM/yyyy'}}</td>
                         <td>{{ d.deliverystatus }}</td>
-                        <td>{{ d.eta}}</td>
                 </tbody>
             </table>
         </div>

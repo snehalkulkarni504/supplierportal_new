@@ -23,7 +23,7 @@
     </div>
     <div class="m-0 p-0">
       <h2 class="po-details-heading">
-        PO Details
+        My POs
       </h2>
     </div>
 
@@ -84,13 +84,26 @@
       </div>
     </div>
 
-    <div class="searchDiv">
+    <!-- <div class="searchDiv">
       <div class="form-group has-search searchbox2">
         <span class="bi bi-search form-control-feedback"></span>
         <input type="text" class="form-control search-input" placeholder="Search" formControlName="textsearch"
           [(ngModel)]="textsearch">
       </div>
+    </div> -->
+ <div class="action-row">
+  <div class="searchDiv">
+    <div class="form-group has-search searchbox2">
+      <span class="bi bi-search form-control-feedback"></span>
+      <input type="text" class="form-control search-input" placeholder="Search"
+             formControlName="textsearch" [(ngModel)]="textsearch">
     </div>
+  </div>
+  <div class="button-group">
+    <button class="download-btn" (click)="Downloadtemplate()">Download Template</button>
+    <button class="download-btn" (click)="openUploadModal()">Upload Excel</button>
+  </div>
+</div>
     <div class="justify-content-center">
       <div class="table-responsive">
         <table class="table table-bordered table-striped"
@@ -99,8 +112,8 @@
             <tr>
               <!-- <th>Timesheet No</th> -->
 
-              <th>PO No</th>
-              <th>PO Date</th>
+              <th (click)="poPopupDisplay = 'block'">PO No</th>
+              <th (click)="dateDisplay = 'block'">PO Date</th>
               <th>Doc. Type</th>
               <th>Status</th>
               <!-- <th>Supplier Remark</th> -->
@@ -110,7 +123,7 @@
           </thead>
           <tbody>
             <tr
-              *ngFor="let value of filteredTableData | search: textsearch:filterMetadata | paginate: { itemsPerPage: 5, currentPage: page } let i=index">
+              *ngFor="let value of filteredTableData | search: textsearch:filterMetadata | paginate: { itemsPerPage: 10, currentPage: page } let i=index">
               <!-- <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td> -->
               <td>{{value.poNumber}}</td>
               <!--<td>{{value.TimeSheet_No}}</td>-->
@@ -144,6 +157,133 @@
     </div>
   </form>
 </div>
+
+
+ <div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+     <div class="modal-dialog  modal-dialog-centered" role="document">
+         <div class="modal-content">
+
+<div class="modal-header">
+    <h4 class="modal-title">Upload Excel</h4>
+    <label class="close modal-close-icn" (click)="onCloseHandled()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#000" class="bi bi-x"
+            viewBox="0 0 16 16">
+            <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+    </label>
+</div>
+<div class="modal-content" >
+    
+    <div class="modal-body">
+
+        
+        
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <label for="fileInput"
+                   style="padding: 6px 12px; background-color: #4e54c8; color: white; border-radius: 4px; cursor: pointer; font-size: 14px;">
+              Choose File
+            </label>
+         
+            <input type="file" id="fileInput" (change)="onFileSelected($event)" accept=".xlsx"
+                   style="display: none;">
+           
+            <span style="font-size: 14px; color: #333;" *ngIf="selectedfilename">{{ selectedfilename }}</span>
+          </div>                    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="onCloseHandled()">Close</button>
+        <button type="button" class="btn btn-sm  btn-default default-btn_popup"
+            (click)="uploadExcel()">Upload</button>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ 'display': dateDisplay }">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Select Date Range</h4>
+        <label class="close modal-close-icn" (click)="onCloseHandled()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#000" class="bi bi-x"
+            viewBox="0 0 16 16">
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+          </svg>
+        </label>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form>
+          <div class="form-group mb-3">
+            <label for="fromDate">From Date:</label>
+            <input type="date" class="form-control" id="fromDate" [(ngModel)]="fromDate" name="fromDate" />
+          </div>
+          <div class="form-group mb-3">
+            <label for="toDate">To Date:</label>
+            <input type="date" class="form-control" id="toDate" [(ngModel)]="toDate" name="toDate" />
+          </div>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="onCloseHandled()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="submitDate()">Submit</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ 'display': poPopupDisplay }">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Select PO Number Range</h4>
+        <label class="close modal-close-icn" (click)="closePOPopup()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#000" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+          </svg>
+        </label>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form>
+          <div class="form-group mb-3">
+            <label for="fromPO">From PO No:</label>
+            <select class="form-control" id="fromPO" [(ngModel)]="selectedFromPO" name="fromPO">
+              <option [ngValue]="null" selected hidden>Select PO</option>
+              <option *ngFor="let po of PONumbers" [value]="po.poNumber" >{{ po.poNumber }}</option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+            <label for="toPO">To PO No:</label>
+            <select class="form-control" id="toPO" [(ngModel)]="selectedToPO" name="toPO">
+              <option [ngValue]="null" selected hidden>Select PO</option>
+              <option *ngFor="let po of PONumbers" [value]="po.poNumber" >{{ po.poNumber }}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="closePOPopup()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="applyPOFilter()">Apply Filter</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- <app-poschedule [PONumber]="prog_title" 
     [postatus]="curr_info" [suppliername]="curr_info">
 </app-poschedule> -->

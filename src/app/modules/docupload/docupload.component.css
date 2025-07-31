@@ -36,7 +36,7 @@
     display: flex;
     justify-content: center;
     width: auto;
-    max-height: 137px;
+    max-height: 231px;
     overflow-y: auto;
     overflow-x: auto;
     margin-right: 59px;
@@ -161,9 +161,22 @@
 }
 
 .table thead tr th {
-    background-color: #4d94c9;
-    color: #fff;
-    padding: 3px;
+  background-color: #3498db; 
+  color: white;
+  padding: 8px 12px;
+  border: 1px solid #fff;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); 
+  box-shadow: inset 0 -2px 4px rgba(255, 255, 255, 0.2); 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background 0.3s ease;
+}
+
+.table thead tr th:hover {
+  background-color: #2980b9;
+  cursor: pointer;
 }
 
 .searchDiv {
@@ -325,11 +338,10 @@ ngb-pagination ::ng-deep ul>li.active>a {
 
 .button-group {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     margin-top: 3px;
     padding-bottom: 17px;
-    /* gap: 25px;
-    padding-left: 130px; */
+    margin-right: 5%;
 }
 
 .button-group button {
@@ -396,3 +408,124 @@ ngb-pagination ::ng-deep ul>li.active>a {
         max-width: 100%;
     }
 }
+
+
+.status-cell {
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 6px 10px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    }
+    
+    /* WIP */
+    .pending-row {
+    background: linear-gradient(145deg, #fff88a, #e6d92f);
+    color: #333;
+    }
+    
+    /* Approved */
+    .approved-row {
+    background: linear-gradient(145deg, #a3e635, #72b319);
+    color: #1f3b08;
+    }
+    
+    /* Rejected */
+    .rejected-row {
+    background: linear-gradient(145deg, #fca5a5, #f87171);
+    color: #6b0000;
+    }
+    
+    /* Hover Effect */
+    .status-cell:hover {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
+    transform: scale(1.05);
+    cursor: pointer;
+    }
+
+
+    /* rejection-modal.component.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    width: 400px;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease;
+  }
+  
+  .modal-content h2 {
+    margin-top: 0;
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #333;
+  }
+  
+  .modal-content label {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 6px;
+  }
+  
+  .modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: none;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  
+  .close-btn, .reject-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .close-btn {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+  
+  .reject-btn {
+    background-color: #ff4d4f;
+    color: #fff;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+    

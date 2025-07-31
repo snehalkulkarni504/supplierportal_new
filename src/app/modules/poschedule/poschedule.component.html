@@ -1,7 +1,7 @@
 <div class="AllpagesContent container-fluid">
-    <!-- Client and Delivery Schedule Information -->
-    <div class="text-center mb-3">
-      <i class="fas fa-arrow-circle-left back_button" 
+  <!-- Client and Delivery Schedule Information -->
+  <div class="text-center mb-3">
+    <i class="fas fa-arrow-circle-left back_button"
       style="color: #00509e;cursor: pointer;position: absolute; left: 61px; top: 50px; font-size: 24px;" 
       title="Back"
       (click)="goback()"
@@ -10,7 +10,7 @@
     onmouseout="this.style.transform='scale(1)'; this.style.transition='transform 0.2s ease-in-out'"
     tabindex="0">
     </i>
-      <!-- <button 
+    <!-- <button 
     class="btn btn-secondary" 
     style="position: absolute; left: 61px; top: 45px;" 
   
@@ -19,237 +19,386 @@
   <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Back
   </button> -->
       <h4 class="font-weight-bold" style="font-weight: bold; color: #278bd8; font-size: 28px;">{{ clientName || "Supplier Name" }}</h4>
-      <h5 style=" text-align: left;font-weight: bold; color: #278bd8;font-size: 28px;">Delivery Schedule</h5>
-    </div>
-  
-    <!-- Horizontal Line Below Delivery Schedule -->
-    <hr style="border-color: #4d94c9; margin:0px;">
-    <!-- <button (click)="showSuccess()">kkk</button> -->
-    <!-- Parent Table -->
-    <table class="table table-sm mx-auto table-bordered table-hover mt-4 text-center">
-      <thead class="thead-light po-thead">
-        <tr>
-          <th class="po-th">Sr.No.</th>
-          <th class="po-th">PO Number</th>
-          <th class="po-th">PO Date</th>
-          <th class="po-th">Doc Type</th>
-          <!-- <th style="background-color: #4d94c9; color: white;">Actions</th> -->
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let element of parentTableData;let i = index;" (click)="toggleParentRow(element)">
-          <td>{{i+1}}</td>
-          <td>{{ element.poNumber }}</td>
-          <td>{{ element.poDate }}</td>
-          <td>{{ element.docType }}</td>
-          <!-- <td>
+    <h5 style=" text-align: left;font-weight: bold; color: #278bd8;font-size: 28px;">Delivery Schedule Update</h5>
+  </div>
+
+  <!-- Horizontal Line Below Delivery Schedule -->
+  <hr style="border-color: #3498db; margin:0px;">
+  <!-- <button (click)="showSuccess()">kkk</button> -->
+  <!-- Parent Table -->
+  <table class="table table-sm mx-auto table-bordered table-hover mt-4 text-center">
+    <thead class="thead-light po-thead">
+      <tr>
+        <!-- <th class="po-th">Sr.No.</th> -->
+        <th class="po-th">PO Number</th>
+        <th class="po-th">PO Date</th>
+        <th class="po-th">Doc Type</th>
+        <!-- <th style="background-color: #3498db; color: white;">Actions</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let element of parentTableData;let i = index;" (click)="toggleParentRow(element)">
+        <!-- <td>{{i+1}}</td> -->
+        <td>{{ element.poNumber }}</td>
+        <td>{{ element.poDate | date:'dd/MM/yyyy' }}</td>
+        <td>{{ element.docType }}</td>
+        <!-- <td>
             <button class="btn btn-info btn-sm">
               <i *ngIf="selectedParentRowData === element" class="bi bi-chevron-up"></i>
               <i *ngIf="selectedParentRowData !== element" class="bi bi-chevron-down"></i>
               {{ selectedParentRowData === element ? 'Collapse' : 'Expand' }}
             </button>
           </td> -->
-        </tr>
-      </tbody>
-    </table>
-    
-    <!-- Child Table (Visible when a Parent Row is selected) -->
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Child Table (Visible when a Parent Row is selected) --> 
+  <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar" style="padding: 0; margin:0">
     <table *ngIf="selectedParentRowData" class="table table-sm mx-auto table-bordered table-hover mt-4">
-      <thead class="thead-light text-center" style="background-color: #4d94c9; color: white;">
+      <thead class="thead-light text-center" style="background-color: #3498db; color: white;">
         <tr>
-          <th style="background-color: #4d94c9; color: white; word-wrap: break-word; word-break: break-word;">Sr.No.</th>
-          <th style="background-color: #4d94c9; color: white;word-wrap: break-word; word-break: break-word;">PO Number</th>
-          <th style="background-color: #4d94c9; color: white;word-wrap: break-word; word-break: break-word;">Item No</th>
-          <th style="background-color: #4d94c9; color: white;word-wrap: break-word; word-break: break-word;">Part Code</th>
-          <th style="background-color: #4d94c9; color: white;word-wrap: break-word; word-break: break-word;">Description</th>
-          <th style="background-color: #4d94c9; color: white;word-wrap: break-word; word-break: break-word;">Item Qty</th>
-          <th style="background-color: #4d94c9; color: white;word-wrap: break-word; word-break: break-word;">UOM</th>
-          <th style="background-color: #4d94c9; color: white;word-wrap: break-word; word-break: break-word;">Action</th>
+          
+          <th style="background-color: #3498db; color: white;width:50pt">Item No</th>
+          <th style="background-color: #3498db; color: white;width:63pt">Part Code</th>
+          <th style="background-color: #3498db; color: white;width:165pt">Description</th>
+          <th style="background-color: #3498db; color: white;width:62pt">Item Qty</th>
+          <th style="background-color: #3498db; color: white;width: 60pt">UOM</th>
+
+          <th style="background-color: #3498db; color: white;width:100pt">Purchasing Document Type</th>
+          <th style="background-color: #3498db; color: white;width:100pt">Type Plant</th>
+          <th style="background-color: #3498db; color: white;width:100pt">Type</th>
+          <th style="background-color: #3498db; color: white;width:100pt">Group</th>
+          <!-- <th style="background-color: #3498db; color: white;width:100pt">Vendor Code</th>
+          <th style="background-color: #3498db; color: white;width:140pt">Supplier Name</th> -->
+          <th style="background-color: #3498db; color: white;width:77pt">PO Cumulative Ord Qty</th>
+          <th style="background-color: #3498db; color: white;width:77pt">PO Cumulative Ord MW</th>
+          <th style="background-color: #3498db; color: white;width:70pt">Internal LC No</th>
+          <th style="background-color: #3498db; color: white;width:70pt">Internal LC Date</th>
+          <th style="background-color: #3498db; color: white;width:70pt">LC Bank Number</th>
+          <th style="background-color: #3498db; color: white;width:70pt">LC Bank Date</th>
+          <th style="background-color: #3498db; color: white;width:130pt">Bank Name</th>
+          <th style="background-color: #3498db; color: white;width:150pt">INCO Terms</th>
+
+          <!-- <th class="stickyheader" style="background-color: #999999; color: white;width:50pt">Action</th> -->
+          <th class="stickyheader" style="width: 50pt; position:sticky;background-color: #2980b9 !important;">Action</th>
+
+
         </tr>
       </thead>
       <tbody class="text-center">
         <ng-container *ngFor="let child of selectedParentRowData.items;let i = index;">
           <tr *ngIf="(disable && child.lotDetails && child.lotDetails.length > 0) || !disable">
-            <td>{{i+1}}</td>
-            <td>{{ selectedParentRowData.poNumber }}</td>
+            <!-- <td>{{i+1}}</td>
+              <td>{{ selectedParentRowData.poNumber }}</td> -->
             <td>{{ child.itemno }}</td>
             <td>{{ child.partcode }}</td>
             <td>{{ child.description }}</td>
             <td>{{ child.itemqty }}</td>
             <td>{{ child.uom }}</td>
-            
-              <td>
-                <span (click)="toggleChildRow(child)" style="cursor: pointer;">
-                  <i class="bi" [ngClass]="child.expanded ? 'bi-chevron-up' : 'bi-chevron-down'" title="Expand" style="font-size: 15px;"></i>
-                </span>
-                <!-- <button class="btn btn-success btn-sm ms-2" (click)="addLotToItem(child)">Add Lot</button> -->
-                &nbsp;
-                &nbsp;
-                <i *ngIf="Invisible" class="bi bi-plus-lg" style="font-size: 15px; font-weight: bold; cursor: pointer;" title="Add Lot" (click)="addLotToItem(child)"></i>
-              </td>
-            
-          </tr>
-  
-          <!-- Sub-table for Each Item (Visible when a Child Row is Expanded) -->
-          <tr *ngIf="child.expanded">
-            <td colspan="8" class="bg-light text-center">
-              <!-- Responsive Sub-table with Borders -->
-              <table class="table table-sm mx-auto table-hover" 
-              style="width: 80%; margin-top: 10px; border: 1px solid #ddd; background-color: #f9f9f9; border-collapse: collapse;">
-         <thead class="thead-dark">
-           <tr>
-             <th class="lot-details-th">Lot Number</th>
-             <th class="lot-details-th">Lot Qty</th>
-             <th class="lot-details-th">ETD</th>
-             <th class="lot-details-th">ETA</th>
-             <th class="lot-details-th">Actual Dispatch</th>
-             <th class="lot-details-th">Actual Arrival</th>
-             <th class="lot-details-th">Attachment</th>
-             <th *ngIf="Hide" class="lot-details-th" >Action</th>
-           </tr>
-         </thead>
-         <tbody>
-           <tr *ngFor="let lot of child.lotDetails; let i = index;">
-             <!-- Lot Number (Non-editable) -->
-             <td style="border: 1px solid #ddd;">{{ lot.lotnumber }}</td>
-             
-             <!-- Lot Qty (Editable) -->
 
-             <td *ngIf="disable">
-              {{ lot.lotqty }}
-             </td>
-             <td *ngIf="!disable" style="border: 1px solid #ddd;">
-               <ng-container *ngIf="lot.isEditing && !lot.actualdispatch; else viewLotQty">
-                 <input type="number" [(ngModel)]="lot.lotqty" class="form-control form-control-sm" style="text-align: center;" [ngClass]="{'required-field': !lot.lotqty}"/>
-               </ng-container>
-               <ng-template #viewLotQty>{{ lot.lotqty }}</ng-template>
-             </td>
-       
-             <!-- ETD (Editable) -->
-             <td *ngIf="disable">
-              {{ lot.etd }}
-             </td>
-             <td *ngIf="!disable" style="border: 1px solid #ddd;">
-               <ng-container *ngIf="lot.isEditing; else viewETD">
-                 <input type="date" [(ngModel)]="lot.etd" class="form-control form-control-sm" [ngClass]="{'required-field': !lot.etd}"/>
-               </ng-container>
-               <ng-template #viewETD>{{ lot.etd }}</ng-template>
-             </td>
-       
-             <!-- ETA (Editable) -->
-             <td *ngIf="disable">
-              {{ lot.eta }}
-             </td>
-             <td *ngIf="!disable" style="border: 1px solid #ddd;">
-               <ng-container *ngIf="lot.isEditing; else viewETA">
-                 <input type="date" [(ngModel)]="lot.eta" class="form-control form-control-sm" [ngClass]="{'required-field': !lot.eta}"/>
-               </ng-container>
-               <ng-template #viewETA>{{ lot.eta }}</ng-template>
-             </td>
-       
-             <!-- Actual Dispatch (Editable) -->
+            <td>{{ child.importDomestic }}</td>
+            <td>{{ child.plantType }}</td>
+            <td>{{ child.type }}</td>
+            <td>{{ child.groupType }}</td>
+            <!-- <td>{{ child.vendorCode }}</td>
+            <td>{{ child.supplierName }}</td> -->
+            <td>{{ child.poCumulativeOrdQty }}</td>
+            <td>{{ child.poCumulativeOrdMW }}</td>
+            <td>{{ child.internalLCNo }}</td>
+            <td>{{ child.internalLCDate}}</td>
+            <td>{{ child.actLCNo }}</td>
+            <td>{{ child.actLCDate }}</td>
+            <td>{{ child.bankName }}</td>
+            <td>{{ child.incoTerms }}</td>
 
-             <td *ngIf="disable">
-              {{ lot.eta }}
-             </td>
-             <td *ngIf="!disable" style="border: 1px solid #ddd;">
-               <ng-container *ngIf="lot.isEditing; else viewActualDispatch">
-                 <input type="date" [(ngModel)]="lot.actualdispatch" class="form-control form-control-sm" />
-               </ng-container>
-               <ng-template #viewActualDispatch>{{ lot.actualdispatch }}</ng-template>
-             </td>
-       
-             <!-- Actual Arrival (Editable) -->
-             <td *ngIf="!disable">
-              {{ lot.actualarrival }}
-             </td>
-             <td *ngIf="disable" style="border: 1px solid #ddd;">
-               <ng-container *ngIf="lot.isEditing; else viewActualArrival">
-                 <input type="date" [(ngModel)]="lot.actualarrival" class="form-control form-control-sm"/>
-               </ng-container>
-               <ng-template #viewActualArrival>{{ lot.actualarrival }}</ng-template>
-             </td>
-       
-             <!-- Attachment (Non-editable) -->
-             <td style="border: 1px solid #ddd; text-align: center;">
-               <label for="file-upload-{{i}}">
-                 <i class="bi bi-paperclip" style="font-size: 17px; cursor: pointer;"></i>
-               </label> 
-               <input type="button" id="file-upload-{{i}}" (click)="uploadAttachment($event, lot, child,lot.lotNumber)" style="display: none;">
-             </td>
-       
-             <td *ngIf="Hide" style="border: 1px solid #ddd; text-align: center;">
-  
-              <!-- Save Button for New Lots (only shows when lot is new) -->
-              <!-- <ng-container *ngIf="lot.isNew">
-                <i 
-                  class="fas fa-save" 
-                  (click)="saveNewLot(lot, child)" 
-                  style="cursor: pointer; color: #198754; font-size: 1.3rem;" 
-                  title="Save New Lot to Database">
-                </i>
-              </ng-container> -->
-            
-              <!-- Edit Icon for Existing Lots (only when not editing and not new) -->
-              <ng-container *ngIf="!lot.isNew && !lot.isEditing">
-                <i 
-                  class="fas fa-edit" 
-                  (click)="editLot(lot)" 
-                  style="cursor: pointer; color: #ffc107; font-size: 1.2rem;" 
-                  title="Edit Lot">
-                </i>
-              </ng-container>
-            
-              <!-- Save and Cancel Icons for Editing Existing Lots (only when editing) -->
-              <ng-container *ngIf="lot.isEditing">
-                <i 
-                  class="fas fa-check-circle" 
-                  (click)="saveLot(lot, child)" 
-                  style="cursor: pointer; color: #28a745; font-size: 1.2rem;" 
-                  title="Save Changes">
-                </i>
-                &nbsp;
-                <i 
-                  class="fas fa-times-circle cancel-icon" 
-                  (click)="cancelEdit(lot,child)" 
-                  style="cursor: pointer; color: #dc3545; font-size: 1.2rem;" 
-                  title="Cancel Edit">
-                </i>
-              </ng-container>
-            
-              <!-- Delete Icon (always visible) -->
+            <td class="stickyrow">
+              <span (click)="toggleChildRow(child)" style="cursor: pointer;">
+                    <i class="bi" [ngClass]="child.expanded ? 'bi-chevron-up' : 'bi-chevron-down'" title="Expand" style="font-size: 15px;"></i>
+              </span>
+              <!-- <button class="btn btn-success btn-sm ms-2" (click)="addLotToItem(child)">Add Lot</button> -->
               &nbsp;
-              <ng-container *ngIf="!lot.isNew">
-              <i *ngIf="Invisible"
-                class="fas fa-trash" 
-                (click)="deleteLot(child, i,lot)" 
-                style="cursor: pointer; color: #dc3545; font-size: 1.2rem;" 
-                title="Delete Lot">
-              </i>
-            
-              <!-- Copy Icon (always visible) -->
               &nbsp;
-              <i *ngIf="Invisible"
-                class="fas fa-copy" 
-                (click)="copyLot(lot, child)" 
-                style="cursor: pointer; color: #6c757d; font-size: 1.2rem;" 
-                title="Copy Lot">
-              </i>
-            </ng-container>
+                  <i *ngIf="Invisible" class="bi bi-plus-lg" style="font-size: 15px; font-weight: bold; cursor: pointer;" title="Add Lot" (click)="addLotToItem(child)"></i>
             </td>
-            
-            
-            
-           </tr>
-         </tbody>
-       </table>
-        </td>
+
           </tr>
-          
+
+          <!-- Sub-table for Each Item (Visible when a Child Row is Expanded) -->
+          <tr *ngIf="child.expanded" class="bg-light text-center">
+            <!-- Responsive Sub-table with Borders -->
+            <table class="table table-sm mx-auto table-hover"
+              style="width: 100%; margin-top: 10px; border: 1px solid #ddd; background-color: #f9f9f9; border-collapse: collapse;">
+              <thead class="thead-dark">
+                <tr>
+                  <th class="lot-details-th" style="width: 70pt;">Lot Number</th>
+                  <th class="lot-details-th" style="width: 85pt;">Lot Qty</th>
+                  <th class="lot-details-th" style="width: 85pt;">ETD</th>
+                  <th class="lot-details-th" style="width: 85pt;">ETA</th>
+                  <th class="lot-details-th" style="width: 85pt;">Actual Dispatch</th>
+                  <th class="lot-details-th" style="width: 85pt;">Actual Arrival</th>
+                  <th class="lot-details-th" style="width: 85pt;">Physical Status</th>
+                  <th class="lot-details-th" style="width: 80pt;">Lot MW</th>
+                  <th class="lot-details-th" style="width: 85pt;">LCL (No.of Packages)</th>
+                  <th class="lot-details-th" style="width: 85pt;">No.of 20 Feet (GP) Containers</th>
+                  <th class="lot-details-th" style="width: 100pt;">No.of 40 Feet (GP/HC) Containers</th>
+                  <th class="lot-details-th" style="width: 85pt;">Total CNTR</th>
+                  <th class="lot-details-th" style="width: 85pt;">Invoice No</th>
+                  <th class="lot-details-th" style="width: 85pt;">Invoice Date</th>
+                  <th class="lot-details-th" style="width: 85pt;">Invoice value in FC </th>
+                  <th class="lot-details-th" style="width: 85pt;">Currency</th>
+                  <th class="lot-details-th" style="width: 85pt;">Invoice Qty</th>
+                  <th class="stickyheader2" style="width: 85pt;position:sticky;background-color: #2980b9 !important;">Status</th>
+                  <th class="stickyheader" style="width: 85pt;position:sticky;background-color: #2980b9 !important;">Attachment</th>
+                  <th *ngIf="Hide" class="stickyheader" style="width: 90pt; position:sticky;background-color: #bcb7b7;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let lot of child.lotDetails; let i = index;">
+                  <!-- Lot Number (Non-editable) -->
+                  <td style="border: 1px solid #ddd;">{{ lot.lotnumber }}</td>
+
+                  <!-- Lot Qty (Editable) -->
+
+                  <td *ngIf="disable">
+                    {{ lot.lotqty }}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing && !lot.actualdispatch; else viewLotQty">
+                 <input type="number" [(ngModel)]="lot.lotqty" class="form-control form-control-sm" style="text-align: center;" [ngClass]="{'required-field': !lot.lotqty}"/>
+                    </ng-container>
+                    <ng-template #viewLotQty>{{ lot.lotqty }}</ng-template>
+                  </td>
+
+                  <!-- ETD (Editable) -->
+                  <td *ngIf="disable">
+                    {{ lot.etd | date:'dd/MM/yyyy'}}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewETD">
+                 <input type="date" [(ngModel)]="lot.etd" class="form-control form-control-sm" [ngClass]="{'required-field': !lot.etd}"/>
+                    </ng-container>
+                    <ng-template #viewETD>{{ lot.etd | date:'dd/MM/yyyy'}}</ng-template>
+                  </td>
+
+                  <!-- ETA (Editable) -->
+                  <td *ngIf="disable">
+                    {{ lot.eta | date:'dd/MM/yyyy' }}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewETA">
+                 <input type="date" [(ngModel)]="lot.eta" class="form-control form-control-sm" [ngClass]="{'required-field': !lot.eta}"/>
+                    </ng-container>
+                    <ng-template #viewETA>{{ lot.eta | date:'dd/MM/yyyy' }}</ng-template>
+                  </td>
+
+                  <!-- Actual Dispatch (Editable) -->
+
+                  <td *ngIf="disable">
+                    {{ lot.eta | date:'dd/MM/yyyy'}}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewActualDispatch">
+                      <input type="date" [(ngModel)]="lot.actualdispatch" class="form-control form-control-sm" />
+                    </ng-container>
+                    <ng-template #viewActualDispatch>{{ lot.actualdispatch | date:'dd/MM/yyyy'}}</ng-template>
+                  </td>
+
+                  <!-- Actual Arrival (Editable) -->
+                  <td *ngIf="!disable">
+                    {{ lot.actualarrival | date:'dd/MM/yyyy'}}
+                  </td>
+                  <td *ngIf="disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewActualArrival">
+                    <input type="date" [(ngModel)]="lot.actualarrival" class="form-control form-control-sm"/>
+                    </ng-container>
+                    <ng-template #viewActualArrival>{{ lot.actualarrival | date:'dd/MM/yyyy'}}</ng-template>
+                  </td>
+
+                    <!-- added by vidhya -->
+                  <!-- Physical  status (Editable) -->
+                  <td *ngIf="!disable">
+                    {{ lot.physicalStatus}}
+                  </td>
+                  <td *ngIf="disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewPhysicalStatus">
+                    <input type="text" [(ngModel)]="lot.physicalStatus" class="form-control form-control-sm"/>
+                    </ng-container>
+                    <ng-template #viewPhysicalStatus>{{ lot.physicalStatus}}</ng-template>
+                  </td>
+                
+                  <!-- LotMW (Editable) -->
+                  <td *ngIf="disable">
+                   {{ lot.lotMW }}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewLotMW">
+                      <input type="text" [(ngModel)]="lot.lotMW" class="form-control form-control-sm" style="text-align: center;"/>
+                    </ng-container>
+                   <ng-template #viewLotMW>{{ lot.lotMW }}</ng-template>
+                  </td>
+                  <!-- LCL (Editable) --> 
+                  <td *ngIf="disable">
+                    {{ lot.lcl }}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                   <ng-container *ngIf="lot.isEditing; else viewLotQty">
+                     <input type="number" [(ngModel)]="lot.lcl" class="form-control form-control-sm" style="text-align: center;"/>
+                    </ng-container>
+                    <ng-template #viewLotQty>{{ lot.lcl }}</ng-template>
+                  </td>
+
+        
+                  <!-- 20FeetGPContainer (Editable) -->
+                  <td *ngIf="disable">
+                    {{ lot._20FeetGPContainer }}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else view20FeetGPContainer">
+                      <input type="number" [(ngModel)]="lot._20FeetGPContainer" class="form-control form-control-sm"style="text-align: center;" />
+                    </ng-container>
+                    <ng-template #view20FeetGPContainer>{{ lot._20FeetGPContainer }}</ng-template>
+                  </td>
+                  
+                  <!-- 40FeetGPHCContainers (Editable) -->
+                  <td *ngIf="disable">
+                    {{ lot._40FeetGPHCContainers}}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else view40FeetGPHCContainers">
+                      <input type="number" [(ngModel)]="lot._40FeetGPHCContainers" class="form-control form-control-sm" style="text-align: center;" />
+                    </ng-container>
+                    <ng-template #view40FeetGPHCContainers>{{ lot._40FeetGPHCContainers }}</ng-template>
+                  </td>
+                  
+                  <!-- TotalCNTR (Editable) -->
+                  <td *ngIf="disable">
+                    {{ lot.totalCNTR }}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewTotalCNTR">
+                      <input type="number" [(ngModel)]="lot.totalCNTR" class="form-control form-control-sm" style="text-align: center;"/>
+                    </ng-container>
+                    <ng-template #viewTotalCNTR>{{ lot.totalCNTR }}</ng-template>
+                  </td>
+                  
+                  <!-- Invoice No (Editable) -->
+                  <td *ngIf="disable">
+                    {{ lot.invoiceNo }}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewInvoiceNo">
+                      <input type="text" [(ngModel)]="lot.invoiceNo" class="form-control form-control-sm" style="text-align: center;" />
+                    </ng-container>
+                    <ng-template #viewInvoiceNo>{{ lot.invoiceNo }}</ng-template>
+                  </td>
+                  
+                  <!-- InvoiceDate (Editable) -->
+                  <td *ngIf="disable">
+                    {{ lot.invoiceDate | date:'dd/MM/yyyy' }}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewInvoiceDate">
+                      <input type="date" [(ngModel)]="lot.invoiceDate" class="form-control form-control-sm"/>
+                    </ng-container>
+                    <ng-template #viewInvoiceDate>{{ lot.invoiceDate | date:'dd/MM/yyyy' }}</ng-template>
+                  </td>
+                  <!--Invoice value in FC(Editable) -->
+                  <td *ngIf="disable">
+                    {{ lot.invoiceVal_FC }}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewInvoiceVal_FC">
+                      <input type="text" [(ngModel)]="lot.invoiceVal_FC" class="form-control form-control-sm" style="text-align: center;" />
+                    </ng-container>
+                    <ng-template #viewInvoiceVal_FC>{{ lot.invoiceVal_FC }}</ng-template>
+                  </td>
+                  
+                  <!-- Currency(Editable) -->
+                  <td *ngIf="disable">
+                    {{ lot.currency }}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewCurrency">
+                      <input type="text" [(ngModel)]="lot.currency" class="form-control form-control-sm" style="text-align: center;" />
+                    </ng-container>
+                    <ng-template #viewCurrency>{{ lot.currency }}</ng-template>
+                  </td>
+                  
+                  <!--Invoice Qty(Editable) -->
+                  <td *ngIf="disable">
+                    {{ lot.invoiceQty }}
+                  </td>
+                  <td *ngIf="!disable" style="border: 1px solid #ddd;">
+                    <ng-container *ngIf="lot.isEditing; else viewInvoiceQty">
+                      <input type="number" [(ngModel)]="lot.invoiceQty" class="form-control form-control-sm"style="text-align: center;" />
+                    </ng-container>
+                    <ng-template #viewInvoiceQty>{{ lot.invoiceQty }}</ng-template>
+                  </td>
+                  <td class="stickyrow2" style="border: 1px solid #ddd; text-align: center;"
+                  [ngClass]="{
+                    'pending-row': lot.approvalstatus === 'WIP',
+                    'approved-row': lot.approvalstatus === 'Approved',
+                    'rejected-row': lot.approvalstatus === 'Rejected'
+                  }">
+                  {{ lot.approvalstatus }}
+                  </td>
+                  <!-- Attachment (Non-editable) -->
+                  <td class="stickyrow" style="border: 1px solid #ddd; text-align: center;">
+                    <label for="file-upload-{{i}}">
+                      <i class="bi bi-paperclip" style="font-size: 17px; cursor: pointer;"></i>
+                    </label>
+                    <input type="button" id="file-upload-{{i}}" (click)="uploadAttachment($event, lot, child,lot.lotNumber)" style="display: none;">
+                  </td>
+
+                  <td class="stickyrow" *ngIf="Hide" style="border: 1px solid #ddd; text-align: center;">
+
+                    <!-- Edit Icon for Existing Lots (only when not editing and not new) -->
+                    <ng-container *ngIf="!lot.isNew && !lot.isEditing">
+                        <i class="fas fa-edit"
+                           [ngStyle]="lot.isDeliveryComplete === 'X' ? {'color': '#ccc', 'cursor': 'not-allowed'} : {'color': '#ffc107', 'cursor': 'pointer'}"
+                           [title]="lot.isDeliveryComplete === 'X' ? 'Editing disabled for Delivered PO' : 'Edit Lot'"
+                           (click)="lot.isDeliveryComplete !== 'X' && editLot(lot)">
+                        </i>
+                    </ng-container>
+                    
+                    <!-- Save and Cancel Icons for Editing Existing Lots (only when editing) -->
+                    <ng-container *ngIf="lot.isEditing">
+                      <i 
+                        class="fas fa-check-circle" 
+                        (click)="saveLot(lot, child)" 
+                        style="cursor: pointer; color: #28a745; font-size: 1.2rem;" 
+                        title="Save Changes">
+                      </i>
+                      &nbsp;
+                      <i 
+                       class="fas fa-times-circle cancel-icon" 
+                       (click)="cancelEdit(lot,child)" 
+                       style="cursor: pointer; color: #dc3545; font-size: 1.2rem;" 
+                       title="Cancel Edit">
+                      </i>
+                    </ng-container>
+
+                    <!-- Delete Icon (always visible) -->
+                    &nbsp;
+                    <ng-container *ngIf="!lot.isNew && !lot.isEditing">
+                     <i *ngIf="Invisible"class="fas fa-trash" (click)="deleteLot(child, i,lot)" style="cursor: pointer; color: #dc3545; font-size: 1.2rem;" title="Delete Lot"></i>
+                      <!-- Copy Icon (always visible) -->
+                      &nbsp;
+                     <i *ngIf="Invisible"class="fas fa-copy" (click)="copyLot(lot, child)" style="cursor: pointer; color: #6c757d; font-size: 1.2rem;" title="Copy Lot"></i>
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </tr>
         </ng-container>
       </tbody>
     </table>
+  </div>
+    
   
     
-  </div>
+</div>
   
