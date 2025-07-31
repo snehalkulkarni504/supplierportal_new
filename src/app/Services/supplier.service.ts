@@ -53,7 +53,10 @@ export class SupplierService {
     return this.httpClient.get<any>(`${this.ApiUrl}GetSupplier`);
   }
 
-
+  getPoDetails(){
+    return this.httpClient.get<any[]>(this.ApiUrl+ 'GetPODetailsAll');
+  }
+ 
   
 getdocdetails(pono:string,itemno:string,lotno:number): Observable<any[]> {
   debugger;
@@ -63,23 +66,48 @@ getdocdetails(pono:string,itemno:string,lotno:number): Observable<any[]> {
 uploadFile(file: File, docno:string, doctype:string, poNumber:string, itemNumber:string, lotNumber:string,remarks:string,updatedBy:string): Observable<any> {
   const formData = new FormData();
   formData.append('file', file);
-  formData.append('docno',docno);
   formData.append('doctype',doctype);
   formData.append('poNumber', poNumber);
   formData.append('itemNumber', itemNumber);
   formData.append('lotNumber',lotNumber);
-  formData.append('remarks',remarks);
+  formData.append('remarks',remarks || '');
   formData.append('updatedby',updatedBy);
   debugger;
   
   return this.httpClient.post(this.ApiUrl+"UploadDoc", formData);
 }
 
-downloadMultipleFiles(fileRequests: any[]): Observable<Blob> {
+uploadExcelData(file: File): Observable<any> {
+  debugger
+  const formData = new FormData();
+  formData.append('excelFile', file, file.name);
+  // formData.append('cartname', cartname);
+  // formData.append('createdby', createdby);
+  // const headers = new HttpHeaders();
+  // headers.set('Content-Type', 'multipart/form-data');
+  console.log(formData)
+  return this.httpClient.post(this.ApiUrl + "UploadBomData", formData);
+}
+
+
+downloadMultipleFiles(fileRequests:any): Observable<Blob> {
   debugger;
   return this.httpClient.post(this.ApiUrl+"DownloadMultipleFiles", fileRequests, { responseType: 'blob' }); // Expect a blob response
 }
 
+approveddoc(docid:any): Observable<any>
+{
+  debugger;
+  return this.httpClient.get<any>(`${this.ApiUrl}approvedoc/${docid}`);
+
+}
+
+rejectdoc(docid:any,remark:any): Observable<any>
+{
+  debugger;
+  return this.httpClient.get<any>(`${this.ApiUrl}rejectdoc/${docid}/${remark}`);
+
+}
   
 
 

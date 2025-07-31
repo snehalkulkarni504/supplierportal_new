@@ -3,17 +3,10 @@
     <div class="MasterHeader">
         <div style="width: 50%">
             <div class="searchbox" style="border: #0066b2;">
-                <input type="text" [(ngModel)]="searchQuery" class="form-control" placeholder="Search..."
-                    (input)="onSearch()" />
+                <!-- <input type="text" [(ngModel)]="searchQuery" class="form-control" placeholder="Search..."
+                    (input)="onSearch()" /> -->
             </div>
         </div>
-        <!-- <div class="searchDiv">
-            <div class="form-group has-search" style="width: 50%;">
-              <span class="bi bi-search form-control-feedback"></span>
-              <input type="text" class="form-control search-input" placeholder="Search" formControlName="textsearch"
-                [(ngModel)]="searchQuery" (keydown.enter)="onSearchEnter($event)" >
-            </div>
-          </div> -->
 
         <div class="text-end" style="width: 50%;">
             <br>
@@ -32,47 +25,37 @@
             <thead>
                 <tr>
                     <th>Sr No.</th>
-                    <th>
-                        <div class="d-flex align-items-center" style="gap: 5px;">
-
-                            <label for="selectHeaderCheckbox" class="select-header-label">Select</label>
-
-                            <input type="checkbox" [(ngModel)]="selectAllChecked" (change)="onSelectAll($event)"
-                                class="select-header-checkbox" id="selectHeaderCheckbox" />
-
-                        </div>
-                    </th>
-                    <th>Document No</th>
                     <th>Document Type</th>
-                    <th>Revision</th>
-                    <th>File Name</th>
-                    <th>Po Number</th>
-                    <th>Item Number</th>
                     <th>Lot Number</th>
                     <th>Upload Date</th>
-                    <th>Updated BY</th>
-                    <th>Remarks</th>
+                    <th>Supplier Remarks</th>
+                    <th>Status</th>
+                    <th>TPSL Remarks</th>
+                    <th>Action</th>
+                    
                 </tr>
             </thead>
 
-            <tbody>
-                <tr *ngFor="let d of Data ; let i=index">
-                    <td>{{i+1}}</td>
-                    <td>
-                        <input type="checkbox" [(ngModel)]="d.select" (change)="onCheckboxChange()"
-                            class="supplier-checkbox" />
-                    </td>
-
-                    <td>{{ d.documentNo }}</td>
-                    <td>{{ d.documentType}}</td>
-                    <td>{{ d.revision}}</td>
-                    <td>{{ d.fileName }}</td>
-                    <td>{{d.poNumber}}</td>
-                    <td>{{d.itemNo}}</td>
+            <tbody style="vertical-align:middle;">
+                <tr *ngFor="let d of filteredData,let i=index">
+                     <td>{{i+1}}</td>
+                    <td>{{d.documentType}}</td>
                     <td>{{d.lotNumber}}</td>
-                    <td>{{ d.uploadDate}}</td>
-                    <td>{{ d.updatedBy }}</td>
-                    <td>{{ d.remarks }}</td>
+                    <td>{{d.uploadDate}}</td>
+                    <td>{{d.tpslremarks}}</td>
+                    <td class="status-cell"[ngClass]="{'pending-row': d.isApproved === 0,'approved-row': d.isApproved === 1,'rejected-row': d.isApproved === 2}">
+                    {{ d.isApproved === 0 ? 'WIP' : d.isApproved === 1 ? 'Approved' : 'Rejected' }}
+                    </td>
+                    <td>{{d.tpslremarks}}</td>
+                    <td>
+                        <div style="display: contents; font-size: 18px;">
+                            <img src="../../../assets/download.png" style="width: 31px;margin-right: 8px; cursor: pointer;" title="download" alt="" (click)="onDownload(d)">
+                            <img *ngIf="roleid==5"src="../../../assets/upload.png" style="width: 31px; margin-right: 8px; cursor: pointer;" title="Upload" alt="" (click)="fileInput.click()">
+                            <input type="file" #fileInput (change)="onFileSelected($event,d)" hidden />
+                            <img *ngIf="roleid==3 && !d.isApproved" src="../../../assets/approve-48.png" style="width: 27px; margin-right: 5px; cursor: pointer;" title="Approve" alt="" (click)="approve(d)">
+                            <img *ngIf="roleid==3 && !d.isApproved" src="../../../assets/cancel.png" style="width: 29px; margin-right: 3px; cursor: pointer;" title="Reject" alt="" (click)="rejectmodal(d)">                    
+                        </div>
+                    </td>
             </tbody>
         </table>
     </div>
@@ -84,59 +67,8 @@
         </ul>
     </nav>
 
-    <!-- 
-    <div class="table-container">
-        <table class="table">
-          <thead>
-            <tr>
-              <th><input type="checkbox" class="select-header-checkbox" [(ngModel)]="selectAllChecked" (change)="onSelectAll($event)" /></th>
-              <th>Document No</th>
-              <th>Document Type</th>
-              <th>File Name</th>
-              <th>PO Number</th>
-              <th>Item No</th>
-              <th>Lot Number</th>
-              <th>Upload Date</th>
-              <th>Updated By</th>
-              <th>Remarks</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let doc of Data">
-              <td><input type="checkbox" [(ngModel)]="doc.select" (change)="onCheckboxChange()" class="supplier-checkbox" /></td>
-              <td>{{ doc.documentNo }}</td>
-              <td>{{ doc.documentType }}</td>
-              <td>{{ doc.fileName }}</td>
-              <td>{{ doc.poNumber }}</td>
-              <td>{{ doc.itemNo }}</td>
-              <td>{{ doc.lotNumber }}</td>
-              <td>{{ doc.uploadDate }}</td>
-              <td>{{ doc.updatedBy }}</td>
-              <td>{{ doc.remarks }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      
-      <div class="pagination-control">
-        <label for="rowsPerPage">Rows per page:</label>
-        <select id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="onPageChange(1)">
-          <option *ngFor="let option of [3, 5, 10, 20]" [value]="option">{{ option }}</option>
-        </select>
-        
-        <ngb-pagination 
-          [(page)]="currentPage" 
-          [pageSize]="itemsPerPage" 
-          [collectionSize]="filteredData.length" 
-          (pageChange)="onPageChange($event)">
-        </ngb-pagination>
-      </div>
-       -->
 
-
-
-
-    <div *ngIf="!tpsolaruser" class="upload-section">
+    <div *ngIf="hideuploadsec" class="upload-section">
 
         <div class="upload-container d-flex">
             <div class="file-input-container">
@@ -145,7 +77,7 @@
                     <h3>Upload Document</h3>
                     <p class="upload-instructions">Attach a file, then provide details.</p>
                     <label for="fileUpload" class="file-label">
-                        <i class="fas fa-upload"></i> Choose a File
+                        <i class="fa fa-upload"></i> Choose a File
                     </label>
                     <input type="file" id="fileUpload" class="file-hidden" [disabled]="disable"
                         (change)="onFileChange($event)">
@@ -155,25 +87,14 @@
             <div class="input-fields-container">
                 <div class="input-group">
 
-                    <label for="documentNo" style="margin-top: 8px; padding-right: 4px;">Document No:<span style="color: red;">*</span></label>
-                    <input type="text" style="border-radius: 7px; width: 10%;" id="documentNo" [(ngModel)]="documentNo"
-                        class="form-control" [class.is-invalid]="!documentNo && showValidationError" placeholder="Enter Document Number" required>
-
-
-                    <label for="documenttype" style="margin-top: 8px; padding-right: 4px; padding-left: 8px;">Document
+                    <label for="documenttype" style="margin-top: 8px; padding-right: 4px;">Document
                         Type:<span style="color: red;">*</span></label>
-                    <!-- <input type="text" style="width: 10%; border-radius: 7px; " id="documenttype"
-                        [(ngModel)]="documenttype" class="form-control" placeholder="Enter Document type"> -->
-                        <select
-                        style="width: 10%; border-radius: 7px;" 
-                        id="documentType" 
-                        [(ngModel)]="documenttype" 
-                        class="form-control" 
-                        [class.is-invalid]="!documenttype && showValidationError" 
-                        required>
+                   
+                    <select style="width: 10%; border-radius: 7px;" id="documentType" [(ngModel)]="documenttype"
+                        class="form-control" [class.is-invalid]="!documenttype && showValidationError" required>
                         <option value="" disabled selected>Select Document Type</option>
                         <option *ngFor="let type of documentTypes" [value]="type">{{ type }}</option>
-                      </select>
+                    </select>
                 </div>
 
                 <div class="input-group" style="margin-top: 6px;">
@@ -186,45 +107,24 @@
 
 
         <div class="button-group">
-            <button class="btn btn-primary" [disabled]="disable" (click)="onUpload()">Upload</button>
-            <button class="btn btn-secondary" (click)="onDownload()">Download</button>
+            <button [disabled]="disable" class="btn btn-primary" (click)="onUpload()">Upload</button>
         </div>
     </div>
 
-
-    <!-- <div *ngIf="!tpsolaruser" class="upload-section">
-        <h3>Upload Documents</h3>
-        <div class="upload-container">
-            <div class="file-input-container">
-                <label class="file-label" for="fileUpload">
-                    <i class="fa fa-upload"></i> Choose File
-                </label>
-                <input type="file" id="fileUpload" class="file-hidden" (change)="onFileChange($event)">
-                <p class="file-name">{{ selectedFile?.name || 'No file chosen' }}</p>
-            </div>
-            <div class="input-fields-container">
-                <div class="input-group">
-                    <label for="documentNo">Document No:</label>
-                    <input id="documentNo" [(ngModel)]="documentNo" class="form-control" type="text" placeholder="Enter Document No">
-                </div>
-                <div class="input-group">
-                    <label for="documenttype">Document Type:</label>
-                    <input id="documenttype" [(ngModel)]="documenttype" class="form-control" type="text" placeholder="Enter Document Type">
-                </div>
-                <div class="input-group">
-                    <label for="remarks">Remarks:</label>
-                    <input id="remarks" [(ngModel)]="remarks" class="form-control" type="text" placeholder="Enter Remarks">
-                </div>
-            </div>
-            <div class="button-group">
-                <button class="btn btn-primary" (click)="onUpload()">Upload</button>
-                <button class="btn btn-danger" (click)="resetForm()">Reset</button>
-            </div>
-        </div>
-    </div> -->
-
-    <div *ngIf="tpsolaruser" class="button-group">
-        <button class="btn btn-secondary" (click)="onDownload()">Download</button>
+    <!-- rejection-modal.component.html -->
+<div class="modal-overlay" *ngIf="isModalOpen">
+    <div class="modal-content">
+      <h2>Reject Request</h2>
+      
+      <label for="remarks">Rejection Remarks</label>
+      <textarea id="remarks" [(ngModel)]="rejectionRemarks" rows="4" placeholder="Enter reason for rejection..."></textarea>
+  
+      <div class="modal-actions">
+        <button class="close-btn" (click)="closeModal()">Close</button>
+        <button class="reject-btn" (click)="submitRejection()">Reject</button>
+      </div>
     </div>
+  </div>
+  
 
 </div>

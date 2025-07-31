@@ -7,7 +7,7 @@ import { Po_details } from '../../../models/podetails';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Router } from '@angular/router';
 import { SearchPipe } from '../../../SearchPipe/search.pipe';
-import * as XLSX from 'xlsx';
+// import * as XLSX from 'xlsx';
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 import { Podetails,ponos } from '../../../models/podetails';
 import { Supplier } from '../../../models/supplier';
@@ -74,6 +74,9 @@ export class PodetailsreportComponent {
 
   supplierOptions: any[] = [];
   poOptions: any[] = [];
+  materialcodeList: any[] = [];
+  selectedMaterialcodes: any[] = [];
+  selectedMaterialcodesText: string = '';
 
   selectedSuppliers: string[] = [];
   selectedPOs: number[] = [];
@@ -135,9 +138,10 @@ export class PodetailsreportComponent {
         // Populate dropdown options
         this.supplierOptions = [...new Set(data.map(item => item.suppliername))];
         this.poOptions = [...new Set(this.Po_deatils.map(item => item.pono))];
+        this.materialcodeList  = [...new Set(this.Po_deatils.map(item => item.materialcode))];
 
 
-        console.log(this.supplierOptions);
+        console.log(this.materialcodeList);
 
         console.log("Data fetched and formatted successfully", data);
       },
@@ -181,8 +185,9 @@ export class PodetailsreportComponent {
       const isPoMatch = this.selectedPOs.length === 0 || this.selectedPOs.includes(item.pono);
       const isFromDateMatch = !this.fromDate || new Date(item.eta) >= new Date(this.fromDate);
       const isToDateMatch = !this.toDate || new Date(item.eta) <= new Date(this.toDate);
+      const isSupplierMatCode = this.selectedMaterialcodes.length === 0 || this.selectedMaterialcodes.some(val => val === item.materialcode)
   
-      return isSupplierMatch && isPoMatch && isFromDateMatch && isToDateMatch;
+      return isSupplierMatch && isPoMatch && isFromDateMatch && isToDateMatch && isSupplierMatCode;
     });
   }
   
@@ -267,6 +272,22 @@ onClearClick(): void {
   this.cdr.detectChanges();
 }
 
+ toggleMaterialCodeSelection(): void {
+  // Dynamically update the button text if needed (already handled by ng-select directly)
+  this.selectedMaterialcodesText = this.selectedMaterialcodes.map(code => code).join(', ') || '---Select---';
+  this.applyFilters();
+}
+
+selectAll(val:any) {
+  if(val) {
+    this.selectedMaterialcodes = this.materialcodeList.map( account => account);
+    this.mySelectSupp.close();
+  } else {
+    this.selectedMaterialcodes = [];
+  }
+  console.log(val);
+}
+
   
 
 
@@ -276,10 +297,10 @@ onClearClick(): void {
 
 
   downloadExcel(): void {
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.Po_deatils);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'PO Details');
-    XLSX.writeFile(wb, 'PODetailsReport.xlsx');
+    // const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.Po_deatils);
+    // const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    // XLSX.utils.book_append_sheet(wb, ws, 'PO Details');
+    // XLSX.writeFile(wb, 'PODetailsReport.xlsx');
 }
 
 

@@ -1,1 +1,322 @@
-<h1>Dashboard</h1>
+<div class="dashbord" style="width: 90%;margin-left: 5%;">
+<div class="MasterHeader">
+  <!-- <button (click)="goBack()" style="background: none; border: none; padding: 0;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="27px" viewBox="0 0 512 512">
+      <path fill="#00509e"
+        d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8 .4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z" />
+    </svg>
+  </button> -->
+
+  <h2 style="font-weight: bold; color: #278bd8; font-size: 24px; margin: 0;">
+    Upcoming Delivery Schedule
+  </h2>
+</div>
+
+<hr style="border-color: #278bd8; margin: 0px; width: 100%;">
+
+ <div class="container-fluid py-2" style="margin-left: -13px;">
+    <div class="row align-items-center g-2">
+      
+       <!-- Dropdown for PO Numbers -->
+      <div class="col-md-auto col-sm-12 d-flex flex-column align-items-start me-3">
+        <label class="form-label mb-1">Material Code:</label>
+        <ng-select #mySelect class="ng-selectcustomer" 
+          [multiple]="true" 
+          [items]="materialcodeList" 
+          bindLabel="materialcode"
+          bindvalue="materialcode"
+          [(ngModel)]="selectedMaterialcodes" 
+          (change)="toggleMaterialCodeSelection()" 
+          placeholder="---Select Material code---"
+          style="width: 224px;"
+          [ngModelOptions]="{standalone: true}"
+        [closeOnSelect]="true"
+        
+        >
+        <ng-template ng-header-tmp let-items="items" >
+            <input  #select type="checkbox" (click)="selectAll(select.checked)" [checked]='selectedMaterialcodes.length==materialcodeList.length'/> Select All
+       </ng-template>
+         
+       <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+           <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}
+       </ng-template>
+        </ng-select>
+      </div>
+      
+  
+      <!-- From PO Date -->
+      <div class="col-md-auto col-sm-6 d-flex flex-column align-items-start me-3">
+        <label class="form-label mb-0">From ETD Date:</label>
+        <input type="date" class="form-control date-picker" 
+               [(ngModel)]="FromPODate" 
+               [ngModelOptions]="{standalone: true}" 
+               (change)="filterTableData()" />
+      </div>
+  
+      <!-- To PO Date -->
+      <div class="col-md-auto col-sm-6 d-flex flex-column align-items-start me-3">
+        <label class="form-label mb-0">To ETD Date:</label>
+        <input type="date" class="form-control date-picker" 
+               [(ngModel)]="ToPODate" 
+               [ngModelOptions]="{standalone: true}" 
+               (change)="filterTableData()" />
+  
+      </div>
+      <div class="col-md-auto col-sm-6 d-flex flex-column align-items-start me-3">
+        <label class="form-label mb-0">ETA Range:</label>
+<ng-select
+  [items]="etaOptions"
+  bindLabel="label"
+  bindValue="value"
+  placeholder="Select ETA Range"
+  (change)="onEtaFilterChange($event)"
+  
+>
+</ng-select>
+        <!--<label class="form-label mb-0">ETA Range:</label>
+  <select class="form-select" (change)="onEtaFilterChange($event.target.value)">
+    <option value="">Select ETA Range</option>
+    <option value="1">Last 1 Day</option>
+    <option value="2">Last 2 Days</option>
+    <option value="3">Last 3 Days</option>
+    <option value="7">Last 7 Days</option>
+  </select> -->
+</div>
+  
+  
+      <!-- View Icon -->
+      <div class="col-md-auto col-sm-12 d-flex align-items-center" style="margin-top: 35px;">
+       
+        <img src="../../../assets/filter.png" (click)="filterTableData()" title="filter" class="filter-icon" alt="">
+        <i class="fas fa-sync me-3 text-danger clickable-icon" title="Reset" (click)="ClearControls()"></i> 
+      </div>
+      
+
+      <!-- <div class="col-md-auto col-sm-12 d-flex align-items-end ms-auto" style="margin-top: 35px;">
+      
+        
+        <div class="searchDiv">
+          <div class="form-group has-search searchbox2 m-3">
+              <span class="bi bi-search form-control-feedback"></span>
+                <input type="text" class="form-control search-input" placeholder="Search PO"
+                    [(ngModel)]="textsearch">
+         </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+  <div class="searchDiv" style="margin-left: -5px;">
+          <div class="form-group has-search searchbox2 m-1">
+              <span class="bi bi-search form-control-feedback"></span>
+                <input type="text" class="form-control search-input" placeholder="Search PO"
+                    [(ngModel)]="textsearch">
+         </div>
+        </div>
+ 
+<!-- 
+  <div class="cards-container">
+    <section class="card" *ngFor = 'let item of FilterPoDetails | search: textsearch:filterMetadata'>
+      <div class="po-name">PO - {{item.ponumber}}</div>
+      <div class="info-group">
+        <span class="info-label">Supplier Name:</span><span class="info-value">{{item.suppliarname}}</span>
+      </div>
+      <div class="info-group">
+        <span class="info-label">Lot No:</span><span class="info-value">{{item.lotnumber}}</span>
+      </div>
+      <div class="info-group">
+        <span class="info-label">Lot Qty:</span><span class="info-value">{{item.lotqty}}</span>
+      </div>
+       <div class="info-group">
+        <span class="info-label">Material Code:</span><span class="info-value">{{item.materialcode}}</span>
+      </div>
+      <div class="info-group">
+        <span class="info-label">Material Description:</span><span class="info-value">{{item.materialdescription}}</span>
+      </div>
+     
+      <div class="dates">
+        <div class="date-label">Est. Arrival:</div><div class="date-value">{{item.eta}}</div>
+        <div class="date-label">Est. Dispatch:</div><div class="date-value">{{item.etd}}</div>
+        <div class="date-label">Actual Arrival:</div><div class="date-value">{{item.actualarrival}}</div>
+        <div class="date-label">Actual Dispatch:</div><div class="date-value">{{item.actualdispatch}}</div>
+      </div>
+      <a (click)="openDeliverySchedule(item.ponumber,item.status,item.suppliarname)" class="view-more">View More Details</a>
+    </section>
+  </div> -->
+
+    <div class="justify-content-center">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped" style="font-size: 13px !important; min-width: 330px !important; overflow-x: auto;">
+        <thead>
+          <tr>
+              <th (click)="poPopupDisplay = 'block'; poPopUp = true" style="cursor: pointer;">PO No</th>
+              <th>Supplier Name</th>
+              <th (click)="matCodePopupDisplay = 'block';" style="cursor: pointer;">Material Code</th>
+              <th>Material Description</th>
+              <th>Lot No</th>
+              <th>Lot Quantity</th>
+              <th (click)="etaPopupDisplay = 'block'; fromETA = null; toETA = null;" style="cursor: pointer;">ETD</th>
+              <th>ETA</th>
+              <th>Actual Dispatch</th>
+              <th>Actual Arrival</th>
+              <th>Delivery Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let value of FilterPoDetails | search: textsearch:filterMetadata | paginate: { itemsPerPage: 10, currentPage: page } let i=index">
+            <td>{{value.ponumber}}</td>
+            <td>{{value.suppliarname}}</td>
+            <td>{{value.materialcode}}</td>
+            <td>{{value.materialdescription}}</td>
+            <td>{{value.lotnumber}}</td>
+            <td>{{value.lotqty}}</td>
+            <td>{{ value.etd | date:'dd/MM/yyyy'}}</td>
+            <td>{{ value.eta | date:'dd/MM/yyyy'}}</td>
+            <td>{{ value.actualarrival | date:'dd/MM/yyyy'}}</td>
+            <td>{{ value.actualdispatch | date:'dd/MM/yyyy'}}</td>
+            <td><i (click)="openDeliverySchedule(value.ponumber,value.status,value.suppliarname)" class="clickable fas fa-edit"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="d-flex justify-content-between pagination">
+    <ngb-pagination [collectionSize]="filterMetadata.count" [(page)]="page" [pageSize]="pageSize" [rotate]="true"
+      [boundaryLinks]="true" [maxSize]="15" size="sm" (pageChange)="onPageChange($event)">
+    </ngb-pagination>
+    <br>
+  </div>
+  </div>
+
+
+ <!-- PO Pop-up -->
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ 'display': poPopupDisplay }">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Select PO Number Range</h4>
+        <label class="close modal-close-icn" (click)="closePOPopup()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#000" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+          </svg>
+        </label>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form>
+          <div class="form-group mb-3">
+            <label for="fromPO">From PO No:</label>
+            <select class="form-control" id="fromPO" [(ngModel)]="selectedFromPO" name="fromPO">
+              <option [ngValue]="null" selected hidden>Select PO</option>
+              <option *ngFor="let po of poDetails" [value]="po.ponumber" >{{ po.ponumber }}</option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+            <label for="toPO">To PO No:</label>
+            <select class="form-control" id="toPO" [(ngModel)]="selectedToPO" name="toPO">
+              <option [ngValue]="null" selected hidden>Select PO</option>
+              <option *ngFor="let po of poDetails" [value]="po.ponumber" >{{ po.ponumber }}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="closePOPopup()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="applyPOFilter()">Apply Filter</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- material code  Pop-up -->
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ 'display': matCodePopupDisplay }">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Select Material code Range</h4>
+        <label class="close modal-close-icn" (click)="closePOPopup()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#000" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+          </svg>
+        </label>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form>
+          <div class="form-group mb-3">
+            <label for="fromPO">From Material Code:</label>
+            <select class="form-control" id="fromMatCode" [(ngModel)]="selectedFromMatCode" name="fromMatCode">
+              <option [ngValue]="null" selected hidden>Select Material Code</option>
+              <option *ngFor="let po of poDetails" [value]="po.materialcode" >{{ po.materialcode }}</option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+            <label for="toPO">To Material Code:</label>
+            <select class="form-control" id="toMatCode" [(ngModel)]="selectedToMatCode" name="toMatCode">
+              <option [ngValue]="null" selected hidden>Select Material Code</option>
+              <option *ngFor="let po of poDetails" [value]="po.materialcode" >{{ po.materialcode }}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="closePOPopup()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="applyPOFilter()">Apply Filter</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ETA Date Range Modal -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ 'display': etaPopupDisplay}">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Select ETA Date Range</h4>
+        <label class="close modal-close-icn" (click)="closeEtaPopup()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#000" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+          </svg>
+        </label>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <div class="form-group mb-3">
+          <label for="fromEta">From ETA:</label>
+          <input type="date" class="form-control" id="fromEta" [(ngModel)]="fromETA" name="fromETA">
+        </div>
+        <div class="form-group mb-3">
+          <label for="toEta">To ETA:</label>
+          <input type="date" class="form-control" id="toEta" [(ngModel)]="toETA" name="toETA">
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="closeEtaPopup()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="applyEtaFilter()">Apply</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+

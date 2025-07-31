@@ -7,21 +7,30 @@
     width: 80% !important;
     margin-top: 15px;
     font-family: Helvetica, Arial !important;
+    border-collapse: collapse;
+    table-layout: fixed; /* FIX column widths */
 }
 
-.table td {
+.table td, .table th {
     text-align: center;
-}
-
-.table thead {
-    text-align: center;
+    padding: 3px;
+    border: 1px solid #ccc; /* Optional: clearer layout */
+    overflow: hidden; /* Prevents overflow text */
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .table thead tr th {
     background-color: #4d94c9;
     color: #fff;
-    padding: 3px;
 }
+
+/* Optional: Set specific widths per column */
+.table colgroup col:nth-child(1) { width: 100px; }
+.table colgroup col:nth-child(2) { width: 150px; }
+.table colgroup col:nth-child(3) { width: 200px; }
+/* Add more as needed */
+
 
 /* 
 .table-bordered{

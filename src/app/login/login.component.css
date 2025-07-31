@@ -281,3 +281,204 @@
     font-size: 14px;
     font-family: Helvetica,  Arial !important;
   }
+
+
+
+
+
+
+
+
+  
+
+  /* Backdrop for modal */
+.otp-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* Modal box */
+  .otp-modal {
+    background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  animation: slideFadeIn 0.3s ease-out;
+  position: relative;
+  }
+  
+
+  @keyframes slideFadeIn {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+
+
+  .otp-modal h3 {
+    margin-bottom: 10px;
+    font-size: 22px;
+    color: #333;
+  }
+  
+  .otp-modal p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  .otp-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    margin-bottom: 10px;
+  }
+  
+  .otp-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .verify-btn,
+  .cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .verify-btn {
+    background-color: #0056b3;
+    color: white;
+  }
+  
+  .verify-btn:hover {
+    background-color: #007bff;
+  }
+  
+  .cancel-btn {
+    background-color: #ccc;
+    color: black;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #999;
+  }
+  
+  .otp-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  @media (max-width: 480px) {
+    .otp-modal {
+      padding: 20px 15px;
+      font-size: 14px;
+    }
+    .otp-input {
+      font-size: 16px;
+    }
+    .verify-btn,
+    .cancel-btn {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  }
+
+  ::ng-deep ngx-loading .loading-dot {
+    width: 16px !important;
+    height: 16px !important;
+    margin: 3px !important;
+  }
+
+
+  /* Success Modal Styling */
+.success-modal {
+    text-align: center;
+  }
+  
+  .checkmark-container {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    position: relative;
+  }
+  
+  .checkmark-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 5px solid #0066b2;
+    position: relative;
+    box-sizing: content-box;
+    animation: pop 0.3s ease-out forwards;
+  }
+  
+  .checkmark-stem {
+
+    position: absolute;
+    width: 7px;
+    height: 25px;
+    background-color: #0066b2;
+    left: 42px;
+    top: 22px;
+    transform: rotate(47deg);
+    animation: draw-stem 0.3s ease forwards 0.6s;
+    opacity: 0;
+  }
+  
+  .checkmark-kick {
+    position: absolute;
+    width: 7px;
+    height: 20px;
+    background-color: #0066b2;
+    left: 28px;
+    top: 35px;
+    transform: rotate(114deg);
+    animation: draw-kick 0.3s ease forwards 0.3s;
+    opacity: 0;
+  }
+  
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  @keyframes draw-stem {
+    to { opacity: 1; height: 30px; }
+  }
+  
+  @keyframes draw-kick {
+    to { opacity: 1; height: 16px; }
+  }
+  
+  
+  
+  
+  

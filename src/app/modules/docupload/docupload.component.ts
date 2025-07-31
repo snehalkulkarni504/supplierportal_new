@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { NgbModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { SupplierService } from '../../Services/supplier.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
   selector: 'app-docupload',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgbPaginationModule],
+  imports: [CommonModule, FormsModule, NgbPaginationModule,NgbModule],
   templateUrl: './docupload.component.html',
   styleUrl: './docupload.component.css'
 })
@@ -29,7 +30,11 @@ export class DocuploadComponent {
 
   
   doc_deatils = [
-    { select: false, documentNo: 1, documentType: 'PDF', revision: 1, fileName: 'M001', poNumber: 101, itemNo: 1, lotNumber: 1, uploadDate: '2024-11-20', updatedBy: 'Eswar', remarks: 'abcd' },
+    { select: false, documentNo: 1, documentType: 'Test1', revision: 1, fileName: 'M001', poNumber: 101, itemNo: 1, lotNumber: 1, uploadDate: '2024-11-2025', updatedBy: 'Eswar', remarks: 'This is Demo' },
+    { select: false, documentNo: 1, documentType: 'Test2', revision: 1, fileName: 'M001', poNumber: 101, itemNo: 1, lotNumber: 1, uploadDate: '2024-11-2025', updatedBy: 'Eswar', remarks: 'This is Demo' },
+    { select: false, documentNo: 1, documentType: 'Test3', revision: 1, fileName: 'M001', poNumber: 101, itemNo: 1, lotNumber: 1, uploadDate: '2024-11-2025', updatedBy: 'Eswar', remarks: 'This is Demo' },
+    { select: false, documentNo: 1, documentType: 'Test4', revision: 1, fileName: 'M001', poNumber: 101, itemNo: 1, lotNumber: 1, uploadDate: '2024-11-2025', updatedBy: 'Eswar', remarks: 'This is Demo' },
+
   ];
 
   doc_det: any;
@@ -50,8 +55,8 @@ export class DocuploadComponent {
   roleid:any;
   tpsolaruser:boolean=false;
   storeduser:any;
-  
-  documentTypes: string[] = ['PDF', 'Word Document', 'Excel Sheet', 'Image'];
+  hideuploadsec:boolean=false;
+  documentTypes: string[] = ['Type1', 'Type2', 'Type3', 'Type4'];
   showValidationError: boolean = false;
 
 
@@ -84,7 +89,7 @@ export class DocuploadComponent {
     debugger;
   
     // Check if suppliername is empty or postatus is "Closed"
-    this.disable = this.suppliername === "" || this.postatus === "Closed";
+     this.disable = this.suppliername === "" || this.postatus === "Closed";
   
     // Additional condition for internal pages
     if (this.page === "internal") {
@@ -105,8 +110,12 @@ export class DocuploadComponent {
   
     // Check if the user is a TPSolar user
     this.tpsolaruser = this.roleid === 6;
-  
     // Fetch document details
+    if(this.roleid==5)
+    {
+      this.hideuploadsec=true;
+    }
+
     this.fetchdocdetails(this.PoNumber.toString(), this.ItemNo.toString(), this.LotNumber);
   }
   
@@ -123,6 +132,10 @@ export class DocuploadComponent {
         console.log(data);
         this.formatDates();
         this.filteredData = [...this.doc_deatils];
+        if(data.length>=4)
+        {
+          this.hideuploadsec=false;
+        }
       },
       (error) => {
         console.log("Fetching error", error)
@@ -255,13 +268,13 @@ export class DocuploadComponent {
     this.showValidationError = false;
   
     // Validate required fields
-    if (!this.documentNo || !this.documenttype) {
+    if (!this.documenttype) {
       this.showValidationError = true;
       alert('Please fill out all mandatory fields (marked with *).');
       return;
     }
   
-    if (this.selectedFile && this.documentNo && this.documenttype) {
+    if (this.selectedFile && this.documenttype) {
       const updatedby = this.storeduser;
   
       this.service.uploadFile(
@@ -274,21 +287,25 @@ export class DocuploadComponent {
         this.remarks,
         updatedby
       ).subscribe({
-        next: (response) => {
+        next: (response) => 
+        {
           console.log('File uploaded successfully:', response);
-          alert('File uploaded successfully!');
+          //alert('File uploaded successfully!');
   
           this.fetchdocdetails(this.PoNumber, this.ItemNo, this.LotNumber);
           this.resetForm();
-          this.saveTrigger.emit("Success");
+          this.saveTrigger.emit("file Uploaded Successfully");
         },
-        error: (error) => {
+        error: (error) => 
+        {
           console.error('File upload failed:', error);
           alert('File upload failed!');
           this.errorOccurred.emit(error.message);
         }
       });
-    } else {
+    } 
+    else 
+    {
       alert('Please attach a file and provide necessary details.');
     }
   }
@@ -307,21 +324,21 @@ export class DocuploadComponent {
     }
   }
 
-  onDownload(): void {
+  onDownload(data:any): void {
     debugger;
-    const selectedDocuments = this.doc_deatils.filter((doc) => doc.select);
+    // const selectedDocuments = this.doc_deatils.filter((doc) => doc.select);
 
-    if (selectedDocuments.length === 0) {
-      alert("Please select at least one document to download.");
-      return;
-    }
+    // if (selectedDocuments.length === 0) {
+    //   alert("Please select at least one document to download.");
+    //   return;
+    // }
 
-    const fileRequests = selectedDocuments.map((doc) => ({
-      poNumber: doc.poNumber.toString(),
-      itemNumber: doc.itemNo.toString(),
-      lotNumber: doc.lotNumber.toString(),
-      fileName: doc.fileName,
-    }));
+    const fileRequests ={
+      poNumber: data.poNumber.toString(),
+      itemNumber: data.itemNo.toString(),
+      lotNumber: data.lotNumber.toString(),
+      fileName: data.fileName,
+    };
 
     this.service.downloadMultipleFiles(fileRequests).subscribe(
       (response) => {
@@ -338,6 +355,21 @@ export class DocuploadComponent {
     );
   }
 
+  approve(data:any)
+  {
+    debugger;
+    this.service.approveddoc(data.docid).subscribe(
+      (response)=> {
+        //this.saveTrigger.emit("document Approved");
+        this.fetchdocdetails(this.PoNumber.toString(), this.ItemNo.toString(), this.LotNumber);
+
+      },
+      (error) => {
+        console.error('Error while approve')
+        alert(`Error: ${error.error?.message || "Unable to approve files."}`);
+      }
+    );
+  }
 
 
   onClose(): void {
@@ -354,6 +386,101 @@ export class DocuploadComponent {
     keyboardEvent.preventDefault(); 
     console.log('Enter key pressed:', this.textsearch);
   }
+
+  isModalOpen: boolean = false;
+  rejectionRemarks: string = '';
+  rejectionid:any;
+
+  // Called when Reject button is clicked outside the modal
+  rejectmodal(data:any) {
+    this.rejectionRemarks = '';
+    this.isModalOpen = true;
+    this.rejectionid = data.docid;
+  }
+
+  // Close modal
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  // Submit rejection with remarks
+  submitRejection() {
+    if (!this.rejectionRemarks.trim()) {
+      alert('Please enter rejection remarks.');
+      return;
+    }
+
+    this.reject();
+    console.log('Rejected with remarks:', this.rejectionRemarks);
+
+    this.closeModal();
+  }
+
+  reject()
+  {
+    debugger;
+    this.service.rejectdoc(this.rejectionid,this.rejectionRemarks).subscribe(
+      (response)=> {
+        this.errorOccurred.emit("document Rejected")
+        //this.saveTrigger.emit("document Rejected");
+        this.fetchdocdetails(this.PoNumber.toString(), this.ItemNo.toString(), this.LotNumber);
+
+      },
+      (error) => {
+        console.error('Error while approve')
+        alert(`Error: ${error.error?.message || "Unable to reject files."}`);
+      }
+    );
+  }
+
+  //selectedFile: File | null = null;
+
+  onFileSelected(event: Event, data:any): void {
+    debugger;
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      const updateFile = input.files[0];
+      console.log('Selected file:', updateFile.name);
+      alert('Are sure to reupload the file');
+
+      if (updateFile) {
+          const updatedby = this.storeduser;
+    
+          this.service.uploadFile(
+          updateFile,
+          this.documentNo=data.documentNo,
+          this.documenttype=data.documentType,
+          this.PoNumber,
+          this.ItemNo,
+          this.LotNumber,
+          this.remarks,
+          updatedby
+        ).subscribe({
+          next: (response) => 
+          {
+            console.log('File uploaded successfully:', response);
+            //alert('File uploaded successfully!');
+    
+            this.fetchdocdetails(this.PoNumber, this.ItemNo, this.LotNumber);
+            this.resetForm();
+            this.saveTrigger.emit("file Uploaded Successfully");
+          },
+          error: (error) => 
+          {
+            console.error('File upload failed:', error);
+            alert('File upload failed!');
+            this.errorOccurred.emit(error.message);
+          }
+        });
+      } 
+      else 
+      {
+        alert('Please attach a file and provide necessary details.');
+      }
+    }
+  }
+
 
 
 }

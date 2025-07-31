@@ -17,6 +17,13 @@ export class AdminService {
     return this.httpClient.post<any>(this.ApiUrl + 'ValidateUserLogin', user);
   }
 
+  
+  validateotp(data:any):Observable<any>
+  {
+    return this.httpClient.post<any>(this.ApiUrl+'Verify2FA',data);
+  }
+
+
   getMenu(id: any): Observable<any> {
     return this.httpClient.get<any[]>(this.ApiUrl + `GetMenu?id=${id}`);
   }

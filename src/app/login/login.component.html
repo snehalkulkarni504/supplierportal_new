@@ -62,3 +62,48 @@
         </div>
     </form>
 </div>
+
+
+<!-- OTP Modal -->
+<div class="otp-modal-backdrop" *ngIf="otppopup">
+   <ng-template #customLoadingTemplate></ng-template>
+    <div class="otp-modal">
+        <h3>Two-Factor Authentication</h3>
+        <p *ngIf="!loading">Please enter the 6-digit OTP from your authenticator app.</p>
+        <p *ngIf="loading">Please wait...</p>
+
+
+        <form [formGroup]="OtpForm">
+            <div class="otp-input-wrapper">
+                <input type="password" [(ngModel)]="otpCode" formControlName="otpCode" maxlength="6" placeholder="Enter OTP" class="otp-input" name="otpcode" formControlName="otpcode" />
+
+              </div>
+              <div class="otp-error" *ngIf="otpError">{{ otpError }}</div>
+              
+            <div class="otp-buttons">
+                <button type="submit" class="verify-btn" (click)=verifyOtp()>Verify</button>
+                <button type="button" class="cancel-btn" (click)="otppopup = false">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <ngx-loading [show]="loading"
+    [config]="config"
+    [template]="customLoadingTemplate"></ngx-loading>
+</div>
+
+<!-- Success Modal -->
+<div class="otp-modal-backdrop" *ngIf="showSuccessModal">
+    <div class="otp-modal success-modal">
+      <div class="checkmark-container">
+        <div class="checkmark-circle">
+          <div class="checkmark-kick"></div>
+          <div class="checkmark-stem"></div>
+        </div>
+      </div>
+      <h3>Success!</h3>
+      <p>Your OTP has been verified successfully.</p>
+      <h3>Welcome to Tata Power Solar</h3>
+
+    </div>
+  </div>
+  
